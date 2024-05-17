@@ -39,10 +39,10 @@ void	handle_operator(t_token **token_lst, char **cmd_line)
 	else if (ft_strncmp(*cmd_line, "|", 1) == 0)
 		token->type = T_PIPE;
 	add_token_end_lst(token_lst, token);
-	(*cmd_line)++;
-	if (token->type == T_AND_IF || token->type == T_OR_IF 
-	|| token->type == T_DLESS || token->type == T_DGREAT)
-		(*cmd_line++);
+	if (token->type == T_LESS || token->type == T_GREAT || token->type == T_PIPE)   
+		(*cmd_line)++;
+	else
+		(*cmd_line) += 2;
 }
 
 void	handle_quote(t_token **token_lst, char **cmd_line)
@@ -68,6 +68,7 @@ void	handle_special(t_token **token_lst, char **cmd_line)
 	token = (t_token *)malloc(sizeof(t_token));
 	if (token == NULL)
 		return ;
+	token->value = NULL;
 	if (ft_strncmp(*cmd_line, "$?", 2) == 0)
 		token->type = T_EXIT_STATUS;
 	else if (ft_strncmp(*cmd_line, "$", 1) == 0)
