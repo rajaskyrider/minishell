@@ -44,7 +44,6 @@ int	main(int argc, char **argv, char **env)
 		if (cmd)
 			readprompt(&shell, cmd);
 		tokenize(&shell);
-		printf("Tokenization done\n");
 		print_token_lst(shell);
 	}
 }

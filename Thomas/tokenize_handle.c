@@ -90,9 +90,9 @@ void	handle_word(t_token **token_lst, char **cmd_line)
 		return ;
 	token->type = T_WORD;
 	i = 0;
-	while (ms_isspace((*cmd_line)[i]) == 0 && ms_isoperator((*cmd_line)) == 0 && ms_isparenthesis((*cmd_line)[i]) == 0 && (*cmd_line)[i] != '$' && (*cmd_line)[i] != '*' && (*cmd_line)[i] != '\0')
+	while (ms_isspace((*cmd_line)[i]) == 0 && ms_isoperator((*cmd_line)) == 0 && ms_isparenthesis((*cmd_line)[i]) == 0 && ms_isquote((*cmd_line)[i]) == 0 && (*cmd_line)[i] != '$' && (*cmd_line)[i] != '*' && (*cmd_line)[i] != '\0')
 		i++;
-	token->value = ft_substr(*cmd_line, 0, i + 1);
+	token->value = ft_substr(*cmd_line, 0, i);
 	add_token_end_lst(token_lst, token);
 	(*cmd_line) += i;
 }
