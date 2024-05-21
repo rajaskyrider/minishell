@@ -6,7 +6,7 @@
 /*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 14:42:50 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/05/10 15:41:48 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/05/21 16:38:59 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,50 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 
+typedef enum e_token_type
+{
+	T_WORD,
+	T_PIPE,
+	T_LESS,
+	T_GREAT,
+	T_DLESS,
+	T_DGREAT,
+	T_AND_IF,
+	T_OR_IF,
+	T_O_PARENT,
+	T_C_PARENT,
+	T_DOLLAR,
+	T_EXIT_STATUS,
+	T_SINGLE_QUOTE,
+	T_DOUBLE_QUOTE,
+	T_WILDCARD
+}	t_token_type;
+
+typedef struct s_token
+{
+	t_token_type	type;
+	char			*value;
+	struct s_token	*next;
+}	t_token;
+
 typedef struct s_ms
 {
-	char	*cmd;	
+	char	*cmd;
+	t_token	*token_lst;
 }	t_ms;
 
 void	readprompt(t_ms *shell, char *new_cmd);
 void	exit_shell(t_ms *shell, int exitcode);
+t_token	*create_token_lst(char *cmd_line);
+void	tokenize(t_ms *shell);
+int		ms_isspace(char c);
+int		ms_isquote(char c);
+int		ms_isoperator(char *s);
+int		ms_isparenthesis(char c);
+void	add_token_end_lst(t_token **token_lst, t_token *token);
+void	handle_parenthesis(t_token **token_lst, char **cmd_line);
+void	handle_operator(t_token **token_lst, char **cmd_line);
+void	handle_quote(t_token **token_lst, char **cmd_line);
+void	handle_special(t_token **token_lst, char **cmd_line);
+void	handle_word(t_token **token_lst, char **cmd_line);
 #endif

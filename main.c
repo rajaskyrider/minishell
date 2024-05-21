@@ -6,7 +6,7 @@
 /*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 14:45:40 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/05/13 09:38:55 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/05/21 15:06:43 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ void	init_shell(t_ms *shell)
 	shell->cmd = NULL;
 }
 
-/// @brief Exit the shell by freeing all allocated memory, edit when new members are added
+/// @brief Exit the shell by freeing all allocated memory, 
+///        edit when new members are added
 /// @param shell The main struct
 /// @param exitcode EXIT_SUCCESS or EXIT_FAILURE
 void	exit_shell(t_ms *shell, int exitcode)
