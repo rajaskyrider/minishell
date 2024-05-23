@@ -6,7 +6,7 @@
 /*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 14:57:18 by tle-moel          #+#    #+#             */
-/*   Updated: 2024/05/21 16:48:31 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/05/23 15:11:27 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,12 @@ void	add_token_end_lst(t_token **token_lst, t_token *token)
 	{
 		*token_lst = token;
 		token->next = NULL;
+		token->prev = NULL;
 		return ;
 	}
 	while (ptr->next != NULL)
 		ptr = ptr->next;
 	ptr->next = token;
+	token->prev = ptr;
 	token->next = NULL;
 }

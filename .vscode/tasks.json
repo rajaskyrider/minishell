@@ -7,9 +7,6 @@
             "args": [
                 "-fdiagnostics-color=always",
                 "-g",
-                "*.c",
-                "-L/home/rpandipe/Common_Core/minishell",
-                "-lft",
                 "-lreadline",
                 "${file}",
                 "-o",
