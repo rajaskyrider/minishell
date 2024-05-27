@@ -6,7 +6,7 @@
 /*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 14:42:50 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/05/23 15:24:19 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/05/27 11:02:08 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,9 @@ void	handle_word(t_token **token_lst, char **cmd_line);
 void	delete_token(t_token **token);
 void	parser(t_ms *shell);
 void	process_expr(t_ms *shell);
-void	process_single_quote(t_token **token);
+void	process_single_quote(t_token **token, t_ms *shell);
+void	process_double_quote(t_token **token, t_ms *shell);
+void	delete_token(t_token **token);
 
 /*Test functions (to remove)*/
 void	print_token_lst(t_ms shell);

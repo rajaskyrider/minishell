@@ -6,7 +6,7 @@
 /*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 14:45:40 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/05/23 09:31:34 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/05/27 11:02:52 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,6 @@ int	main(int argc, char **argv, char **env)
 		cmd = readline("\x1b[35mminishell>\x1b[0m ");
 		if (cmd)
 			readprompt(&shell, cmd);
-		//print_token_lst(shell);
+		print_token_lst(shell);
 	}
 }
