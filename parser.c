@@ -6,7 +6,7 @@
 /*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 09:25:09 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/05/27 18:40:15 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/05/28 17:08:48 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,19 @@ void	process_single_quote(t_token **token, t_ms *shell)
 	delete_token(&ptr);
 }
 
+void	exec_replace(t_token *ptr, char *start, char *end, char *new_str)
+{
+	char	*old_str;
+	char	*result;
+	char	*cmd;
+	int		len;
+
+	old_str = ptr->value;
+	len = end - start + 1;
+	cmd = ft_substr(old_str, (unsigned int)(start - old_str), len);
+	free(old_str);
+}
+
 char	*dquote_end(char *str, char *start)
 {
 	char	*end;
@@ -49,13 +62,12 @@ char	*dquote_end(char *str, char *start)
 	return (end);
 }
 
-void	handle_dquote(t_token *ptr, t_ms *shell)
+void	handle_dquote(t_token *ptr, t_ms *shell, char *str)
 {
-	char	*str;
 	char	*start;
 	char	*end;
+	char	*new_str;
 
-	str = ptr->value;
 	start = NULL;
 	while(*str)
 	{
@@ -66,11 +78,17 @@ void	handle_dquote(t_token *ptr, t_ms *shell)
 			end = dquote_end(str, start);
 			if (!end)
 				exit_shell(shell, EXIT_FAILURE);
-			break ;
+			else
+			{
+				if (str < end)
+					handle_dquote(ptr, shell, start + 1);
+				exec_replace(ptr, start, end, new_str);
+				start = NULL;
+				str = end;
+			}
 		}
 		str++;
 	}
-	exec_replace(ptr, start, end);
 }
 
 void	process_double_quote(t_token **token, t_ms *shell)
@@ -86,7 +104,8 @@ void	process_double_quote(t_token **token, t_ms *shell)
 		exit_shell(shell, EXIT_FAILURE);
 	delete_token(token);
 	delete_token(&ptr);
-	handle_dquote(temp, shell);
+	handle_dquote(temp, shell, (*token)->value);
+	execute_echo(shell, "/bin/echo", (*token)->value);
 }
 
 void	process_expr(t_ms *shell)

@@ -6,7 +6,7 @@
 /*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 14:42:50 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/05/27 11:02:08 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/05/28 10:56:46 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <stdio.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <sys/wait.h>
 
 typedef enum e_token_type
 {
@@ -73,6 +74,7 @@ void	process_expr(t_ms *shell);
 void	process_single_quote(t_token **token, t_ms *shell);
 void	process_double_quote(t_token **token, t_ms *shell);
 void	delete_token(t_token **token);
+void	execute_echo(t_ms *shell, char *cmd, char *str);
 
 /*Test functions (to remove)*/
 void	print_token_lst(t_ms shell);
