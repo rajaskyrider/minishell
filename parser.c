@@ -6,7 +6,7 @@
 /*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 09:25:09 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/05/28 17:08:48 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/05/31 09:56:24 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,65 +29,57 @@ void	process_single_quote(t_token **token, t_ms *shell)
 	delete_token(&ptr);
 }
 
-void	exec_replace(t_token *ptr, char *start, char *end, char *new_str)
+void	exec_replace(char **new_str, char *start, char *end, char *str, t_ms *sh)
 {
-	char	*old_str;
-	char	*result;
-	char	*cmd;
-	int		len;
+	char		*result;
+	char		*cmd;
+	const char	*env_val;
+	int			new_len;
 
-	old_str = ptr->value;
-	len = end - start + 1;
-	cmd = ft_substr(old_str, (unsigned int)(start - old_str), len);
-	free(old_str);
+	result = NULL;
+	cmd = ft_substr(str, start - str, end - start);
+	env_val = getenv(cmd);
+	if (env_val)
+		result = ft_strdup(env_val);
+	else
+		result = ft_strdup("");
+	new_len = (start - str) + ft_strlen(result) + ft_strlen(end);
+	*new_str = ft_calloc(new_len + 1, sizeof(char));
+	if (!*new_str)
+		exit_shell(sh, EXIT_FAILURE);
+	ft_strlcpy(*new_str, str, start - str);
+	ft_strlcat(*new_str, result, new_len + 1);
+	ft_strlcat(*new_str, end, new_len + 1);
+	free (cmd);
+	free (result);
 }
 
-char	*dquote_end(char *str, char *start)
+void	handle_dquote(t_token *ptr, t_ms *shell)
 {
-	char	*end;
-
-	end = NULL;
-	if (*start == '\\' && *(start + 1) != '"')
-		end = str + 2;
-	while (*str && !end)
-	{
-		if (*start == '$' && !(ft_isalnum(*str) || *str == '_'))
-			end = str;
-		else if ((*str == '\\' && *(str + 1) == '"'))
-			end = str + 2;
-		else if (*start == 96 && *str == *start)
-			end = str + 1;
-		str++;
-	}
-	return (end);
-}
-
-void	handle_dquote(t_token *ptr, t_ms *shell, char *str)
-{
+	char	*cursor;
 	char	*start;
 	char	*end;
 	char	*new_str;
 
+	cursor = ptr->value;
 	start = NULL;
-	while(*str)
+	end = NULL;
+	new_str = NULL;
+	while (*cursor)
 	{
-		if (!start && (*str == 96 || (*str == '\\') || *str == '$'))
+		if (*cursor == '$' && (ft_isalnum(*(cursor + 1)) || *(cursor + 1) == '_'))
 		{
-			start = str;
-			str++;
-			end = dquote_end(str, start);
-			if (!end)
-				exit_shell(shell, EXIT_FAILURE);
-			else
-			{
-				if (str < end)
-					handle_dquote(ptr, shell, start + 1);
-				exec_replace(ptr, start, end, new_str);
-				start = NULL;
-				str = end;
-			}
+			start = cursor;
+			cursor++;
+			while (ft_isalnum(*cursor) || *cursor == '_')
+				cursor++;
+			end = cursor;
+			exec_replace(&new_str, start, end, ptr->value, shell);
+			free (ptr->value);
+			ptr->value = new_str;
+			cursor = new_str;
 		}
-		str++;
+		cursor++;
 	}
 }
 
@@ -104,8 +96,9 @@ void	process_double_quote(t_token **token, t_ms *shell)
 		exit_shell(shell, EXIT_FAILURE);
 	delete_token(token);
 	delete_token(&ptr);
-	handle_dquote(temp, shell, (*token)->value);
-	execute_echo(shell, "/bin/echo", (*token)->value);
+	//ft_printf("%s\n", temp->value);
+	handle_dquote(temp, shell);
+	//ft_printf("%s\n", temp->value);
 }
 
 void	process_expr(t_ms *shell)
@@ -129,4 +122,7 @@ void	process_expr(t_ms *shell)
 void	parser(t_ms *shell)
 {
 	process_expr(shell);
+
 }
+
+// echo "The date next year will be `date -d \"\`date +'%Y-%m-%d'\` next year\"`"
