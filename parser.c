@@ -6,7 +6,7 @@
 /*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 09:25:09 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/05/31 09:56:24 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/05/31 10:16:04 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,9 +96,9 @@ void	process_double_quote(t_token **token, t_ms *shell)
 		exit_shell(shell, EXIT_FAILURE);
 	delete_token(token);
 	delete_token(&ptr);
-	//ft_printf("%s\n", temp->value);
+	ft_printf("%s\n", temp->value);
 	handle_dquote(temp, shell);
-	//ft_printf("%s\n", temp->value);
+	ft_printf("%s\n", temp->value);
 }
 
 void	process_expr(t_ms *shell)

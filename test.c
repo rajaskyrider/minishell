@@ -27,9 +27,9 @@ void	print_token_lst(t_ms shell)
 	};
 	while (token_lst != NULL)
 	{
-		printf("---- %ith element ----\n", i);
-		printf("type : %s\n", token_type_str[token_lst->type]);
-		printf("value : %s\n", token_lst->value);
+		ft_printf("---- %ith element ----\n", i);
+		ft_printf("type : %s\n", token_type_str[token_lst->type]);
+		ft_printf("value : %s\n", token_lst->value);
 		token_lst = token_lst->next;
 		i++;
 	}
