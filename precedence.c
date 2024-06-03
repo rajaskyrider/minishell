@@ -6,7 +6,7 @@
 /*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 09:35:32 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/03 16:18:43 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/06/03 16:52:54 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	get_precedence(t_token_type op)
 		return (5);
 }
 
-t_ast	*create_ast(t_ast_type type, char *value, t_ms *shell)
+t_ast	*create_ast(t_ast_type type, char *value, t_token_type token, t_ms *shell)
 {
 	t_ast	*node;
 
@@ -37,6 +37,7 @@ t_ast	*create_ast(t_ast_type type, char *value, t_ms *shell)
 		exit_shell(shell, EXIT_FAILURE);
 	node->type = type;
 	node->value = ft_strdup(value);
+	node->token_type = token;
 	node->left = NULL;
 	node->right = NULL;
 	return (node);
@@ -51,22 +52,24 @@ t_ast	*precedence(t_ms *shell, t_token *node, int precedence)
 	t_token_type	op;
 
 	right = NULL;
-	left = create_ast(T_OPERAND, node->value, shell);
+	left = create_ast(T_OPERAND, node->value, node->type, shell);
 	node = node->next;
-	while (1)
+	while (node)
 	{
-		if (!node)
-			break;
 		op = get_precedence(node->type);
+		operator = create_ast(T_OPERATOR, node->value, node->type, shell);
 		newprecedence = op;
 		if (newprecedence < precedence)
 			break;
 		node = node->next;
+		if (!node)
+			break;
 		right = precedence(shell, node, newprecedence + 1);
-		operator = create_ast(T_OPERATOR, "operator", shell);
 		operator->left = left;
 		operator->right = right;
 		left = operator;
 	}
 	return (left);
 }
+
+// cc test.c | wc -l < text.txt

@@ -6,7 +6,7 @@
 /*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 14:42:50 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/03 15:49:58 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/06/03 16:50:27 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ typedef enum e_ast_type
 typedef struct s_ast
 {
 	t_ast_type		type;
+	t_token_type	token_type;
 	char			*value;
 	struct s_ast	*left;
 	struct s_ast	*right;
