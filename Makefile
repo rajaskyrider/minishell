@@ -6,7 +6,7 @@
 #    By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/10 15:30:56 by rpandipe          #+#    #+#              #
-#    Updated: 2024/05/31 10:38:37 by rpandipe         ###   ########.fr        #
+#    Updated: 2024/06/03 17:05:14 by tle-moel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ CFLAG		= -Wall -Werror -Wextra -g
 LFLAG		= -Llibft -lft
 RM 			= rm -rf
 SRCS		= main.c prompt.c tokenize.c tokenize_handle.c tokenize_utils.c \
-			  test.c utils.c parser.c
+			  tokenize_quote.c test.c utils.c parser.c
 OBJDIR      = objs
 OBJS		= $(addprefix $(OBJDIR)/, $(SRCS:.c=.o))
 TOTAL       = $(words $(OBJS))
