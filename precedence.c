@@ -6,7 +6,7 @@
 /*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 09:35:32 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/03 11:21:51 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/06/03 16:18:43 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,35 +26,47 @@ int	get_precedence(t_token_type op)
 		return (4);
 	else
 		return (5);
-}	
+}
 
-char	*precedence(t_ms *shell, t_token *node, int precedence)
+t_ast	*create_ast(t_ast_type type, char *value, t_ms *shell)
 {
-	char			*left;
-	char			*right;
+	t_ast	*node;
+
+	node = ft_calloc(sizeof(t_ast), 1);
+	if (!node)
+		exit_shell(shell, EXIT_FAILURE);
+	node->type = type;
+	node->value = ft_strdup(value);
+	node->left = NULL;
+	node->right = NULL;
+	return (node);
+}
+
+t_ast	*precedence(t_ms *shell, t_token *node, int precedence)
+{
+	t_ast			*left;
+	t_ast			*right;
+	t_ast			*operator;
 	int				newprecedence;
 	t_token_type	op;
 
 	right = NULL;
-	left = node->value;
+	left = create_ast(T_OPERAND, node->value, shell);
 	node = node->next;
 	while (1)
 	{
 		if (!node)
 			break;
-		while (node && node->type == T_WORD)
-		{
-			//calloc here
-			ft_strlcat(left, node->value, (ft_strlen(left) + ft_strlen(node->value) + 1));
-			node = node->next;
-		}
 		op = get_precedence(node->type);
 		newprecedence = op;
 		if (newprecedence < precedence)
 			break;
 		node = node->next;
 		right = precedence(shell, node, newprecedence + 1);
-		ft_execute(left, right, op);
+		operator = create_ast(T_OPERATOR, "operator", shell);
+		operator->left = left;
+		operator->right = right;
+		left = operator;
 	}
 	return (left);
 }

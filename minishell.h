@@ -6,7 +6,7 @@
 /*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 14:42:50 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/03 10:40:24 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/06/03 15:49:58 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,25 @@ typedef struct s_token
 	struct s_token	*prev;
 }	t_token;
 
+typedef enum e_ast_type
+{
+	T_OPERATOR,
+	T_OPERAND
+}	t_ast_type;
+
+typedef struct s_ast
+{
+	t_ast_type		type;
+	char			*value;
+	struct s_ast	*left;
+	struct s_ast	*right;
+}	t_ast;
+
 typedef struct s_ms
 {
 	char	*cmd;
 	t_token	*token_lst;
+	t_ast	*ast;
 }	t_ms;
 
 void	readprompt(t_ms *shell, char *new_cmd);
