@@ -6,7 +6,7 @@
 /*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 15:04:28 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/05/27 17:12:12 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/06/03 11:25:50 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 /// @param new_cmd The user input from the command line
 void	readprompt(t_ms *shell, char *new_cmd)
 {
-	if (shell->cmd && ft_strncmp(new_cmd, shell->cmd, ft_strlen(new_cmd)) != 0)
+	if (!shell->cmd || ft_strncmp(new_cmd, shell->cmd, ft_strlen(new_cmd)) != 0)
 		add_history(new_cmd);
 	if (shell->cmd)
 		free(shell->cmd);

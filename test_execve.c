@@ -6,7 +6,7 @@
 /*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 09:21:22 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/05/30 13:56:02 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/06/03 10:12:18 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 
 void	main(int argc, char **argv, char **env)
 {
-#if 0
+#if 1
 	char	*args[] = {"sh", 
 						"-c",
 						"echo \"The date next year will be `date -d \\\"$(date +'%Y-%m-%d') next year\\\"`\"",
@@ -26,14 +26,14 @@ void	main(int argc, char **argv, char **env)
 					  };
 	char	*cmd = "/bin/sh";
 #endif
-#if 1
+#if 0
 	char *args[] = { "echo", "`date`", NULL };
 	char	*cmd = "/bin/echo";
 #endif
 
-	const char *buf = getenv("(date)");
-	//execve(cmd, args, NULL);
-	printf("%s", buf);
+	//const char *buf = getenv("(date)");
+	execve(cmd, args, NULL);
+	//printf("%s", buf);
 	//perror("execve failure");
 	//exit(EXIT_FAILURE);
 }
