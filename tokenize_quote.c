@@ -6,7 +6,7 @@
 /*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 15:40:34 by tle-moel          #+#    #+#             */
-/*   Updated: 2024/06/04 11:49:36 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/06/04 17:06:47 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,10 @@
 void	handle_quote(t_token **token_lst, char **cmd_line)
 {
 	if (ft_strncmp(*cmd_line, "'", 1) == 0)
-	{
-		(*cmd_line) += 1;
 		handle_single_quote(token_lst, cmd_line);
-	}
 	else
-	{
-		(*cmd_line) += 1;
 		handle_double_quote(token_lst, cmd_line);
-	}
-	(*cmd_line) += 1;
+	(*cmd_line)++;
 }
 
 void	handle_single_quote(t_token **token_lst, char **cmd_line)
@@ -32,17 +26,16 @@ void	handle_single_quote(t_token **token_lst, char **cmd_line)
 	t_token	*token;
 	int		i;
 
-	i = 0;
-	printf("cmd_line : %s\n", (*cmd_line));
-	while ((*cmd_line)[i] != 34 && (*cmd_line)[i] != '\0')
+	i = 1;
+	while ((*cmd_line)[i] != 39 && (*cmd_line)[i] != '\0')
 		i++;
-	if ((*cmd_line)[i] != '\0')
+	if ((*cmd_line)[i] == '\0')
 		return ;
 	token = (t_token *)malloc(sizeof(t_token));
 	if (token == NULL)
 		return ;
 	token->type = T_WORD;
-	token->value = ft_substr(*cmd_line, 0, i - 1);
+	token->value = ft_substr(*cmd_line, 0, i + 1);
 	add_token_end_lst(token_lst, token);
 	(*cmd_line) += i;
 }
@@ -52,16 +45,16 @@ void	handle_double_quote(t_token **token_lst, char **cmd_line)
 	t_token	*token;
 	int		i;
 
-	i = 0;
-	while ((*cmd_line)[i] != 39 && (*cmd_line)[i] != '\0')
+	i = 1;
+	while ((*cmd_line)[i] != 34 && (*cmd_line)[i] != '\0')
 		i++;
-	if ((*cmd_line)[i] != '\0')
+	if ((*cmd_line)[i] == '\0')
 		return ;
 	token = (t_token *)malloc(sizeof(t_token));
 	if (token == NULL)
 		return ;
 	token->type = T_WORD;
-	token->value = ft_substr(*cmd_line, 0, i - 1);
+	token->value = ft_substr(*cmd_line, 0, i + 1);
 	add_token_end_lst(token_lst, token);
 	(*cmd_line) += i;
 }
