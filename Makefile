@@ -6,7 +6,7 @@
 #    By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/10 15:30:56 by rpandipe          #+#    #+#              #
-#    Updated: 2024/06/03 17:05:14 by tle-moel         ###   ########.fr        #
+#    Updated: 2024/06/04 10:57:05 by rpandipe         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,12 +40,12 @@ all: $(NAME)
 
 $(OBJDIR)/%.o: %.c
 	@mkdir -p $(OBJDIR)
-	@$(CC) $(CFLAG) -c $< -o $@ > /dev/null 2>&1
+	@$(CC) $(CFLAG) -c $< -o $@ 
 	$(call update_progress)
 
 $(NAME): $(OBJS)
 	@echo -e '${YELLOW}Linking...${NC}'
-	@$(CC) $(OBJS) $(LFLAG) -lreadline -pthread -o $(NAME) > /dev/null 2>&1
+	@$(CC) $(OBJS) $(LFLAG) -lreadline -pthread -o $(NAME)
 	@echo -ne '\n'
 
 clean:

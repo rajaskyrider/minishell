@@ -6,27 +6,11 @@
 /*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 15:09:51 by tle-moel          #+#    #+#             */
-/*   Updated: 2024/05/21 16:47:35 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/06/04 10:53:07 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	handle_quote(t_token **token_lst, char **cmd_line)
-{
-	t_token	*token;
-
-	token = (t_token *)malloc(sizeof(t_token));
-	if (token == NULL)
-		return ;
-	token->value = NULL;
-	if (ft_strncmp(*cmd_line, "'", 1) == 0)
-		token->type = T_SINGLE_QUOTE;
-	else
-		token->type = T_DOUBLE_QUOTE;
-	add_token_end_lst(token_lst, token);
-	(*cmd_line)++;
-}
 
 void	handle_operator(t_token **token_lst, char **cmd_line)
 {

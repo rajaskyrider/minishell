@@ -3,31 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   tokenize_quote.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tle-moel <tle-moel@student.42luxembou      +#+  +:+       +#+        */
+/*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 15:40:34 by tle-moel          #+#    #+#             */
-/*   Updated: 2024/06/03 17:04:41 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/06/04 10:58:10 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void handle_quote(t_token **token_lst, char **cmd_line)
+void	handle_quote(t_token **token_lst, char **cmd_line)
 {
 	if (ft_strncmp(*cmd_line, "'", 1) == 0)
 	{
 		add_quote_token(token_lst, cmd_line);
-		handle_single_quote();
+		handle_single_quote(token_lst, cmd_line);
 	}
 	else
 	{
 		add_quote_token(token_lst, cmd_line);
-		handle_double_quote();
+		handle_double_quote(token_lst, cmd_line);
 	}
 	add_quote_token(token_lst, cmd_line);
 }
 
-void	handle_single_quote(t_token **token_lst, char **cmd_line, t_token *token)
+void	handle_single_quote(t_token **token_lst, char **cmd_line)
 {
 	t_token	*token;
 	int		i;
@@ -46,7 +46,7 @@ void	handle_single_quote(t_token **token_lst, char **cmd_line, t_token *token)
 	(*cmd_line) += i;
 }
 
-void	handle_double_quote(t_token **token_lst, char **cmd_line, t_token *token)
+void	handle_double_quote(t_token **token_lst, char **cmd_line)
 {
 	t_token	*token;
 	int		i;
@@ -86,7 +86,7 @@ void	process_double_quote(t_token *ptr)
 			while (ft_isalnum(*cursor) || *cursor == '_')
 				cursor++;
 			end = cursor;
-			exec_replace(&new_str, start, end, ptr->value, shell);
+			exec_replace(&new_str, start, end, ptr->value);
 			free(ptr->value);
 			ptr->value = new_str;
 			cursor = new_str;
