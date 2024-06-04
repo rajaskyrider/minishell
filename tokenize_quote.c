@@ -6,7 +6,7 @@
 /*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 15:40:34 by tle-moel          #+#    #+#             */
-/*   Updated: 2024/06/04 10:58:10 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/06/04 11:49:36 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,15 @@ void	handle_quote(t_token **token_lst, char **cmd_line)
 {
 	if (ft_strncmp(*cmd_line, "'", 1) == 0)
 	{
-		add_quote_token(token_lst, cmd_line);
+		(*cmd_line) += 1;
 		handle_single_quote(token_lst, cmd_line);
 	}
 	else
 	{
-		add_quote_token(token_lst, cmd_line);
+		(*cmd_line) += 1;
 		handle_double_quote(token_lst, cmd_line);
 	}
-	add_quote_token(token_lst, cmd_line);
+	(*cmd_line) += 1;
 }
 
 void	handle_single_quote(t_token **token_lst, char **cmd_line)
@@ -33,6 +33,7 @@ void	handle_single_quote(t_token **token_lst, char **cmd_line)
 	int		i;
 
 	i = 0;
+	printf("cmd_line : %s\n", (*cmd_line));
 	while ((*cmd_line)[i] != 34 && (*cmd_line)[i] != '\0')
 		i++;
 	if ((*cmd_line)[i] != '\0')
@@ -41,7 +42,7 @@ void	handle_single_quote(t_token **token_lst, char **cmd_line)
 	if (token == NULL)
 		return ;
 	token->type = T_WORD;
-	token->value = ft_substr(*cmd_line, 0, i);
+	token->value = ft_substr(*cmd_line, 0, i - 1);
 	add_token_end_lst(token_lst, token);
 	(*cmd_line) += i;
 }
@@ -60,13 +61,12 @@ void	handle_double_quote(t_token **token_lst, char **cmd_line)
 	if (token == NULL)
 		return ;
 	token->type = T_WORD;
-	token->value = ft_substr(*cmd_line, 0, i);
-	process_double_quote(token);
+	token->value = ft_substr(*cmd_line, 0, i - 1);
 	add_token_end_lst(token_lst, token);
 	(*cmd_line) += i;
 }
 
-void	process_double_quote(t_token *ptr)
+/*void	process_double_quote(t_token *ptr)
 {
 	char	*cursor;
 	char	*start;
@@ -134,4 +134,4 @@ void	add_quote_token(t_token **token_lst, char **cmd_line)
 		token->type = T_DOUBLE_QUOTE;
 	add_token_end_lst(token_lst, token);
 	(*cmd_line)++;
-}
+}*/
