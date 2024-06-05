@@ -6,7 +6,7 @@
 /*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 11:20:45 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/05/14 11:25:12 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/06/05 17:39:08 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	parse_expr(char **expr, int precedence)
 
 int	main(void)
 {
-	char	*expr = "1 + 2 * 3";
+	char	*expr = "1 + 2 + 3";
 
 	printf("%d\n", parse_expr(&expr, 0));
 }

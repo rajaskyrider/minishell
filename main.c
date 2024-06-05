@@ -6,7 +6,7 @@
 /*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 14:45:40 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/05/31 10:22:21 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/06/05 14:27:02 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 void	init_shell(t_ms *shell)
 {
 	shell->cmd = NULL;
+	shell->ast = NULL;
+	shell->token_lst = NULL;
 }
 
 /// @brief Exit the shell by freeing all allocated memory, 

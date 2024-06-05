@@ -6,7 +6,7 @@
 /*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 14:42:50 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/04 16:31:01 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/06/05 18:13:08 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,10 +97,10 @@ void	process_expr(t_ms *shell);
 void	delete_single_quote(t_token **token, t_ms *shell);
 void	delete_double_quote(t_token **token, t_ms *shell);
 void	delete_token(t_token **token);
-t_ast	*precedence_climbing(t_ms *shell, t_token *node, int precedence);
+t_ast	*precedence_climbing(t_ms *shell, t_token **node, int precedence);
 //void	execute_echo(t_ms *shell, char *cmd, char *str);
 
 /*Test functions (to remove)*/
 void	print_token_lst(t_ms shell);
-void	print_ast(t_ast *tree);
+void	print_ast(t_ast *tree, int level);
 #endif
