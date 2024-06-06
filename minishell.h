@@ -6,7 +6,7 @@
 /*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 14:42:50 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/06 10:13:36 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/06/06 11:04:21 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,14 @@ typedef struct s_token
 	struct s_token	*next;
 	struct s_token	*prev;
 }	t_token;
+
+typedef struct s_io
+{
+	t_token_type	type;
+	char			*value;
+	struct s_io		*next;
+	struct s_io		*prev;
+}	t_io;
 
 typedef enum e_ast_type
 {

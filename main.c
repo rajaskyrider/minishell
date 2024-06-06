@@ -6,7 +6,7 @@
 /*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 14:45:40 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/06 10:12:43 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/06/06 10:53:28 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ void	exit_shell(t_ms *shell, int exitcode)
 {
 	if (shell->cmd)
 		free(shell->cmd);
+	while (shell->token_lst)
+		delete_token(shell->token_lst);
 	exit(exitcode);
 }
 
