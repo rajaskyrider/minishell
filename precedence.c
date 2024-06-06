@@ -6,7 +6,7 @@
 /*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 09:35:32 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/06 10:08:43 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/06/06 11:19:11 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	get_precedence(t_token_type op)
 		return (-1);
 }
 
-t_ast	*create_ast(t_ast_type type, char *value, t_token_type token, t_ms *shell)
+t_ast	*create_ast(t_ast_type type, t_token *token, t_ms *shell)
 {
 	t_ast	*node;
 
@@ -55,12 +55,11 @@ t_ast	*create_ast(t_ast_type type, char *value, t_token_type token, t_ms *shell)
 	if (!node)
 		exit_shell(shell, EXIT_FAILURE);
 	node->type = type;
-	node->value = ft_strdup(value);
-	node->token_type = token;
-	//ft_printf("here inside2\n");
+	node->value = ft_strdup(token->value);
+	node->token_type = token->type;
 	node->left = NULL;
 	node->right = NULL;
-	//ft_printf("here inside\n");
+	node->io = token->io;
 	return (node);
 }
 
@@ -74,7 +73,7 @@ t_ast	*precedence_climbing(t_ms *shell, t_token **pnode, int min_precedence)
 
 	if (!*pnode)
 		return (NULL);
-	left = create_ast(T_OPERAND, (*pnode)->value, (*pnode)->type, shell);
+	left = create_ast(T_OPERAND, (*pnode), shell);
 	*pnode = (*pnode)->next;
 	while (*pnode)
 	{
@@ -84,7 +83,7 @@ t_ast	*precedence_climbing(t_ms *shell, t_token **pnode, int min_precedence)
 		operator_token = *pnode;
 		*pnode = (*pnode)->next;  
 		right = precedence_climbing(shell, pnode, curr_precedence + 1);
-		new_op = create_ast(T_OPERATOR, "operator", operator_token->type, shell);
+		new_op = create_ast(T_OPERATOR, operator_token, shell);
 		new_op->left = left;
 		new_op->right = right;
 		left = new_op;
