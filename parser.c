@@ -6,7 +6,7 @@
 /*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 09:25:09 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/06 15:39:32 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/06/06 16:13:02 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,10 +67,8 @@ void	parser(t_ms *shell)
 	print_token_lst(shell);
 	//check_cmd(shell);
 	deal_io(shell);
-	ft_printf("%s\n", shell->token_lst->io->value);
 	shell->ast = precedence_climbing(shell, &shell->token_lst, 0);
 	print_ast(shell->ast, 0);
-	ft_printf("%s\n", shell->ast->io->value);
 }
 
 // echo "The date next year will be `date -d \"\`date +'%Y-%m-%d'\` next year\"`"
