@@ -6,7 +6,7 @@
 /*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 15:04:28 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/04 15:25:42 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/06/06 10:13:38 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,5 +25,6 @@ void	readprompt(t_ms *shell, char *new_cmd)
 	if (ft_strncmp(shell->cmd, "exit", ft_strlen(shell->cmd)) == 0)
 		exit_shell(shell, EXIT_SUCCESS);
 	tokenize(shell);
+	print_token_lst(shell);
 	parser(shell);
 }
