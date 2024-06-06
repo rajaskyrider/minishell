@@ -6,7 +6,7 @@
 /*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 15:09:51 by tle-moel          #+#    #+#             */
-/*   Updated: 2024/06/04 10:53:07 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/06/06 10:27:14 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	handle_operator(t_token **token_lst, char **cmd_line)
 	else if (ft_strncmp(*cmd_line, "|", 1) == 0)
 		token->type = T_PIPE;
 	add_token_end_lst(token_lst, token);
-	if (token->type != T_LESS || token->type != T_GREAT || \
+	if (token->type != T_LESS && token->type != T_GREAT && \
 		token->type != T_PIPE)
 		(*cmd_line)++;
 	(*cmd_line)++;
@@ -88,7 +88,7 @@ void	handle_word(t_token **token_lst, char **cmd_line)
 	token->type = T_WORD;
 	i = 0;
 	while (ms_isspace((*cmd_line)[i]) == 0 && \
-			ms_isoperator((*cmd_line)) == 0 && \
+			ms_isoperator((*cmd_line) + i) == 0 && \
 			ms_isparenthesis((*cmd_line)[i]) == 0 \
 			&& ms_isquote((*cmd_line)[i]) == 0 && \
 			(*cmd_line)[i] != '$' && \
