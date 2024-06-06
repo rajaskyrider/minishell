@@ -3,25 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   tokenize_quote.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
+/*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 15:40:34 by tle-moel          #+#    #+#             */
-/*   Updated: 2024/06/04 17:06:47 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/06/06 14:18:48 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	handle_quote(t_token **token_lst, char **cmd_line)
+int	handle_quote(t_token **token_lst, char **cmd_line)
 {
 	if (ft_strncmp(*cmd_line, "'", 1) == 0)
-		handle_single_quote(token_lst, cmd_line);
+	{
+		if (handle_single_quote(token_lst, cmd_line) == 0)
+			return (0);
+	}
 	else
-		handle_double_quote(token_lst, cmd_line);
+	{
+		if (handle_double_quote(token_lst, cmd_line) == 0)
+			return (0);
+	}
 	(*cmd_line)++;
+	return (1);
 }
 
-void	handle_single_quote(t_token **token_lst, char **cmd_line)
+int	handle_single_quote(t_token **token_lst, char **cmd_line)
 {
 	t_token	*token;
 	int		i;
@@ -30,17 +37,18 @@ void	handle_single_quote(t_token **token_lst, char **cmd_line)
 	while ((*cmd_line)[i] != 39 && (*cmd_line)[i] != '\0')
 		i++;
 	if ((*cmd_line)[i] == '\0')
-		return ;
+		return (0);
 	token = (t_token *)malloc(sizeof(t_token));
 	if (token == NULL)
-		return ;
+		return (0);
 	token->type = T_WORD;
 	token->value = ft_substr(*cmd_line, 0, i + 1);
 	add_token_end_lst(token_lst, token);
 	(*cmd_line) += i;
+	return (1);
 }
 
-void	handle_double_quote(t_token **token_lst, char **cmd_line)
+int	handle_double_quote(t_token **token_lst, char **cmd_line)
 {
 	t_token	*token;
 	int		i;
@@ -49,14 +57,15 @@ void	handle_double_quote(t_token **token_lst, char **cmd_line)
 	while ((*cmd_line)[i] != 34 && (*cmd_line)[i] != '\0')
 		i++;
 	if ((*cmd_line)[i] == '\0')
-		return ;
+		return (0);
 	token = (t_token *)malloc(sizeof(t_token));
 	if (token == NULL)
-		return ;
+		return (0);
 	token->type = T_WORD;
 	token->value = ft_substr(*cmd_line, 0, i + 1);
 	add_token_end_lst(token_lst, token);
 	(*cmd_line) += i;
+	return (1);
 }
 
 /*void	process_double_quote(t_token *ptr)

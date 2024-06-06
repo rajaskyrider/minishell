@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
+/*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 14:42:50 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/06 11:53:40 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/06/06 14:23:39 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,27 +78,27 @@ typedef struct s_ms
 	char	*cmd;
 	t_token	*token_lst;
 	t_ast	*ast;
+	int		error;
 }	t_ms;
 
 void	readprompt(t_ms *shell, char *new_cmd);
 void	exit_shell(t_ms *shell, int exitcode);
-t_token	*create_token_lst(char *cmd_line);
+t_token	*create_token_lst(char *cmd_line, t_ms *shell);
 void	tokenize(t_ms *shell);
 int		ms_isspace(char c);
 int		ms_isquote(char c);
 int		ms_isoperator(char *s);
 int		ms_isparenthesis(char c);
 void	add_token_end_lst(t_token **token_lst, t_token *token);
-void	handle_parenthesis(t_token **token_lst, char **cmd_line);
-void	handle_operator(t_token **token_lst, char **cmd_line);
-void	handle_quote(t_token **token_lst, char **cmd_line);
-void	handle_special(t_token **token_lst, char **cmd_line);
-void	handle_word(t_token **token_lst, char **cmd_line);
+int		handle_parenthesis(t_token **token_lst, char **cmd_line);
+int		handle_operator(t_token **token_lst, char **cmd_line);
+int		handle_quote(t_token **token_lst, char **cmd_line);
+int		handle_special(t_token **token_lst, char **cmd_line);
+int		handle_word(t_token **token_lst, char **cmd_line);
 void	delete_token(t_token **token);
 void	add_quote_token(t_token **token_lst, char **cmd_line);
-void	handle_quote(t_token **token_lst, char **cmd_line);
-void	handle_single_quote(t_token **token_lst, char **cmd_line);
-void	handle_double_quote(t_token **token_lst, char **cmd_line);
+int		handle_single_quote(t_token **token_lst, char **cmd_line);
+int		handle_double_quote(t_token **token_lst, char **cmd_line);
 void	process_double_quote(t_token *ptr);
 void	exec_replace(char **new_str, char *start, char *end, char *str);
 void	parser(t_ms *shell);
@@ -109,6 +109,7 @@ void	process_expr(t_ms *shell);
 void	delete_single_quote(t_token **token, t_ms *shell);
 void	delete_double_quote(t_token **token, t_ms *shell);
 void	delete_token(t_token **token);
+void	delete_token_lst(t_token **token);
 t_ast	*precedence_climbing(t_ms *shell, t_token **node, int precedence);
 //void	execute_echo(t_ms *shell, char *cmd, char *str);
 

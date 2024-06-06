@@ -3,22 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   tokenize_handle.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
+/*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 15:09:51 by tle-moel          #+#    #+#             */
-/*   Updated: 2024/06/06 10:27:14 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/06/06 14:06:05 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	handle_operator(t_token **token_lst, char **cmd_line)
+int	handle_operator(t_token **token_lst, char **cmd_line)
 {
 	t_token	*token;
 
 	token = (t_token *)malloc(sizeof(t_token));
 	if (token == NULL)
-		return ;
+		return (0);
 	token->value = NULL;
 	if (ft_strncmp(*cmd_line, "&&", 2) == 0)
 		token->type = T_AND_IF;
@@ -39,15 +39,16 @@ void	handle_operator(t_token **token_lst, char **cmd_line)
 		token->type != T_PIPE)
 		(*cmd_line)++;
 	(*cmd_line)++;
+	return (1);
 }
 
-void	handle_parenthesis(t_token **token_lst, char **cmd_line)
+int	handle_parenthesis(t_token **token_lst, char **cmd_line)
 {
 	t_token	*token;
 
 	token = (t_token *)malloc(sizeof(t_token));
 	if (token == NULL)
-		return ;
+		return (0);
 	token->value = NULL;
 	if (ft_strncmp(*cmd_line, "(", 1) == 0)
 		token->type = T_O_PARENT;
@@ -55,15 +56,16 @@ void	handle_parenthesis(t_token **token_lst, char **cmd_line)
 		token->type = T_C_PARENT;
 	add_token_end_lst(token_lst, token);
 	(*cmd_line)++;
+	return (1);
 }
 
-void	handle_special(t_token **token_lst, char **cmd_line)
+int	handle_special(t_token **token_lst, char **cmd_line)
 {
 	t_token	*token;
 
 	token = (t_token *)malloc(sizeof(t_token));
 	if (token == NULL)
-		return ;
+		return (0);
 	token->value = NULL;
 	if (ft_strncmp(*cmd_line, "$?", 2) == 0)
 		token->type = T_EXIT_STATUS;
@@ -75,16 +77,17 @@ void	handle_special(t_token **token_lst, char **cmd_line)
 	(*cmd_line)++;
 	if (token->type == T_EXIT_STATUS)
 		(*cmd_line)++;
+	return (1);
 }
 
-void	handle_word(t_token **token_lst, char **cmd_line)
+int	handle_word(t_token **token_lst, char **cmd_line)
 {
 	t_token	*token;
 	int		i;
 
 	token = (t_token *)malloc(sizeof(t_token));
 	if (token == NULL)
-		return ;
+		return (0);
 	token->type = T_WORD;
 	i = 0;
 	while (ms_isspace((*cmd_line)[i]) == 0 && \
@@ -97,4 +100,5 @@ void	handle_word(t_token **token_lst, char **cmd_line)
 	token->value = ft_substr(*cmd_line, 0, i);
 	add_token_end_lst(token_lst, token);
 	(*cmd_line) += i;
+	return (1);
 }

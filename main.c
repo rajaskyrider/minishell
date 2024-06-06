@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
+/*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 14:45:40 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/06 11:52:44 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/06/06 13:23:26 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	init_shell(t_ms *shell)
 	shell->cmd = NULL;
 	shell->ast = NULL;
 	shell->token_lst = NULL;
+	shell->error = 0;
 }
 
 /// @brief Exit the shell by freeing all allocated memory, 
