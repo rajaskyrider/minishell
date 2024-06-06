@@ -6,7 +6,7 @@
 /*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 15:26:17 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/06 11:25:33 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/06/06 11:52:59 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,29 @@ void	combine_node(t_ms *shell)
 	}
 }
 
+void	create_io(t_token *ptr, t_ms *shell)
+{
+	t_io	*io;
+	t_io	*pio;
+
+	pio = ptr->io;
+	io = ft_calloc(sizeof(t_io), 1);
+	if (!io)
+		exit_shell(shell, EXIT_FAILURE);
+	if (pio)
+	{
+		while (pio)
+			pio = pio->next;
+	}
+	pio = io;
+	io->type = ptr->next->type;
+	io->value = ft_strdup(ptr->next->next->value);
+	io->next = NULL;
+	io->prev = NULL;
+	delete_token(&ptr->next);
+	delete_token(&ptr->next);
+}
+
 void	deal_io(t_ms *shell)
 {
 	t_token	*ptr;
@@ -52,5 +75,10 @@ void	deal_io(t_ms *shell)
 	ptr = shell->token_lst;
 	while (ptr)
 	{
+		if (ptr->next->type == T_LESS || ptr->next->type == T_GREAT || ptr->next->type == T_DLESS \
+								|| ptr->next->type == T_DGREAT)
+			create_io(ptr, shell);
+		else
+			ptr = ptr->next;
 	}
 }

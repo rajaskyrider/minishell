@@ -6,7 +6,7 @@
 /*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 14:42:50 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/06 11:17:34 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/06/06 11:53:40 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,8 @@ void	process_double_quote(t_token *ptr);
 void	exec_replace(char **new_str, char *start, char *end, char *str);
 void	parser(t_ms *shell);
 void	combine_node(t_ms *shell);
+void	deal_io(t_ms *shell);
+void	create_io(t_token *ptr, t_ms *shell);
 void	process_expr(t_ms *shell);
 void	delete_single_quote(t_token **token, t_ms *shell);
 void	delete_double_quote(t_token **token, t_ms *shell);
