@@ -6,28 +6,11 @@
 /*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 09:35:32 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/06 11:19:11 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/06/06 17:35:44 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	print_ast(t_ast *tree, int level) 
-{
-	if (tree == NULL)
-		return;
-	ft_printf("-----------------------------\n");
-	ft_printf("Level %d\n", level);
-	ft_printf("Operator %s\n", tree->value);
-	if (tree->left != NULL)
-		ft_printf("Left %s",  tree->left->value);
-	ft_printf("\t");
-	if (tree->right != NULL)
-		ft_printf("Right %s",  tree->right->value);
-	ft_printf("\n");
-	print_ast(tree->left, level + 1);
-	print_ast(tree->right, level + 1);
-}
 
 int	get_precedence(t_token_type op)
 {
@@ -55,7 +38,9 @@ t_ast	*create_ast(t_ast_type type, t_token *token, t_ms *shell)
 	if (!node)
 		exit_shell(shell, EXIT_FAILURE);
 	node->type = type;
-	node->value = ft_strdup(token->value);
+	node->value = NULL;
+	if (token->value)
+		node->value = ft_strdup(token->value);
 	node->token_type = token->type;
 	node->left = NULL;
 	node->right = NULL;

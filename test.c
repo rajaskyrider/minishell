@@ -34,3 +34,52 @@ void	print_token_lst(t_ms *shell)
 		i++;
 	}
 }
+
+
+void	print_ast(t_ast *tree, int level) 
+{
+	const char *token_type_str[] = 
+	{
+		"T_WORD",
+		"T_PIPE",
+		"T_LESS",
+		"T_GREAT",
+		"T_DLESS",
+		"T_DGREAT",
+		"T_AND_IF",
+		"T_OR_IF",
+		"T_O_PARENT",
+		"T_C_PARENT",
+		"T_DOLLAR",
+		"T_EXIT_STATUS",
+		"T_SINGLE_QUOTE",
+		"T_DOUBLE_QUOTE",
+		"T_WILDCARD"
+	};
+	if (tree == NULL)
+		return;
+	ft_printf("-----------------------------\n");
+	ft_printf("Level %d\n", level);
+	if (tree->value)
+		ft_printf("Operator %s\n", tree->value);
+	else
+		ft_printf("Type %s\n", token_type_str[tree->token_type]);
+	if (tree->left != NULL)
+	{
+		if (tree->left->value)
+			ft_printf("Left %s",  tree->left->value);
+		else
+			ft_printf("left %s", token_type_str[tree->left->token_type]);
+	}
+	ft_printf("\t");
+	if (tree->right != NULL)
+	{
+		if (tree->right->value)
+			ft_printf("Right %s",  tree->right->value);
+		else
+			ft_printf("right %s", token_type_str[tree->right->token_type]);
+	}
+	ft_printf("\n");
+	print_ast(tree->left, level + 1);
+	print_ast(tree->right, level + 1);
+}
