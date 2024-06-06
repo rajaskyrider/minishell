@@ -6,19 +6,26 @@
 #    By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/10 15:30:56 by rpandipe          #+#    #+#              #
-#    Updated: 2024/06/06 11:24:05 by rpandipe         ###   ########.fr        #
+#    Updated: 2024/06/06 17:55:23 by rpandipe         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		= minishell
 LIBFT		= libft.a
 CC			= cc
-CFLAG		= -Wall -Werror -Wextra -g
+CFLAG		= -Wall -Werror -Wextra -g -I.
 LFLAG		= -Llibft -lft
 RM 			= rm -rf
-SRCS		= main.c prompt.c tokenize.c tokenize_handle.c tokenize_utils.c \
-			  tokenize_quote.c test.c utils.c parser.c parser_utils.c \
-			  precedence.c
+BUILTIN		= builtin/ms_echo.c
+TOKENIZER	= tokenizer/tokenize.c tokenizer/tokenize_handle.c \
+			  tokenizer/tokenize_utils.c tokenizer/tokenize_quote.c
+PARSER		= parser/parser.c parser/parser_utils.c parser/precedence.c
+TEST		= test/test.c
+SRCS		= main.c prompt.c utils.c \
+			  $(BUILTIN) \
+			  $(TOKENIZER) \
+			  $(PARSER) \
+			  $(TEST)
 OBJDIR      = objs
 OBJS		= $(addprefix $(OBJDIR)/, $(SRCS:.c=.o))
 TOTAL       = $(words $(OBJS))
@@ -40,7 +47,7 @@ all: $(NAME)
 	@echo -e '${BLUE}Build complete!${NC}'
 
 $(OBJDIR)/%.o: %.c
-	@mkdir -p $(OBJDIR)
+	@mkdir -p $(dir $@)
 	@$(CC) $(CFLAG) -c $< -o $@ 
 	$(call update_progress)
 
