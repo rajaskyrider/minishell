@@ -6,7 +6,7 @@
 /*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 14:42:50 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/05 18:13:08 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/06/06 10:13:36 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,6 @@ t_ast	*precedence_climbing(t_ms *shell, t_token **node, int precedence);
 //void	execute_echo(t_ms *shell, char *cmd, char *str);
 
 /*Test functions (to remove)*/
-void	print_token_lst(t_ms shell);
+void	print_token_lst(t_ms *shell);
 void	print_ast(t_ast *tree, int level);
 #endif

@@ -1,12 +1,12 @@
 #include "minishell.h"
 
-void	print_token_lst(t_ms shell)
+void	print_token_lst(t_ms *shell)
 {
 	int	i;
 	t_token	*token_lst;
 
 	i = 1;
-	token_lst = shell.token_lst;
+	token_lst = shell->token_lst;
 	const char *token_type_str[] = 
 	{
 		"T_WORD",
