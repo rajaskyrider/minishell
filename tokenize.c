@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenize.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 14:47:49 by tle-moel          #+#    #+#             */
-/*   Updated: 2024/06/06 11:27:24 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/06/06 11:30:22 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ t_token	*create_token_lst(char *cmd_line)
 	token_lst = NULL;
 	while (*cmd_line != '\0')
 	{
+		raja;
 		while (ms_isspace(*cmd_line) == 1)
 			cmd_line++;
 		if (ms_isquote(*cmd_line) == 1)
