@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 14:42:50 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/06 15:29:21 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/06/06 15:34:54 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ void	delete_single_quote(t_token **token, t_ms *shell);
 void	delete_double_quote(t_token **token, t_ms *shell);
 void	delete_token(t_token **token);
 void	delete_token_lst(t_token **token);
-int		init_token(t_token *token);
+int		init_token(t_token **token);
 t_ast	*precedence_climbing(t_ms *shell, t_token **node, int precedence);
 //void	execute_echo(t_ms *shell, char *cmd, char *str);
 

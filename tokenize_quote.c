@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 15:40:34 by tle-moel          #+#    #+#             */
-/*   Updated: 2024/06/06 14:18:48 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/06/06 15:34:32 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ int	handle_single_quote(t_token **token_lst, char **cmd_line)
 		i++;
 	if ((*cmd_line)[i] == '\0')
 		return (0);
-	token = (t_token *)malloc(sizeof(t_token));
-	if (token == NULL)
+	token = NULL;
+	if (init_token(&token) == 0)
 		return (0);
 	token->type = T_WORD;
 	token->value = ft_substr(*cmd_line, 0, i + 1);
@@ -58,8 +58,8 @@ int	handle_double_quote(t_token **token_lst, char **cmd_line)
 		i++;
 	if ((*cmd_line)[i] == '\0')
 		return (0);
-	token = (t_token *)malloc(sizeof(t_token));
-	if (token == NULL)
+	token = NULL;
+	if (init_token(&token) == 0)
 		return (0);
 	token->type = T_WORD;
 	token->value = ft_substr(*cmd_line, 0, i + 1);

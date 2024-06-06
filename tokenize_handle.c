@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 15:09:51 by tle-moel          #+#    #+#             */
-/*   Updated: 2024/06/06 15:27:27 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/06/06 15:33:17 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	handle_operator(t_token **token_lst, char **cmd_line)
 	t_token	*token;
 
 	token = NULL;
-	if (init_token(token) == 0)
+	if (init_token(&token) == 0)
 		return (0);
 	if (ft_strncmp(*cmd_line, "&&", 2) == 0)
 		token->type = T_AND_IF;
@@ -46,7 +46,7 @@ int	handle_parenthesis(t_token **token_lst, char **cmd_line)
 	t_token	*token;
 
 	token = NULL;
-	if (init_token(token) == 0)
+	if (init_token(&token) == 0)
 		return (0);
 	if (ft_strncmp(*cmd_line, "(", 1) == 0)
 		token->type = T_O_PARENT;
@@ -62,7 +62,7 @@ int	handle_special(t_token **token_lst, char **cmd_line)
 	t_token	*token;
 
 	token = NULL;
-	if (init_token(token) == 0)
+	if (init_token(&token) == 0)
 		return (0);
 	if (ft_strncmp(*cmd_line, "$?", 2) == 0)
 		token->type = T_EXIT_STATUS;
@@ -83,7 +83,7 @@ int	handle_word(t_token **token_lst, char **cmd_line)
 	int		i;
 
 	token = NULL;
-	if (init_token(token) == 0)
+	if (init_token(&token) == 0)
 		return (0);
 	token->type = T_WORD;
 	i = 0;
