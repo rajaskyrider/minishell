@@ -6,7 +6,7 @@
 /*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 14:42:50 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/06 11:04:21 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/06/06 11:17:34 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,14 +40,6 @@ typedef enum e_token_type
 	T_WILDCARD
 }	t_token_type;
 
-typedef struct s_token
-{
-	t_token_type	type;
-	char			*value;
-	struct s_token	*next;
-	struct s_token	*prev;
-}	t_token;
-
 typedef struct s_io
 {
 	t_token_type	type;
@@ -55,6 +47,15 @@ typedef struct s_io
 	struct s_io		*next;
 	struct s_io		*prev;
 }	t_io;
+
+typedef struct s_token
+{
+	t_token_type	type;
+	char			*value;
+	struct s_token	*next;
+	struct s_token	*prev;
+	t_io			*io;
+}	t_token;
 
 typedef enum e_ast_type
 {
@@ -69,6 +70,7 @@ typedef struct s_ast
 	char			*value;
 	struct s_ast	*left;
 	struct s_ast	*right;
+	t_io			*io;
 }	t_ast;
 
 typedef struct s_ms

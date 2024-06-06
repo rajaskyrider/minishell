@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser_combine.c                                   :+:      :+:    :+:   */
+/*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 15:26:17 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/04 15:45:19 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/06/06 11:25:33 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,5 +42,15 @@ void	combine_node(t_ms *shell)
 			concat_node(ptr, shell);
 		else
 			ptr = ptr->next;
+	}
+}
+
+void	deal_io(t_ms *shell)
+{
+	t_token	*ptr;
+
+	ptr = shell->token_lst;
+	while (ptr)
+	{
 	}
 }
