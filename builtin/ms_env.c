@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 09:31:34 by tle-moel          #+#    #+#             */
-/*   Updated: 2024/06/07 11:31:13 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/06/07 14:57:46 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ t_envlst    *init_environ(char **env)
     {
         key = extract_key(env[i]);
         value = extract_value(env[i]);
-        if (key && value)
+        if (key)
             update_envlst(key, value, &environ);
         i++;
     }
@@ -63,11 +63,13 @@ char    *extract_key(char *env_line)
         i++;
     }
     return (NULL);
+    
 }
 
 char    *extract_value(char *env_line)
 {
     int     i;
+
 
     i = 0;
     if (env_line == NULL)
