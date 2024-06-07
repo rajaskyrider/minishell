@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 14:42:50 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/06 15:34:54 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/06/07 09:42:05 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,11 +73,21 @@ typedef struct s_ast
 	t_io			*io;
 }	t_ast;
 
+typedef struct s_envlst
+{
+	char	*key;
+	char	*value;
+	struct s_envlst	*next;
+	struct s_envlst	*prev;
+}	t_envlst;
+
+
 typedef struct s_ms
 {
 	char	*cmd;
 	t_token	*token_lst;
 	t_ast	*ast;
+	t_envlst	*environ;
 	int		error;
 }	t_ms;
 
@@ -113,6 +123,8 @@ void	delete_token_lst(t_token **token);
 int		init_token(t_token **token);
 t_ast	*precedence_climbing(t_ms *shell, t_token **node, int precedence);
 //void	execute_echo(t_ms *shell, char *cmd, char *str);
+void    ms_echo(char **arg);
+t_envlst   *init_environ(char **env);
 
 /*Test functions (to remove)*/
 void	print_token_lst(t_ms *shell);

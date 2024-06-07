@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 14:45:40 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/06 13:23:26 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/06/07 09:42:07 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,12 @@
 
 /// @brief Initialitize the struct, edit when new members are added
 /// @param shell The struct to initialize
-void	init_shell(t_ms *shell)
+void	init_shell(t_ms *shell, char **env)
 {
 	shell->cmd = NULL;
 	shell->ast = NULL;
 	shell->token_lst = NULL;
+	shell->environ = init_environ(env);
 	shell->error = 0;
 }
 
@@ -42,8 +43,7 @@ int	main(int argc, char **argv, char **env)
 
 	(void)argc;
 	(void)argv;
-	(void)env;
-	init_shell(&shell);
+	init_shell(&shell, env);
 	while (1)
 	{
 		cmd = readline("\x1b[35mminishell>\x1b[0m ");
