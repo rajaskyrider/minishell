@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 09:31:34 by tle-moel          #+#    #+#             */
-/*   Updated: 2024/06/07 14:57:46 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/06/07 16:42:09 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,13 @@ void    ms_env(t_ms *shell)
     envlst = shell->environ;
     while (envlst)
     {
-        ft_putstr_fd(envlst->key, 1);
-        ft_putstr_fd("=", 1);
-        ft_putstr_fd(envlst->value, 1);
-        ft_putstr_fd("\n", 1);
+        if (envlst->value)
+        {
+            ft_putstr_fd(envlst->key, 1);
+            ft_putstr_fd("=", 1);
+            ft_putstr_fd(envlst->value, 1);
+            ft_putstr_fd("\n", 1);
+        }
         envlst = envlst->next;
     }
 }

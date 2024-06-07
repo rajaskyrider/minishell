@@ -6,7 +6,7 @@
 #    By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/10 15:30:56 by rpandipe          #+#    #+#              #
-#    Updated: 2024/06/07 11:49:35 by tle-moel         ###   ########.fr        #
+#    Updated: 2024/06/07 16:41:53 by tle-moel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,8 @@ RM 			= rm -rf
 BUILTIN		= builtin/ms_echo.c builtin/ms_env.c builtin/ms_export.c
 TOKENIZER	= tokenizer/tokenize.c tokenizer/tokenize_handle.c \
 			  tokenizer/tokenize_utils.c tokenizer/tokenize_quote.c
-PARSER		= parser/parser.c parser/parser_utils.c parser/precedence.c
+PARSER		= parser/parser.c parser/parser_utils.c parser/precedence.c \
+			  parser/parser_check.c
 TEST		= test/test.c
 SRCS		= main.c prompt.c utils.c \
 			  $(BUILTIN) \
