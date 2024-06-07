@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 14:45:40 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/07 09:42:07 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/06/07 10:59:00 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,7 @@ void	init_shell(t_ms *shell, char **env)
 /// @param exitcode EXIT_SUCCESS or EXIT_FAILURE
 void	exit_shell(t_ms *shell, int exitcode)
 {
-	if (shell->cmd)
-		free(shell->cmd);
-	while (shell->token_lst)
-		delete_token(&shell->token_lst);
+	clear_shell(shell);
 	exit(exitcode);
 }
 

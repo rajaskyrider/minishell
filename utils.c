@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 15:46:03 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/06 15:37:17 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/06/07 11:36:07 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,5 +41,23 @@ int		init_token(t_token **token)
 		return (0);
 	(*token)->value = NULL;
 	(*token)->io = NULL;
+	(*token)->next = NULL;
+	(*token)->prev = NULL;
 	return (1);
+}
+
+void	clear_shell(t_ms *shell)
+{
+	if (shell->cmd)
+		free(shell->cmd);
+	while (shell->token_lst)
+		delete_token(&shell->token_lst);
+	//while (shell->ast)
+	//	delete_ast(&shell->ast);
+}
+
+void	print_error(t_ms *shell, char *errormsg)
+{
+	clear_shell(shell);
+	perror(errormsg);
 }
