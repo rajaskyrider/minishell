@@ -6,7 +6,7 @@
 /*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 10:44:46 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/07 11:33:16 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/06/07 11:43:17 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	reorder_tokens(t_token *dest, t_token *src)
 	dest->prev = src;
 }
 
-void	format_cmd(t_token **token, t_ms *shell)
+void	format_cmd(t_token **token)
 {
 	t_token	*ptr;
 	t_token	*new;
@@ -58,5 +58,5 @@ void	check_cmd(t_ms *shell)
 
 	token = shell->token_lst;
 	if (token->type != T_WORD)
-		format_cmd(&token, shell);
+		format_cmd(&token);
 }
