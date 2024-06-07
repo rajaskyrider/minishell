@@ -6,7 +6,7 @@
 /*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 14:42:50 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/07 11:39:28 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/06/07 11:40:48 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,10 +122,14 @@ void		delete_token(t_token **token);
 void		delete_token_lst(t_token **token);
 int			init_token(t_token **token);
 t_ast		*precedence_climbing(t_ms *shell, t_token **node, int precedence);
-void    	ms_echo(char **arg);
-t_envlst	*init_environ(char **env);
+void		ms_echo(char **arg);
 void		clear_shell(t_ms *shell);
 void		print_error(t_ms *shell, char *errormsg);
+void		ms_env(t_ms *shell);
+t_envlst	*init_environ(char **env);
+char		*extract_key(char *env_line);
+char		*extract_value(char *env_line);
+void		update_envlst(char *key, char *value, t_envlst **environ);
 
 /*Test functions (to remove)*/
 void		print_token_lst(t_ms *shell);
