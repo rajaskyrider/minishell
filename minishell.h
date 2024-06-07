@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 14:42:50 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/07 09:42:05 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/06/07 11:33:24 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,12 @@ int		init_token(t_token **token);
 t_ast	*precedence_climbing(t_ms *shell, t_token **node, int precedence);
 //void	execute_echo(t_ms *shell, char *cmd, char *str);
 void    ms_echo(char **arg);
+void	ms_env(t_ms *shell);
 t_envlst   *init_environ(char **env);
+char    *extract_key(char *env_line);
+char    *extract_value(char *env_line);
+void    update_envlst(char *key, char *value, t_envlst **environ);
+
 
 /*Test functions (to remove)*/
 void	print_token_lst(t_ms *shell);
