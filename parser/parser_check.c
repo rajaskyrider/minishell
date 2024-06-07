@@ -6,7 +6,7 @@
 /*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 10:44:46 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/07 11:43:17 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/06/07 12:21:36 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	format_cmd(t_token **token)
 	ptr = *token;
 	while (ptr)
 	{
-		if (ptr->type == T_WORD && (ptr->next == NULL \
+		if (ptr->type == T_WORD && !(ptr->next == NULL \
 			|| ptr->next->type == T_LESS \
 	 		|| ptr->next->type == T_GREAT \
 			|| ptr->next->type == T_DLESS \
@@ -49,14 +49,11 @@ void	format_cmd(t_token **token)
 		ptr = new;
 	}
 	reorder_tokens(*token, ptr);
-	*token = ptr;
+	*token = new;
 }
 
 void	check_cmd(t_ms *shell)
 {
-	t_token	*token;
-
-	token = shell->token_lst;
-	if (token->type != T_WORD)
-		format_cmd(&token);
+	if (shell->token_lst->type != T_WORD)
+		format_cmd(&shell->token_lst);
 }
