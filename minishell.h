@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
+/*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 14:42:50 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/10 09:57:38 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/06/10 10:57:35 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,9 +132,11 @@ char		*extract_key(char *env_line);
 char		*extract_value(char *env_line);
 void		update_envlst(char *key, char *value, t_envlst **environ);
 void		check_cmd(t_ms *shell);
+void		ms_export(char **arg, t_ms *shell);
 void		print_export(t_envlst *environ);
 char		*find_min_key(t_envlst *environ);
 char		*find_next_key(char *curr_key, t_envlst *environ);
+void		ms_unset(char **arg, t_ms *shell);
 
 /*Test functions (to remove)*/
 void		print_token_lst(t_ms *shell);
