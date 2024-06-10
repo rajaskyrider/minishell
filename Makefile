@@ -6,7 +6,7 @@
 #    By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/10 15:30:56 by rpandipe          #+#    #+#              #
-#    Updated: 2024/06/10 10:57:13 by tle-moel         ###   ########.fr        #
+#    Updated: 2024/06/10 11:10:25 by tle-moel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ TOKENIZER	= tokenizer/tokenize.c tokenizer/tokenize_handle.c \
 			  tokenizer/tokenize_utils.c tokenizer/tokenize_quote.c
 PARSER		= parser/parser.c parser/parser_utils.c parser/precedence.c
 TEST		= test/test.c
-SRCS		= main.c prompt.c utils.c \
+SRCS		= main.c prompt.c utils.c validation.c \
 			  $(BUILTIN) \
 			  $(TOKENIZER) \
 			  $(PARSER) \
