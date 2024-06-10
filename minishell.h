@@ -6,7 +6,7 @@
 /*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 14:42:50 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/07 11:42:29 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/06/10 09:57:38 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,7 @@ int			handle_double_quote(t_token **token_lst, char **cmd_line);
 void		process_double_quote(t_token *ptr);
 void		exec_replace(char **new_str, char *start, char *end, char *str);
 void		parser(t_ms *shell);
+void		concat_node(t_token *tkn, t_ms *shell);
 void		combine_node(t_ms *shell);
 void		deal_io(t_ms *shell);
 void		create_io(t_token *ptr, t_ms *shell);
@@ -131,6 +132,9 @@ char		*extract_key(char *env_line);
 char		*extract_value(char *env_line);
 void		update_envlst(char *key, char *value, t_envlst **environ);
 void		check_cmd(t_ms *shell);
+void		print_export(t_envlst *environ);
+char		*find_min_key(t_envlst *environ);
+char		*find_next_key(char *curr_key, t_envlst *environ);
 
 /*Test functions (to remove)*/
 void		print_token_lst(t_ms *shell);
