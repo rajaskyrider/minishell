@@ -6,7 +6,7 @@
 #    By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/10 15:30:56 by rpandipe          #+#    #+#              #
-#    Updated: 2024/06/10 15:37:50 by tle-moel         ###   ########.fr        #
+#    Updated: 2024/06/10 15:54:02 by tle-moel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,8 +28,8 @@ SRCS		= main.c prompt.c utils.c validation.c \
 			  $(BUILTIN) \
 			  $(TOKENIZER) \
 			  $(PARSER) \
-			  $(TEST) \
-			  $(EXEC)
+			  $(EXEC) \
+			  $(TEST)
 OBJDIR      = objs
 OBJS		= $(addprefix $(OBJDIR)/, $(SRCS:.c=.o))
 TOTAL       = $(words $(OBJS))
