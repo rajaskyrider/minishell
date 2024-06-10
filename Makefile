@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+         #
+#    By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/10 15:30:56 by rpandipe          #+#    #+#              #
-#    Updated: 2024/06/10 11:10:25 by tle-moel         ###   ########.fr        #
+#    Updated: 2024/06/10 11:15:31 by rpandipe         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,8 @@ BUILTIN		= builtin/ms_echo.c builtin/ms_env.c builtin/ms_export.c \
 			  builtin/ms_unset.c
 TOKENIZER	= tokenizer/tokenize.c tokenizer/tokenize_handle.c \
 			  tokenizer/tokenize_utils.c tokenizer/tokenize_quote.c
-PARSER		= parser/parser.c parser/parser_utils.c parser/precedence.c
+PARSER		= parser/parser.c parser/parser_utils.c parser/precedence.c \
+			  parser/parser_check.c
 TEST		= test/test.c
 SRCS		= main.c prompt.c utils.c validation.c \
 			  $(BUILTIN) \
