@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 10:55:29 by tle-moel          #+#    #+#             */
-/*   Updated: 2024/06/10 13:50:04 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/06/10 14:24:09 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,6 @@ void	ms_unset(char **arg, t_ms *shell)
 
 void	delete_env_node(t_envlst **head, t_envlst *node)
 {
-	t_envlst	*ptr;
-
 	if (!head || !(*head) || !node)
 		return ;
 	if (*head == node)
