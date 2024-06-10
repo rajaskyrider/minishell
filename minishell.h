@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
+/*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 14:42:50 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/10 14:38:36 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/06/10 16:31:55 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,9 +84,10 @@ typedef struct s_envlst
 
 typedef struct s_ms
 {
-	char	*cmd;
-	t_token	*token_lst;
-	t_ast	*ast;
+	char		*cmd;
+	t_token		*token_lst;
+	t_ast		*ast;
+	char		**env;
 	t_envlst	*environ;
 	int		error;
 }	t_ms;
