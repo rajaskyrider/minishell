@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+         #
+#    By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/10 15:30:56 by rpandipe          #+#    #+#              #
-#    Updated: 2024/06/10 15:54:02 by tle-moel         ###   ########.fr        #
+#    Updated: 2024/06/10 16:58:35 by rpandipe         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ CFLAG		= -Wall -Werror -Wextra -g -I.
 LFLAG		= -Llibft -lft
 RM 			= rm -rf
 BUILTIN		= builtin/ms_echo.c builtin/ms_env.c builtin/ms_export.c \
-			  builtin/ms_unset.c
+			  builtin/ms_unset.c builtin/ms_cd.c builtin/ms_pwd.c
 TOKENIZER	= tokenizer/tokenize.c tokenizer/tokenize_handle.c \
 			  tokenizer/tokenize_utils.c tokenizer/tokenize_quote.c
 PARSER		= parser/parser.c parser/parser_utils.c parser/precedence.c \
