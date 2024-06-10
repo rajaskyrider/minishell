@@ -6,7 +6,7 @@
 #    By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/10 15:30:56 by rpandipe          #+#    #+#              #
-#    Updated: 2024/06/10 16:53:24 by rpandipe         ###   ########.fr        #
+#    Updated: 2024/06/10 16:58:35 by rpandipe         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,11 +22,13 @@ TOKENIZER	= tokenizer/tokenize.c tokenizer/tokenize_handle.c \
 			  tokenizer/tokenize_utils.c tokenizer/tokenize_quote.c
 PARSER		= parser/parser.c parser/parser_utils.c parser/precedence.c \
 			  parser/parser_check.c
+EXEC		= exec/exec_simple_cmd.c
 TEST		= test/test.c
 SRCS		= main.c prompt.c utils.c validation.c \
 			  $(BUILTIN) \
 			  $(TOKENIZER) \
 			  $(PARSER) \
+			  $(EXEC) \
 			  $(TEST)
 OBJDIR      = objs
 OBJS		= $(addprefix $(OBJDIR)/, $(SRCS:.c=.o))
