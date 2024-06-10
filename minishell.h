@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 14:42:50 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/10 11:12:32 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/06/10 14:23:12 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ int			ms_isparenthesis(char c);
 int			ms_isreorder(t_token_type t);
 void		add_token_end_lst(t_token **token_lst, t_token *token);
 int			handle_parenthesis(t_token **token_lst, char **cmd_line);
+int			handle_subshell(t_token **token_lst, char **cmd_line);
 int			handle_operator(t_token **token_lst, char **cmd_line);
 int			handle_quote(t_token **token_lst, char **cmd_line);
 int			handle_special(t_token **token_lst, char **cmd_line);
@@ -139,8 +140,7 @@ void		print_export(t_envlst *environ);
 char		*find_min_key(t_envlst *environ);
 char		*find_next_key(char *curr_key, t_envlst *environ);
 void		ms_unset(char **arg, t_ms *shell);
-void		delete_env_node(t_envlst *environ);
-
+void		delete_env_node(t_envlst **head, t_envlst *node);
 /*Test functions (to remove)*/
 void		print_token_lst(t_ms *shell);
 void		print_ast(t_ast *tree, int level);
