@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+         #
+#    By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/10 15:30:56 by rpandipe          #+#    #+#              #
-#    Updated: 2024/06/10 14:35:22 by rpandipe         ###   ########.fr        #
+#    Updated: 2024/06/10 15:37:50 by tle-moel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,12 +22,14 @@ TOKENIZER	= tokenizer/tokenize.c tokenizer/tokenize_handle.c \
 			  tokenizer/tokenize_utils.c tokenizer/tokenize_quote.c
 PARSER		= parser/parser.c parser/parser_utils.c parser/precedence.c \
 			  parser/parser_check.c
+EXEC		= exec/exec_simple_cmd.c
 TEST		= test/test.c
 SRCS		= main.c prompt.c utils.c validation.c \
 			  $(BUILTIN) \
 			  $(TOKENIZER) \
 			  $(PARSER) \
-			  $(TEST)
+			  $(TEST) \
+			  $(EXEC)
 OBJDIR      = objs
 OBJS		= $(addprefix $(OBJDIR)/, $(SRCS:.c=.o))
 TOTAL       = $(words $(OBJS))
