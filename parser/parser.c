@@ -6,7 +6,7 @@
 /*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 09:25:09 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/10 09:51:08 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/06/10 11:00:00 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,10 @@ void	process_expr(t_ms *shell)
 void	parser(t_ms *shell)
 {
 	check_cmd(shell);
-	//print_token_lst(shell);
+	print_token_lst(shell);
 	combine_node(shell);
 	print_token_lst(shell);
-	print_token_lst(shell);
+	check_reorder(shell);
 	//deal_io(shell);
 	shell->ast = precedence_climbing(shell, &shell->token_lst, 0);
 	print_ast(shell->ast, 0);

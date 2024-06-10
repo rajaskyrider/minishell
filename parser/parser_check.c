@@ -6,7 +6,7 @@
 /*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 10:44:46 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/10 10:16:40 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/06/10 10:47:57 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,13 @@ t_token	*setup_reorder(t_token *token, t_token *ptr, t_ms *shell, int count)
 	}
 	else if (count == 2)
 		new = reorder_tokens(token, ptr);
-	else if (count == 3)
+	else if (count >= 3)
 	{
-		ptr = ptr->prev;
-		concat_node(ptr, shell);
+		while (count-- >= 3)
+		{
+			ptr = ptr->prev;
+			concat_node(ptr, shell);
+		}
 		new = reorder_tokens(token, ptr);
 	}
 	return (new);
@@ -59,7 +62,7 @@ void	format_cmd(t_token **token, t_ms *shell)
 
 	count = 0;
 	ptr = *token;
-	while (ptr->next && count <= 3)
+	while (ptr->next)
 	{
 		if (ptr->next->type != T_WORD)
 			break;

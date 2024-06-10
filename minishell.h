@@ -6,7 +6,7 @@
 /*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 14:42:50 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/10 09:57:38 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/06/10 10:59:31 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ int			ms_isspace(char c);
 int			ms_isquote(char c);
 int			ms_isoperator(char *s);
 int			ms_isparenthesis(char c);
+int			ms_isreorder(t_token_type t);
 void		add_token_end_lst(t_token **token_lst, t_token *token);
 int			handle_parenthesis(t_token **token_lst, char **cmd_line);
 int			handle_operator(t_token **token_lst, char **cmd_line);
@@ -114,6 +115,7 @@ void		exec_replace(char **new_str, char *start, char *end, char *str);
 void		parser(t_ms *shell);
 void		concat_node(t_token *tkn, t_ms *shell);
 void		combine_node(t_ms *shell);
+void		check_reorder(t_ms *shell);
 void		deal_io(t_ms *shell);
 void		create_io(t_token *ptr, t_ms *shell);
 void		process_expr(t_ms *shell);
