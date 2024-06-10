@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 10:55:29 by tle-moel          #+#    #+#             */
-/*   Updated: 2024/06/10 11:01:52 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/06/10 11:12:58 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,5 +25,6 @@ void	ms_unset(char **arg, t_ms *shell)
 
 void	delete_env_node(t_envlst *environ)
 {
-	
+	(void)environ;
+	return ;
 }
