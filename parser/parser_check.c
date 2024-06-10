@@ -6,7 +6,7 @@
 /*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 10:44:46 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/10 10:47:57 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/06/10 15:16:50 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,16 +57,26 @@ t_token	*setup_reorder(t_token *token, t_token *ptr, t_ms *shell, int count)
 void	format_cmd(t_token **token, t_ms *shell)
 {
 	t_token	*ptr;
-
 	int		count;
+	int		flag;
 
 	count = 0;
+	flag = 1;
 	ptr = *token;
 	while (ptr->next)
 	{
-		if (ptr->next->type != T_WORD)
-			break;
-		count += 1;
+		if (ptr->next->type == T_WORD)
+		{
+			count += 1;
+			flag = 0;
+		}
+		else if (flag == 0 && ms_isredirect(ptr->next->type))
+		{
+			flag = 1;
+			count = 0;
+		}
+		else
+			break ;
 		ptr = ptr->next;
 	}
 	*token = setup_reorder(*token, ptr, shell, count);
@@ -74,14 +84,6 @@ void	format_cmd(t_token **token, t_ms *shell)
 
 void	check_cmd(t_ms *shell)
 {
-	if (shell->token_lst->type != T_WORD)
-	{
-		if (shell->token_lst->type== T_LESS \
-	 		|| shell->token_lst->type == T_GREAT \
-			|| shell->token_lst->type == T_DLESS \
-			|| shell->token_lst->type == T_DGREAT)
+	if (ms_isredirect(shell->token_lst->type))
 			format_cmd(&shell->token_lst, shell);
-		else
-			print_error(shell, "Syntax error\n");
-	}
 }

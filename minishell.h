@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 14:42:50 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/10 14:23:12 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/06/10 14:38:36 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ int			ms_isspace(char c);
 int			ms_isquote(char c);
 int			ms_isoperator(char *s);
 int			ms_isparenthesis(char c);
-int			ms_isreorder(t_token_type t);
+int			ms_isredirect(t_token_type t);
 void		add_token_end_lst(t_token **token_lst, t_token *token);
 int			handle_parenthesis(t_token **token_lst, char **cmd_line);
 int			handle_subshell(t_token **token_lst, char **cmd_line);
