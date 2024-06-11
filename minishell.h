@@ -6,7 +6,7 @@
 /*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 14:42:50 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/11 09:56:22 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/06/11 10:23:26 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,9 +141,9 @@ char		*find_min_key(t_envlst *environ);
 char		*find_next_key(char *curr_key, t_envlst *environ);
 void		ms_unset(char **arg, t_ms *shell);
 void		delete_env_node(t_envlst **head, t_envlst *node);
-void		ms_cd(t_ms *shell, char *path);
+void		ms_cd(t_ms *shell, char **path);
 void		update_pwd(t_ms *shell);
-char		*ms_pwd(t_ms *shell);
+void		ms_pwd(t_ms *shell);
 /*Test functions (to remove)*/
 void		print_token_lst(t_ms *shell);
 void		print_ast(t_ast *tree, int level);

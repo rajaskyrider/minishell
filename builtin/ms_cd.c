@@ -6,7 +6,7 @@
 /*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 15:47:57 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/11 09:36:11 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/06/11 10:23:10 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,9 @@ void	update_pwd(t_ms *shell)
 	free(pwd);
 }
 
-void	ms_cd(t_ms *shell, char *path)
+void	ms_cd(t_ms *shell, char **path)
 {
-	if (chdir(path) == -1)
+	if (chdir(path[1]) == -1)
 		print_error(shell, "minishell: cd: No such file or directory");
 	else
 	{
