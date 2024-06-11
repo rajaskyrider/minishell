@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 14:42:50 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/11 10:27:13 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/06/11 10:30:17 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,7 +141,7 @@ char		*find_min_key(t_envlst *environ);
 char		*find_next_key(char *curr_key, t_envlst *environ);
 void		ms_unset(char **arg, t_ms *shell);
 void		delete_env_node(t_envlst **head, t_envlst *node);
-void		ms_cd(t_ms *shell, char *path);
+void		ms_cd(t_ms *shell, char **path);
 void		update_pwd(t_ms *shell);
 char		*ms_pwd(t_ms *shell);
 void		exec_cmd(char *full_cmd, t_ms *shell);
