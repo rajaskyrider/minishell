@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
+/*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 14:42:50 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/11 10:42:54 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/06/11 11:23:16 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,7 @@ int			init_token(t_token **token);
 t_ast		*precedence_climbing(t_ms *shell, t_token **node, int precedence);
 void		ms_echo(char **arg);
 void		clear_shell(t_ms *shell);
+int			ft_strcmp(char *s1, char *s2);
 void		print_error(t_ms *shell, char *errormsg);
 void		ms_env(t_ms *shell);
 t_envlst	*init_environ(char **env);

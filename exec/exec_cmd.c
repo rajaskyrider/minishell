@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
+/*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 15:36:02 by tle-moel          #+#    #+#             */
-/*   Updated: 2024/06/11 10:42:56 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/06/11 11:17:50 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,10 @@
 	char	*tmp;
 
 	if (is_builtin(full_cmd, shell) == 1)
+	{
+		printf("It is a builtin\n");
 		return ;
+	}
 	else if (path_is_given(full_cmd) == 1)
 		return (exec_given_path(full_cmd));
 	else
@@ -29,6 +32,7 @@
 		tmp = args[0];
 		args[0] = get_cmd(args[0], paths);
 		free(tmp);
+		printf("Just before execve\n");
 		execve(args[0], args, shell->env);
 	}
  }
@@ -38,6 +42,7 @@ void	exec_given_path(char *full_cmd)
 	char	**args;
 	char	*path;
 	
+	printf("Enter execve\n");
 	args = ft_split(full_cmd, ' ');
 	path = args[0];
 	if (path )
@@ -49,12 +54,13 @@ int		is_builtin(char *full_cmd, t_ms *shell)
 {
 	char	**arg;
 
+	printf("Enter builtin\n");
 	arg = ft_split(full_cmd, ' ');
-	if (ft_strncmp(full_cmd, "echo ", 5) == 0)
+	if (ft_strncmp(full_cmd, "echo", 4) == 0)
 		return (ms_echo(arg), 1);
 	else if (ft_strncmp(full_cmd, "cd ", 3) == 0)
 		return (ms_cd(shell, arg), 1);
-	else if (ft_strncmp(full_cmd, "pwd ", 4) == 0)
+	else if (ft_strncmp(full_cmd, "pwd", 4) == 0)
 		return (ms_pwd(shell), 1);
 	else if (ft_strncmp(full_cmd, "export ", 7) == 0)
 		return (ms_export(arg, shell), 1);
@@ -65,7 +71,10 @@ int		is_builtin(char *full_cmd, t_ms *shell)
 	else if (ft_strncmp(full_cmd, "exit ", 5) == 0)
 		return (exit_shell(shell, EXIT_SUCCESS), 1);
 	else
+	{
+		printf("Not a builtin\n");
 		return (0);
+	}
 }
 
 int		path_is_given(char *full_cmd)
