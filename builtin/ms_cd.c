@@ -6,7 +6,7 @@
 /*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 15:47:57 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/10 16:55:08 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/06/11 09:36:11 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	update_pwd(t_ms *shell)
 	char		*pwd;
 	t_envlst	*oldpwd_node;
 	t_envlst	*pwd_node;
-	t_envlst    *envlst;
+	t_envlst	*envlst;
 
 	oldpwd_node = NULL;
 	pwd_node = NULL;

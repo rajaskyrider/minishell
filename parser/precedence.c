@@ -6,7 +6,7 @@
 /*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 09:35:32 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/06 17:35:44 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/06/11 09:33:17 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,14 +64,14 @@ t_ast	*precedence_climbing(t_ms *shell, t_token **pnode, int min_precedence)
 	{
 		curr_precedence = get_precedence((*pnode)->type);
 		if (curr_precedence < min_precedence)
-			break;
+			break ;
 		operator_token = *pnode;
-		*pnode = (*pnode)->next;  
+		*pnode = (*pnode)->next;
 		right = precedence_climbing(shell, pnode, curr_precedence + 1);
 		new_op = create_ast(T_OPERATOR, operator_token, shell);
 		new_op->left = left;
 		new_op->right = right;
 		left = new_op;
 	}
-	return left;
+	return (left);
 }

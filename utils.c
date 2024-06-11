@@ -6,7 +6,7 @@
 /*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 15:46:03 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/07 11:36:07 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/06/11 09:56:50 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	delete_token_lst(t_token **token_lst)
 		delete_token(token_lst);
 }
 
-int		init_token(t_token **token)
+int	init_token(t_token **token)
 {
 	*token = (t_token *)malloc(sizeof(t_token));
 	if (*token == NULL)

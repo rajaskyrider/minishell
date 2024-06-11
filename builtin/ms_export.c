@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 11:48:26 by tle-moel          #+#    #+#             */
-/*   Updated: 2024/06/07 16:40:15 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/06/11 09:54:54 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,14 +35,15 @@ void	print_export(t_envlst *environ)
 {
 	t_envlst	*ptr;
 	t_envlst	*ptr2;
-	char	*curr_key;
+	char		*curr_key;
 
 	curr_key = find_min_key(environ);
 	ptr = environ;
 	while (ptr)
 	{
 		ptr2 = environ;
-		while (ft_strncmp(curr_key, ptr2->key, ft_strlen(curr_key)) != 0 && ptr2)
+		while (ft_strncmp(curr_key, ptr2->key, \
+				ft_strlen(curr_key)) != 0 && ptr2)
 			ptr2 = ptr2->next;
 		if (ft_strncmp(ptr->key, "_", 2) != 0)
 		{
@@ -59,6 +60,7 @@ void	print_export(t_envlst *environ)
 		ptr = ptr->next;
 	}
 }
+
 char	*find_min_key(t_envlst *environ)
 {
 	t_envlst	*ptr;
@@ -88,7 +90,8 @@ char	*find_next_key(char *curr_key, t_envlst *environ)
 		cmp = ft_strncmp(ptr->key, curr_key, ft_strlen(ptr->key));
 		if (cmp > 0)
 		{
-			if (next_key == NULL || ft_strncmp(ptr->key, next_key, ft_strlen(ptr->key)) < 0)
+			if (next_key == NULL || \
+				ft_strncmp(ptr->key, next_key, ft_strlen(ptr->key)) < 0)
 				next_key = ptr->key;
 		}
 		ptr = ptr->next;

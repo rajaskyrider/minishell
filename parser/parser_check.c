@@ -6,7 +6,7 @@
 /*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 10:44:46 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/10 15:16:50 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/06/11 09:33:31 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,5 +85,5 @@ void	format_cmd(t_token **token, t_ms *shell)
 void	check_cmd(t_ms *shell)
 {
 	if (ms_isredirect(shell->token_lst->type))
-			format_cmd(&shell->token_lst, shell);
+		format_cmd(&shell->token_lst, shell);
 }

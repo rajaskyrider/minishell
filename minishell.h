@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 14:42:50 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/10 16:59:59 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/06/11 09:56:22 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,12 +75,11 @@ typedef struct s_ast
 
 typedef struct s_envlst
 {
-	char	*key;
-	char	*value;
+	char			*key;
+	char			*value;
 	struct s_envlst	*next;
 	struct s_envlst	*prev;
 }	t_envlst;
-
 
 typedef struct s_ms
 {
@@ -89,7 +88,7 @@ typedef struct s_ms
 	t_ast		*ast;
 	char		**env;
 	t_envlst	*environ;
-	int		error;
+	int			error;
 }	t_ms;
 
 void		readprompt(t_ms *shell, char *new_cmd);
