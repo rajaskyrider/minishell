@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 15:46:03 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/11 17:31:37 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/06/11 17:32:46 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,12 @@ void	clear_shell(t_ms *shell)
 {
 	if (shell->cmd)
 		free(shell->cmd);
-	while (shell->token_lst)
+	if (shell->token_lst)
 		delete_token(&shell->token_lst);
-	while (shell->ast)
+	if (shell->ast)
 		delete_ast_lst(&shell->ast);
+	if (shell->environ)
+		delete_env_lst(&shell->environ);
 }
 
 void	print_error(t_ms *shell, char *errormsg)

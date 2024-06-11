@@ -6,7 +6,7 @@
 /*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 10:57:50 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/11 15:58:57 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/06/11 16:59:10 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,4 +61,26 @@ void	delete_ast_lst(t_ast **ast)
 	}
 	free(*ast);
 	*ast = NULL;
+}
+
+void	delete_env_lst(t_envlst **environ)
+{
+	t_envlst	*current;
+	t_envlst	*next;
+
+	if (!environ || !*environ)
+		return;
+	current = *environ;
+	next = NULL;
+	while (current)
+	{
+		next = current->next;
+		if (current->value)
+			free(current->value);
+		if (current->key)
+			free(current->key);
+		free(current);
+		current = next;
+	}
+	*environ = NULL;
 }
