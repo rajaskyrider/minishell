@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
+/*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 14:42:50 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/11 16:02:59 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/06/11 16:15:55 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,9 +146,10 @@ void		ms_unset(char **arg, t_ms *shell);
 void		delete_env_node(t_envlst **head, t_envlst *node);
 void		ms_cd(t_ms *shell, char **path);
 void		update_pwd(t_ms *shell);
+char		*get_path(t_ms *shell);
 void		ms_pwd(t_ms *shell);
 void		exec_cmd(char *full_cmd, t_ms *shell);
-void		exec_given_path(char *full_cmd);
+void		exec_given_path(char *full_cmd, t_ms *shell);
 int			is_builtin(char *full_cmd, t_ms *shell);
 int			path_is_given(char *full_cmd);
 char		**find_paths(t_envlst *environ);

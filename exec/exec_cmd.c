@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 15:36:02 by tle-moel          #+#    #+#             */
-/*   Updated: 2024/06/11 15:13:07 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/06/11 16:45:39 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 	if (is_builtin(full_cmd, shell) == 1)
 		return ;
 	else if (path_is_given(full_cmd) == 1)
-		return (exec_given_path(full_cmd));
+		return (exec_given_path(full_cmd, shell));
 	else
 	{
 		paths = find_paths(shell->environ);
@@ -33,16 +33,27 @@
 	}
 }
 
-void	exec_given_path(char *full_cmd)
+void	exec_given_path(char *full_cmd, t_ms *shell)
 {
 	char	**args;
 	char	*path;
-	
+	char	*cwd;
+	char	*tmp;
+
 	args = ft_split(full_cmd, ' ');
 	path = args[0];
-	if (path )
+	if (path[0] != '.' && path[0] != '/')
+	{
+		tmp = get_path(shell);
+		cwd = ft_strdup(tmp);
+		free(tmp);
+		tmp = ft_strjoin(cwd, "/");
+		free(cwd);
+		path = ft_strjoin(tmp, path);
+		free(tmp);
+	}
 	if (access(path, X_OK) == 0)
-		execve(args[0], (args + 1), NULL);
+		execve(args[0], args, NULL);
 }
 
 int		is_builtin(char *full_cmd, t_ms *shell)
