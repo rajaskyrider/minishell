@@ -6,7 +6,7 @@
 /*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 10:57:50 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/11 11:17:04 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/06/11 15:58:57 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,35 @@ void	delete_token(t_token **token)
 
 void	delete_token_lst(t_token **token_lst)
 {
-	while (*token_lst)
-		delete_token(token_lst);
+	t_token	*current;
+	t_token	*next;
+
+	if (!token_lst || !*token_lst)
+		return;
+	current = *token_lst;
+	next = NULL;
+	while (current)
+	{
+		next = current->next;
+		if (current->value)
+			free(current->value);
+		free(current);
+		current = next;
+	}
+	*token_lst = NULL;
 }
 
-void	delete_ast(t_ast **ast)
+void	delete_ast_lst(t_ast **ast)
 {
-	t_ast	*ptr;
-
-	ptr = *ast;
-	if ()
+	if (!ast || !*ast)
+		return ;
+	delete_ast_lst(&(*ast)->left);
+	delete_ast_lst(&(*ast)->right);
+	if ((*ast)->value)
+	{
+		free((*ast)->value);
+		(*ast)->value = NULL;
+	}
+	free(*ast);
+	*ast = NULL;
 }

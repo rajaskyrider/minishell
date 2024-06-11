@@ -6,7 +6,7 @@
 /*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 09:35:32 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/11 09:33:17 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/06/11 15:13:39 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ t_ast	*create_ast(t_ast_type type, t_token *token, t_ms *shell)
 		exit_shell(shell, EXIT_FAILURE);
 	node->type = type;
 	node->value = NULL;
+	ft_printf("token value %s\n", token->value);
 	if (token->value)
 		node->value = ft_strdup(token->value);
 	node->token_type = token->type;

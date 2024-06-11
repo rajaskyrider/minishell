@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 14:42:50 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/11 11:43:59 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/06/11 15:23:11 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,7 @@ void		delete_single_quote(t_token **token, t_ms *shell);
 void		delete_double_quote(t_token **token, t_ms *shell);
 void		delete_token(t_token **token);
 void		delete_token_lst(t_token **token);
+void		delete_ast_lst(t_ast **ast);
 int			init_token(t_token **token);
 t_ast		*precedence_climbing(t_ms *shell, t_token **node, int precedence);
 void		ms_echo(char **arg);
