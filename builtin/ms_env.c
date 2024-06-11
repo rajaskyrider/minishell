@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 09:31:34 by tle-moel          #+#    #+#             */
-/*   Updated: 2024/06/11 14:28:36 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/06/11 15:07:06 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,6 @@ char	*extract_value(char *env_line)
 void	update_envlst(char *key, char *value, t_envlst **environ)
 {
 	t_envlst	*ptr;
-	t_envlst	*env_node;
 
 	if (*environ == NULL)
 	{
@@ -100,6 +99,24 @@ void	update_envlst(char *key, char *value, t_envlst **environ)
 		(*environ)->prev = NULL;
 		return ;
 	}
+	ptr = *environ;
+	while (ptr)
+	{
+		if (ft_strncmp(ptr->key, key, ft_strlen(key)) == 0)
+		{
+			free(ptr->value);
+			ptr->value = value;
+			return ;
+		}
+		ptr = ptr->next;
+	}
+	add_node_envlst(key, value, environ);
+}
+void	add_node_envlst(char *key, char *value, t_envlst **environ)
+{
+	t_envlst	*ptr;
+	t_envlst	*env_node;
+
 	env_node = malloc(sizeof(t_envlst));
 	if (env_node == NULL)
 		return ;

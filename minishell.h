@@ -6,7 +6,7 @@
 /*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 14:42:50 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/11 15:23:11 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/06/11 16:02:59 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,6 +136,7 @@ t_envlst	*init_environ(char **env);
 char		*extract_key(char *env_line);
 char		*extract_value(char *env_line);
 void		update_envlst(char *key, char *value, t_envlst **environ);
+void		add_node_envlst(char *key, char *value, t_envlst **environ);
 void		check_cmd(t_ms *shell);
 void		ms_export(char **arg, t_ms *shell);
 void		print_export(t_envlst *environ);
