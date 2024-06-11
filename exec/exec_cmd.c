@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 15:36:02 by tle-moel          #+#    #+#             */
-/*   Updated: 2024/06/11 11:17:50 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/06/11 11:44:21 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,19 +56,21 @@ int		is_builtin(char *full_cmd, t_ms *shell)
 
 	printf("Enter builtin\n");
 	arg = ft_split(full_cmd, ' ');
-	if (ft_strncmp(full_cmd, "echo", 4) == 0)
+	if (ms_strcmp(full_cmd, "echo") == 0)
 		return (ms_echo(arg), 1);
-	else if (ft_strncmp(full_cmd, "cd ", 3) == 0)
+	else if (ms_strcmp(full_cmd, "cd") == 0)
 		return (ms_cd(shell, arg), 1);
-	else if (ft_strncmp(full_cmd, "pwd", 4) == 0)
+	else if (ms_strcmp(full_cmd, "pwd") == 0)
 		return (ms_pwd(shell), 1);
-	else if (ft_strncmp(full_cmd, "export ", 7) == 0)
+	else if (ms_strcmp(full_cmd, "export") == 0)
 		return (ms_export(arg, shell), 1);
-	else if (ft_strncmp(full_cmd, "unset ", 6) == 0)
+	else if (ms_strcmp(full_cmd, "export") == 0)
+		return (ms_export(arg, shell), 1);
+	else if (ms_strcmp(full_cmd, "unset") == 0)
 		return (ms_unset(arg, shell), 1);
-	else if (ft_strncmp(full_cmd, "env ", 4) == 0)
+	else if (ms_strcmp(full_cmd, "env") == 0)
 		return (ms_env(shell), 1);
-	else if (ft_strncmp(full_cmd, "exit ", 5) == 0)
+	else if (ms_strcmp(full_cmd, "exit") == 0)
 		return (exit_shell(shell, EXIT_SUCCESS), 1);
 	else
 	{

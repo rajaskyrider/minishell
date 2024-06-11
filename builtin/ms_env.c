@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
+/*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 09:31:34 by tle-moel          #+#    #+#             */
-/*   Updated: 2024/06/11 09:54:35 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/06/11 11:50:31 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ char	*extract_value(char *env_line)
 	while (env_line[i] != '\0')
 	{
 		if (env_line[i] == '=')
-			return (ft_substr(env_line, i, ft_strlen(env_line) - i));
+			return (ft_substr(env_line, i + 1, ft_strlen(env_line) - i - 1));
 		i++;
 	}
 	return (NULL);
