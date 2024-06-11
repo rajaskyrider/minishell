@@ -6,7 +6,7 @@
 /*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 15:47:57 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/11 10:23:10 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/06/11 10:47:05 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,15 @@ char	*get_path(t_ms *shell)
 	pwd = ft_calloc(size, sizeof(char));
 	if (!pwd)
 		print_error (shell, "Memory allocation failed");
-	while (!getcwd(pwd, sizeof(pwd)))
+	getcwd(pwd, sizeof(pwd));
+	/*while (!getcwd(pwd, sizeof(pwd)))
 	{
 		free(pwd);
 		size *= 2;
 		pwd = ft_calloc(size, sizeof(char));
 		if (!pwd)
 			print_error (shell, "Memory allocation failed");
-	}
+	}*/
 	return (pwd);
 }
 
