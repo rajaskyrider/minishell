@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
+/*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 14:42:50 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/11 09:56:22 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/06/11 10:27:13 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,6 +144,13 @@ void		delete_env_node(t_envlst **head, t_envlst *node);
 void		ms_cd(t_ms *shell, char *path);
 void		update_pwd(t_ms *shell);
 char		*ms_pwd(t_ms *shell);
+void		exec_cmd(char *full_cmd, t_ms *shell);
+void		exec_given_path(char *full_cmd);
+int			is_builtin(char *full_cmd, t_ms *shell);
+int			ath_is_given(char *full_cmd);
+char		**find_paths(t_envlst *environ);
+char		*get_cmd(char *cmd, char **paths, char **args);
+
 /*Test functions (to remove)*/
 void		print_token_lst(t_ms *shell);
 void		print_ast(t_ast *tree, int level);

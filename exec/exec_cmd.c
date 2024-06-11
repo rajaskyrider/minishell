@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
+/*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 15:36:02 by tle-moel          #+#    #+#             */
-/*   Updated: 2024/06/10 17:05:30 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/06/11 10:27:15 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@
 	char	**paths;
 	char	*tmp;
 
-	if (is_builtin(full_cmd) == 0)
-		return (exec_builtin(full_cmd));
-	else if (path_is_given(full_cmd) == 0)
+	if (is_builtin(full_cmd, shell) == 1)
+		return ;
+	else if (path_is_given(full_cmd) == 1)
 		return (exec_given_path(full_cmd));
 	else
 	{
@@ -40,28 +40,30 @@ void	exec_given_path(char *full_cmd)
 	
 	args = ft_split(full_cmd, ' ');
 	path = args[0];
+	if (path )
 	if (access(path, X_OK) == 0)
 		execve(args[0], (args + 1), NULL);
 }
 
-
-
-int		is_builtin(char *full_cmd)
+int		is_builtin(char *full_cmd, t_ms *shell)
 {
-	if (ft_strncmp(full_cmd, "echo", ft_strlen(full_cmd)) == 0)
-		return (1);
-	else if (ft_strncmp(full_cmd, "cd", ft_strlen(full_cmd)) == 0)
-		return (1);
-	else if (ft_strncmp(full_cmd, "pwd", ft_strlen(full_cmd)) == 0)
-		return (1);
-	else if (ft_strncmp(full_cmd, "export", ft_strlen(full_cmd)) == 0)
-		return (1);
-	else if (ft_strncmp(full_cmd, "unset", ft_strlen(full_cmd)) == 0)
-		return (1);
-	else if (ft_strncmp(full_cmd, "env", ft_strlen(full_cmd)) == 0)
-		return (1);
-	else if (ft_strncmp(full_cmd, "exit", ft_strlen(full_cmd)) == 0)
-		return (1);
+	char	**arg;
+
+	arg = ft_split(full_cmd, ' ');
+	if (ft_strncmp(full_cmd, "echo ", 5) == 0)
+		return (ms_echo(arg), 1);
+	else if (ft_strncmp(full_cmd, "cd ", 3) == 0)
+		return (ms_cd(shell, arg[1]), 1);
+	else if (ft_strncmp(full_cmd, "pwd ", 4) == 0)
+		return (ms_pwd(shell), 1);
+	else if (ft_strncmp(full_cmd, "export ", 7) == 0)
+		return (ms_export(arg, shell), 1);
+	else if (ft_strncmp(full_cmd, "unset ", 6) == 0)
+		return (ms_unset(arg, shell), 1);
+	else if (ft_strncmp(full_cmd, "env ", 4) == 0)
+		return (ms_env(shell), 1);
+	else if (ft_strncmp(full_cmd, "exit ", 5) == 0)
+		return (exit_shell(shell, EXIT_SUCCESS), 1);
 	else
 		return (0);
 }
