@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
+/*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 11:48:26 by tle-moel          #+#    #+#             */
-/*   Updated: 2024/06/11 09:54:54 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/06/11 13:59:01 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,18 +42,16 @@ void	print_export(t_envlst *environ)
 	while (ptr)
 	{
 		ptr2 = environ;
-		while (ft_strncmp(curr_key, ptr2->key, \
+		while (curr_key && ft_strncmp(curr_key, ptr2->key, \
 				ft_strlen(curr_key)) != 0 && ptr2)
 			ptr2 = ptr2->next;
-		if (ft_strncmp(ptr->key, "_", 2) != 0)
+		if (curr_key && ft_strncmp(ptr2->key, "_", 2) != 0)
 		{
 			ft_putstr_fd("declar -x ", 1);
 			ft_putstr_fd(ptr2->key, 1);
-			ft_putstr_fd("=", 1);
-			ft_putchar_fd('"', 1);
+			ft_putstr_fd("=\"", 1);
 			ft_putstr_fd(ptr2->value, 1);
-			ft_putchar_fd('"', 1);
-			ft_putstr_fd("\n", 1);
+			ft_putstr_fd("\"\n", 1);
 		}
 		if (ptr->next)
 			curr_key = find_next_key(curr_key, environ);
