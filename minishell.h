@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 14:42:50 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/11 11:43:59 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/06/11 15:07:58 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,6 +135,7 @@ t_envlst	*init_environ(char **env);
 char		*extract_key(char *env_line);
 char		*extract_value(char *env_line);
 void		update_envlst(char *key, char *value, t_envlst **environ);
+void		add_node_envlst(char *key, char *value, t_envlst **environ);
 void		check_cmd(t_ms *shell);
 void		ms_export(char **arg, t_ms *shell);
 void		print_export(t_envlst *environ);
