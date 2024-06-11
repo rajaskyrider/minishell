@@ -6,7 +6,7 @@
 /*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 14:42:50 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/11 17:02:06 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/06/11 19:11:33 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,6 +155,8 @@ int			is_builtin(char *full_cmd, t_ms *shell);
 int			path_is_given(char *full_cmd);
 char		**find_paths(t_envlst *environ);
 char		*get_cmd(char *cmd, char **paths);
+void		execute(t_ms *shell);
+void		redirect(t_ms *shell, t_ast *ast);
 
 /*Test functions (to remove)*/
 void		print_token_lst(t_ms *shell);
