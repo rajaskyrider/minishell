@@ -6,23 +6,20 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 15:36:02 by tle-moel          #+#    #+#             */
-/*   Updated: 2024/06/11 11:44:21 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/06/11 15:13:07 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
  void	exec_cmd(char *full_cmd, t_ms *shell)
- {
+{
 	char	**args;
 	char	**paths;
 	char	*tmp;
 
 	if (is_builtin(full_cmd, shell) == 1)
-	{
-		printf("It is a builtin\n");
 		return ;
-	}
 	else if (path_is_given(full_cmd) == 1)
 		return (exec_given_path(full_cmd));
 	else
@@ -32,17 +29,15 @@
 		tmp = args[0];
 		args[0] = get_cmd(args[0], paths);
 		free(tmp);
-		printf("Just before execve\n");
 		execve(args[0], args, shell->env);
 	}
- }
+}
 
 void	exec_given_path(char *full_cmd)
 {
 	char	**args;
 	char	*path;
 	
-	printf("Enter execve\n");
 	args = ft_split(full_cmd, ' ');
 	path = args[0];
 	if (path )
@@ -54,7 +49,6 @@ int		is_builtin(char *full_cmd, t_ms *shell)
 {
 	char	**arg;
 
-	printf("Enter builtin\n");
 	arg = ft_split(full_cmd, ' ');
 	if (ms_strcmp(full_cmd, "echo") == 0)
 		return (ms_echo(arg), 1);
@@ -73,10 +67,7 @@ int		is_builtin(char *full_cmd, t_ms *shell)
 	else if (ms_strcmp(full_cmd, "exit") == 0)
 		return (exit_shell(shell, EXIT_SUCCESS), 1);
 	else
-	{
-		printf("Not a builtin\n");
 		return (0);
-	}
 }
 
 int		path_is_given(char *full_cmd)
