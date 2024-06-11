@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 15:36:02 by tle-moel          #+#    #+#             */
-/*   Updated: 2024/06/11 10:27:15 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/06/11 10:42:56 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,10 @@
 		return (exec_given_path(full_cmd));
 	else
 	{
-		paths = find_path(shell->environ);
+		paths = find_paths(shell->environ);
 		args = ft_split(full_cmd, ' ');
 		tmp = args[0];
-		args[0] = get_cmd(args[0], paths, args);
+		args[0] = get_cmd(args[0], paths);
 		free(tmp);
 		execve(args[0], args, shell->env);
 	}
@@ -36,7 +36,7 @@
 void	exec_given_path(char *full_cmd)
 {
 	char	**args;
-	char	**path;
+	char	*path;
 	
 	args = ft_split(full_cmd, ' ');
 	path = args[0];
@@ -53,7 +53,7 @@ int		is_builtin(char *full_cmd, t_ms *shell)
 	if (ft_strncmp(full_cmd, "echo ", 5) == 0)
 		return (ms_echo(arg), 1);
 	else if (ft_strncmp(full_cmd, "cd ", 3) == 0)
-		return (ms_cd(shell, arg[1]), 1);
+		return (ms_cd(shell, arg), 1);
 	else if (ft_strncmp(full_cmd, "pwd ", 4) == 0)
 		return (ms_pwd(shell), 1);
 	else if (ft_strncmp(full_cmd, "export ", 7) == 0)
@@ -98,7 +98,7 @@ char	**find_paths(t_envlst *environ)
 	return (paths);
 }
 
-char	*get_cmd(char *cmd, char **paths, char **args)
+char	*get_cmd(char *cmd, char **paths)
 {
 	int		i;
 	char	*path;
