@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 15:36:02 by tle-moel          #+#    #+#             */
-/*   Updated: 2024/06/11 16:45:39 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/06/12 11:29:02 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,20 +17,27 @@
 	char	**args;
 	char	**paths;
 	char	*tmp;
+	pid_t	pid;
+	int		status;
 
 	if (is_builtin(full_cmd, shell) == 1)
 		return ;
-	else if (path_is_given(full_cmd) == 1)
-		return (exec_given_path(full_cmd, shell));
-	else
+	pid = fork();
+	if (pid == 0)
 	{
-		paths = find_paths(shell->environ);
-		args = ft_split(full_cmd, ' ');
-		tmp = args[0];
-		args[0] = get_cmd(args[0], paths);
-		free(tmp);
-		execve(args[0], args, shell->env);
+		if (path_is_given(full_cmd) == 1)
+			return (exec_given_path(full_cmd, shell));
+		else
+		{
+			paths = find_paths(shell->environ);
+			args = ft_split(full_cmd, ' ');
+			tmp = args[0];
+			args[0] = get_cmd(args[0], paths);
+			free(tmp);
+			execve(args[0], args, shell->env);
+		}
 	}
+	waitpid(pid, &status, 0);
 }
 
 void	exec_given_path(char *full_cmd, t_ms *shell)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
+/*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 09:25:09 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/11 16:55:18 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/06/12 10:50:13 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ void	parser(t_ms *shell)
 	check_cmd(shell);
 	print_token_lst(shell);
 	combine_node(shell);
+	printf("\n");
 	print_token_lst(shell);
 	check_reorder(shell);
 	shell->ast = precedence_climbing(shell, &ptr, 0);
