@@ -6,11 +6,26 @@
 /*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 15:26:17 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/07 10:44:27 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/06/12 16:04:05 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	concat_io(t_token *new, t_token *old)
+{
+	t_io	*ptr;
+
+	ptr = new->io;
+	if (!ptr)
+	{
+		new->io = old->io;
+		return ;
+	}
+	while(ptr->next)
+		ptr = ptr->next;
+	ptr->next = old->io;
+}
 
 void	concat_node(t_token *tkn, t_ms *shell)
 {
@@ -28,6 +43,8 @@ void	concat_node(t_token *tkn, t_ms *shell)
 	ft_strlcat(result, ptr->next->value, len);
 	free(ptr->value);
 	ptr->value = result;
+	if (ptr->next->io)
+		concat_io(ptr, ptr->next);
 	delete_token(&(ptr->next));
 }
 

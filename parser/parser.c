@@ -6,7 +6,7 @@
 /*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 09:25:09 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/12 15:45:07 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/06/12 16:05:38 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,6 @@ void	parser(t_ms *shell)
 	shell->ast = precedence_climbing(shell, &ptr, 0);
 	printf("Tree created\n");
 	print_ast(shell->ast, 0);
-	printf("here\n");
-	printf("redirect :%s\n", shell->ast->io->value);
+	//printf("here\n");
+	//printf("redirect :%s \t %s\n", shell->ast->io->value, shell->ast->io->next->value);
 }
