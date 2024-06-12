@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 09:25:09 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/12 10:50:13 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/06/12 15:45:07 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,13 +60,21 @@ void	parser(t_ms *shell)
 {
 	t_token	*ptr;
 
-	ptr = shell->token_lst;
 	check_cmd(shell);
+	printf("Check done\n");
+	deal_io(shell);
+	printf("IO dealt\n");
 	print_token_lst(shell);
 	combine_node(shell);
+	printf("Combined\n");
 	printf("\n");
 	print_token_lst(shell);
+	printf("Starting Tree\n");
 	check_reorder(shell);
+	ptr = shell->token_lst;
 	shell->ast = precedence_climbing(shell, &ptr, 0);
+	printf("Tree created\n");
 	print_ast(shell->ast, 0);
+	printf("here\n");
+	printf("redirect :%s\n", shell->ast->io->value);
 }
