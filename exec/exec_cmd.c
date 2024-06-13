@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
+/*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 15:36:02 by tle-moel          #+#    #+#             */
-/*   Updated: 2024/06/12 15:54:59 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/06/12 16:33:34 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,27 +17,20 @@
 	char	**args;
 	char	**paths;
 	char	*tmp;
-	pid_t	pid;
-	int		status;
 
 	if (is_builtin(full_cmd, shell) == 1)
 		return ;
-	pid = fork();
-	if (pid == 0)
+	if (path_is_given(full_cmd) == 1)
+		return (exec_given_path(full_cmd, shell));
+	else
 	{
-		if (path_is_given(full_cmd) == 1)
-			return (exec_given_path(full_cmd, shell));
-		else
-		{
-			paths = find_paths(shell->environ);
-			args = ft_split(full_cmd, ' ');
-			tmp = args[0];
-			args[0] = get_cmd(args[0], paths);
-			free(tmp);
-			execve(args[0], args, shell->env);
-		}
+		paths = find_paths(shell->environ);
+		args = ft_split(full_cmd, ' ');
+		tmp = args[0];
+		args[0] = get_cmd(args[0], paths);
+		free(tmp);
+		execve(args[0], args, shell->env);
 	}
-	waitpid(pid, &status, 0);
 }
 
 void	exec_given_path(char *full_cmd, t_ms *shell)
