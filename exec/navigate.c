@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   navigate.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 17:34:08 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/12 17:32:57 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/06/13 11:01:59 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,19 +18,23 @@ void	navigate(t_ast **ast, t_ms **shell)
 		return ;
 	if ((*ast)->left->type == T_OPERATOR)
 		navigate(&(*ast)->left, shell);
-	if ((*ast)->right->type == T_OPERATOR)
-		navigate(&(*ast)->right, shell);
-	if (ms_isredirect((*ast)->token_type) == 1)
-		redirect(shell, *ast);
-	else if ((*ast)->token_type == T_PIPE)
+	if ((*ast)->token_type == T_PIPE)
 	{
 		ft_printf("Code for pipe under construction\n");
-		exec_pipe(*ast, shell);
+		//exec_pipe(*ast, shell);
 	}
 	else if ((*ast)->token_type == T_AND_IF)
+	{
 		ft_printf("Code for AND under construction\n");
+		if ((*ast)->right->type == T_OPERATOR)
+			navigate(&(*ast)->right, shell);
+	}
 	else if ((*ast)->token_type == T_OR_IF)
+	{
 		ft_printf("Code for OR under construction\n");
+		if ((*ast)->right->type == T_OPERATOR)
+			navigate(&(*ast)->right, shell);
+	}
 }
 
 void	execute(t_ms *shell)
@@ -43,7 +47,7 @@ void	execute(t_ms *shell)
 	else
 		exec_cmd(shell->ast->value, shell);
 }
-void	exec_pipe(t_ast *ast, char *cmd, t_ms **shell)
+/*void	exec_pipe(t_ast *ast, char *cmd, t_ms **shell)
 {
 	int		pip[2];
 	pid_t	pid;
@@ -65,4 +69,4 @@ void	exec_pipe(t_ast *ast, char *cmd, t_ms **shell)
 	}
 	close(pip[1]);
 	pip[0];
-}
+}*/
