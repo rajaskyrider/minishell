@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 14:42:50 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/13 11:20:39 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/06/13 13:06:14 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <sys/wait.h>
+# include <dirent.h>
 
 typedef enum e_token_type
 {
@@ -159,6 +160,7 @@ char		**find_paths(t_envlst *environ);
 char		*get_cmd(char *cmd, char **paths);
 void		execute(t_ms *shell);
 void		redirect(t_ms *shell, t_ast *ast);
+char		*glob(char *pattern, t_ms *shell);
 
 /*Test functions (to remove)*/
 void		print_token_lst(t_ms *shell);
