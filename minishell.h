@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 14:42:50 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/12 16:33:36 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/06/13 11:20:39 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ typedef struct s_ms
 	t_envlst	*environ;
 	int			error;
 	int			status;
+	int			pip[2];
 }	t_ms;
 
 void		readprompt(t_ms *shell, char *new_cmd);

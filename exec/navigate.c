@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 17:34:08 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/12 17:32:57 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/06/13 11:48:37 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@ void	navigate(t_ast **ast, t_ms **shell)
 		navigate(&(*ast)->left, shell);
 	if ((*ast)->right->type == T_OPERATOR)
 		navigate(&(*ast)->right, shell);
-	if (ms_isredirect((*ast)->token_type) == 1)
-		redirect(shell, *ast);
 	else if ((*ast)->token_type == T_PIPE)
 	{
 		ft_printf("Code for pipe under construction\n");
@@ -43,26 +41,45 @@ void	execute(t_ms *shell)
 	else
 		exec_cmd(shell->ast->value, shell);
 }
-void	exec_pipe(t_ast *ast, char *cmd, t_ms **shell)
+void	exec_pipe(t_ast *ast, t_ms **shell)
 {
-	int		pip[2];
+	int		new_pip[2];
 	pid_t	pid;
 
-	pipe(pip);
-	if ((*shell)->pip)
+	if (pipe(new_pip) == -1)
+		exit(EXIT_FAILURE);
+	if (ast->left->token_type == T_WORD)
 	{
-		dup2(pip[0], STDIN_FILENO);
-		dup2(pip[1], STDOUT_FILENO);
+		pid = fork();
+		if (pid == 0)
+		{
+			dup2(new_pip[1], STDOUT_FILENO);
+			close(new_pip[0]);
+			close(new_pip[1]);
+			exec_cmd(ast->left->value, *shell);
+			exit(EXIT_FAILURE);
+		}
 	}
+	waitpid(pid, NULL, 0);
+	close(new_pip[1]);
+	(*shell)->pip[0] = new_pip[0];
+	close(new_pip[0]);
+	if (pipe(new_pip) == -1)
+		exit(EXIT_FAILURE);
 	pid = fork();
 	if (pid == 0)
 	{
-		close(pip[0]);
-		//dup2(pip[1], STDOUT_FILENO);
-		exec_cmd(cmd, *shell);
-		close(pip[1]);
-		exit;
+		dup2((*shell)->pip[0], STDIN_FILENO);
+		close((*shell)->pip[0]);
+		close((*shell)->pip[1]);
+		dup2(new_pip[1], STDOUT_FILENO);
+		close(new_pip[0]);
+		close(new_pip[1]);
+		exec_cmd(ast->right->value, *shell);
+		exit(EXIT_FAILURE);
 	}
-	close(pip[1]);
-	pip[0];
+	waitpid(pid, NULL, 0);
+	close(new_pip[1]);
+	(*shell)->pip[0] = new_pip[0];
+	close(new_pip[0]);
 }
