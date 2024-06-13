@@ -1,1 +1,19 @@
-hi
+total 44
+drwxr-xr-x 2 tle-moel 2024_luxembourg  107 Jun 11 16:03 builtin
+-rw-r--r-- 1 tle-moel 2024_luxembourg 2063 Jun 11 17:32 clean.c
+drwxr-xr-x 2 tle-moel 2024_luxembourg   60 Jun 12 15:46 doesn't work
+drwxr-xr-x 2 tle-moel 2024_luxembourg   74 Jun 13 13:02 exec
+-rw-r--r-- 1 tle-moel 2024_luxembourg    0 Jun 13 13:48 in
+drwxr-xr-x 2 tle-moel 2024_luxembourg 4096 Jun  4 17:06 libft
+-rw-r--r-- 1 tle-moel 2024_luxembourg 1756 Jun 13 09:42 main.c
+-rw-r--r-- 1 tle-moel 2024_luxembourg 2507 Jun 13 13:02 Makefile
+-rw-r--r-- 1 tle-moel 2024_luxembourg 5122 Jun 13 13:06 minishell.h
+drwxr-xr-x 2 tle-moel 2024_luxembourg  103 Jun 12 16:08 parser
+-rw-r--r-- 1 tle-moel 2024_luxembourg 1518 Jun 13 11:49 prompt.c
+-rw-r--r-- 1 tle-moel 2024_luxembourg    9 Jun 10 11:09 res
+drwxr-xr-x 2 tle-moel 2024_luxembourg   23 Jun 11 16:26 script_folder
+-rwxr-xr-x 1 tle-moel 2024_luxembourg  147 Jun 11 16:19 script.sh
+drwxr-xr-x 2 tle-moel 2024_luxembourg  151 Jun 13 13:02 test
+drwxr-xr-x 2 tle-moel 2024_luxembourg   97 Jun  7 09:18 tokenizer
+-rw-r--r-- 1 tle-moel 2024_luxembourg 1700 Jun 11 17:32 utils.c
+-rw-r--r-- 1 tle-moel 2024_luxembourg 1375 Jun 11 09:58 validation.c

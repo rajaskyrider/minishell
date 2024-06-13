@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 14:42:50 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/13 13:06:14 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/06/13 18:06:44 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <readline/history.h>
 # include <sys/wait.h>
 # include <dirent.h>
+# include <fcntl.h>
 
 typedef enum e_token_type
 {
@@ -92,6 +93,8 @@ typedef struct s_ms
 	int			error;
 	int			status;
 	int			pip[2];
+	int			io_in;
+	int			io_out;
 }	t_ms;
 
 void		readprompt(t_ms *shell, char *new_cmd);

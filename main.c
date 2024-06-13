@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 14:45:40 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/13 09:42:23 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/06/13 15:17:58 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ void	init_shell(t_ms *shell, char **env)
 	shell->error = 0;
 	shell->pip[0] = -1;
 	shell->pip[1] = -1;
+	shell->io_in = -1;
+	shell->io_out = -1;
 }
 
 /// @brief Exit the shell by freeing all allocated memory, 
