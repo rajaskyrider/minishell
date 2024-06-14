@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 17:34:08 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/14 14:14:32 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/06/14 14:47:33 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ void	execute(t_ms *shell)
 		navigate(&ast, &shell);
 	else
 		exec_cmd(shell->ast->value, shell, 0);
-	//print the
 }
 void	navigate(t_ast **ast, t_ms **shell)
 {
@@ -53,10 +52,23 @@ void	exec_pipe(t_ast *ast, t_ms **shell)
 	int		pip[2];
 	pid_t	pid;
 
-	if (pipe(new_pip) == -1)
+	if (pipe(pip) == -1)
 		exit(EXIT_FAILURE);
 	if (ast->left->token_type == T_WORD)
-		exec_left_pipe(ast, shell, &new_pip);
+	{
+		//exec_left_pipe(ast, shell, &new_pip);
+		pid = fork();
+		if (pid == 0)
+		{
+			close((*shell)->shell_pip[0]);
+			close((*shell)->shell_pip[1]);
+			close(pip[0]);
+			dup2(pip[1], STDOUT_FILENO);
+			close(pip[1]);
+			exec_cmd(ast->left->value, *shell, 1);
+		}
+		waitpid(pid, NULL, 0);
+	}
 
 	close(new_pip[1]);
 	(*shell)->pip[0] = new_pip[0];

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
+/*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 14:42:50 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/14 11:58:10 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/06/14 16:55:10 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,6 +167,8 @@ int			glob(char **cmd, t_ms *shell, int start);
 void		check_redirection(t_ast *ast, t_ms **shell);
 void		ms_pipe(t_ast *ast, t_ms **shell);
 void		check_here_doc(char *limiter, int std_in, int fd_out);
+void	close_pipe(int pip[2]);
+
 
 /*Test functions (to remove)*/
 void		print_token_lst(t_ms *shell);

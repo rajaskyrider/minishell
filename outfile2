@@ -6,10 +6,14 @@ in
 libft
 main.c
 Makefile
+minishell
 minishell.h
 out
 out1
 out2
+outfile
+outfile2
+outfol
 parser
 prompt.c
 res

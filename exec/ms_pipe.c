@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_pipe.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
+/*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 08:12:37 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/14 14:41:41 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/06/14 16:27:24 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,12 @@ void	setup_pipe(int pip[2], t_ms **shell)
 		print_error(*shell, "Error creating pipe");
 }
 
-void	close_pipe(int pip1[2])
+void	close_pipe(int pip[2])
 {
-	close(pip1[0]);
-	close(pip1[1]);
+	if (pip[0])
+		close(pip[0]);
+	if (pip[1])
+		close(pip[1]);
 }
 
 void	exec_pipeleft(t_ast *ast, t_ms **shell, int pip[2])
@@ -31,15 +33,19 @@ void	exec_pipeleft(t_ast *ast, t_ms **shell, int pip[2])
 	pid = fork();
 	if (pid == 0)
 	{
-		dup2((*shell)->pip[0], STDIN_FILENO);
-		if (ast->left->io)
-			check_redirection(ast->left, shell);
-		else
-			dup2(pip[1], STDOUT_FILENO);
+		dup2(pip[1], STDOUT_FILENO);
+		if (ast->io)
+		{
+			check_redirection(ast, shell);
+			if ((*shell)->io_in != -1)
+				dup2((*shell)->io_in, STDIN_FILENO);
+			if ((*shell)->io_out != -1)
+				dup2((*shell)->io_out, STDOUT_FILENO);
+		}
 		close_pipe(pip);
 		close_pipe((*shell)->pip);
-		exec_cmd(ast->left->value, *shell, 1);
-		exit (EXIT_SUCCESS);
+		exec_cmd(ast->value, *shell, 1);
+		exit (EXIT_FAILURE);
 	}
 	else if (pid < 0)
 		print_error(*shell, "Fork failed");
@@ -48,25 +54,20 @@ void	exec_pipeleft(t_ast *ast, t_ms **shell, int pip[2])
 
 void	copy_pipe(t_ms **shell, int pip[2])
 {
-	pid_t	pid;
 	char	*line;
 
-	pid = fork();
-	if (pid == 0)
+	line = get_next_line((*shell)->pip[0]);
+	if (line != NULL)
 	{
-		dup2(pip[1], STDOUT_FILENO);
-		close_pipe(pip);
-		line = get_next_line((*shell)->pip[0]);
-		write(STDOUT_FILENO, line, ft_strlen(line));
-		free(line);
-		close_pipe((*shell)->pip);
-		exit (EXIT_SUCCESS);
+		while (line != NULL)
+		{
+			write(pip[1], line, ft_strlen(line));
+			free(line);
+			line = get_next_line((*shell)->pip[0]);
+		}
 	}
-	else if (pid < 0)
-		print_error(*shell, "Fork failed");
-	waitpid(pid, NULL, 0);	
-	close_pipe((*shell)->pip);
-	setup_pipe((*shell)->pip, shell);
+	else
+		dup2(STDIN_FILENO, pip[0]);
 }
 
 void	exec_piperight(t_ast *ast, t_ms **shell, int pip[2])
@@ -79,11 +80,17 @@ void	exec_piperight(t_ast *ast, t_ms **shell, int pip[2])
 		dup2(pip[0], STDIN_FILENO);
 		close_pipe(pip);
 		dup2((*shell)->pip[1], STDOUT_FILENO);
-		if (ast->right->io)
-			check_redirection(ast->right, shell);
+		if (ast->io)
+		{
+			check_redirection(ast, shell);
+			if ((*shell)->io_in != -1)
+				dup2((*shell)->io_in, STDIN_FILENO);
+			if ((*shell)->io_out != -1)
+				dup2((*shell)->io_out, STDOUT_FILENO);
+		}
 		close_pipe((*shell)->pip);
-		exec_cmd(ast->right->value, *shell, 1);
-		exit (EXIT_SUCCESS);
+		exec_cmd(ast->value, *shell, 1);
+		exit (EXIT_FAILURE);
 	}
 	else if (pid < 0)
 		print_error(*shell, "Fork failed");
@@ -95,13 +102,11 @@ void	ms_pipe(t_ast *ast, t_ms **shell)
 	int		pip[2];
 
 	setup_pipe(pip, shell);
-	if (ast->left->type == T_OPERAND)
-		exec_pipeleft(ast, shell, pip);
+	if (ast->left->token_type == T_WORD)
+		exec_pipeleft(ast->left, shell, pip);
 	else
-	{
 		copy_pipe(shell, pip);
-	}
 	close(pip[1]);
-	exec_piperight(ast, shell, pip);
+	exec_piperight(ast->right, shell, pip);
 	close_pipe(pip);
 }

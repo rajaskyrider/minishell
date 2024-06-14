@@ -3,37 +3,61 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
+/*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 15:36:02 by tle-moel          #+#    #+#             */
-/*   Updated: 2024/06/14 14:40:31 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/06/14 16:48:26 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
- void	exec_cmd(char *full_cmd, t_ms *shell, int flag)
+ void	exec_cmd(char *full_cmd, t_ms *shell, int piped)
 {
 	char	**args;
 	char	**paths;
 	char	*tmp;
+	int		pid;
+	int		status;
 
-	(void)flag;
 	if (is_builtin(full_cmd, shell) == 1)
-		return ;
-	if (path_is_given(full_cmd) == 1)
-		return (exec_given_path(full_cmd, shell));
+	{
+		if (piped == 0)
+			return ;
+		else
+			exit(EXIT_SUCCESS);
+	}
+	if (piped == 0)
+	{
+		pid = fork();
+		if (pid == 0)
+		{
+			if (path_is_given(full_cmd) == 1)
+				return (exec_given_path(full_cmd, shell));
+			else
+			{
+				paths = find_paths(shell->environ);
+				args = ft_split(full_cmd, ' ');
+				tmp = args[0];
+				args[0] = get_cmd(args[0], paths);
+				free(tmp);
+				execve(args[0], args, shell->env);
+			}
+		}
+		waitpid(pid, &status, 0);
+	}
 	else
 	{
-		paths = find_paths(shell->environ);
-		args = ft_split(full_cmd, ' ');
-		tmp = args[0];
-		args[0] = get_cmd(args[0], paths);
-		free(tmp);
-		if (execve(args[0], args, shell->env) == -1)
+		if (path_is_given(full_cmd) == 1)
+			return (exec_given_path(full_cmd, shell));
+		else
 		{
-			perror("execve failed");
-   			exit(EXIT_FAILURE);
+			paths = find_paths(shell->environ);
+			args = ft_split(full_cmd, ' ');
+			tmp = args[0];
+			args[0] = get_cmd(args[0], paths);
+			free(tmp);
+			execve(args[0], args, shell->env);
 		}
 	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   navigate.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
+/*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 17:34:08 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/14 14:35:48 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/06/14 17:06:32 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,24 +70,34 @@ void	navigate(t_ast **ast, t_ms **shell)
 void	execute(t_ms *shell)
 {
 	t_ast *ast;
+	char 	*line;
 
 	ast = shell->ast;
 	if (pipe(shell->pip) == -1)
 		print_error(shell, "Error creating pipe");
 	if (ast->type == T_OPERATOR)
+	{
+		ft_putstr_fd("Enter navigate\n", 2);
 		navigate(&ast, &shell);
+		close((shell)->pip[1]);
+		line = get_next_line(shell->pip[0]);
+		if (line != NULL)
+		{
+			while (line != NULL)
+			{
+				write(STDOUT_FILENO, line, ft_strlen(line));
+				free(line);
+				line = get_next_line(shell->pip[0]);
+			}
+		}
+		close((shell)->pip[0]);
+	}
 	else
+	{
+		ft_putstr_fd("Enter simple cmd\n", 2);
+		close_pipe(shell->pip);
 		exec_cmd(shell->ast->value, shell, 0);
-	close((shell)->pip[1]);
-	char 	buffer[128];
-	ssize_t num_bytes_read = read(shell->pip[0], buffer, sizeof(buffer) - 1);
-	printf("Number read: %zd\n", num_bytes_read);
-    if (num_bytes_read == -1) {
-        perror("read");
-        exit(EXIT_FAILURE);
-    }
-	buffer[num_bytes_read] = '\0';	
-	printf("Read from pipe: %s\n", buffer);
+	}
 	//print the
 }
 /*void	exec_pipe(t_ast *ast, t_ms **shell)
@@ -149,46 +159,35 @@ void	check_redirection(t_ast *ast, t_ms **shell)
 	int		fd;
 	t_io	*ptr;
 
-	if (ast->io != NULL)
+	ptr = ast->io;
+	while (ptr)
 	{
-		ptr = ast->io;
-		while (ptr)
+		if (ptr->type == T_LESS)
 		{
-			if (ptr->type == T_LESS)
-			{
-				fd = open(ptr->next->value, O_RDONLY);
-				if (fd == -1)
-				{
-					perror("Error fd in");
-					fd = open("/dev/null", O_RDONLY);
-					(*shell)->io_in = fd;
-				}
-			}
-			else if (ptr->type == T_GREAT)
-			{
-				fd = open(ptr->next->value, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-				if (fd == -1)
-				{
-					perror("Error fd out");
-					exit (EXIT_FAILURE);
-					(*shell)->io_out = fd;
-				}
-
-			}
-			else if (ptr->type == T_DGREAT)
-			{
-				fd = open(ptr->next->value, O_WRONLY | O_CREAT | O_APPEND, 0644);
-				if (fd == -1)
-				{
-					perror("Erro fd out append");
-					exit (EXIT_FAILURE);
-					(*shell)->io_out = fd;
-				}
-			}
-			else if (ptr->type == T_DLESS)
-				check_here_doc(ptr->next->value, 0, (*shell)->io_in);
-			ptr = ptr->next;
+			fd = open(ptr->value, O_RDONLY);
+			if (fd == -1)
+				fd = open("/dev/null", O_RDONLY);
+			else
+				(*shell)->io_in = fd;
 		}
+		else if (ptr->type == T_GREAT)
+		{
+			fd = open(ptr->value, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+			if (fd == -1)
+				exit (EXIT_FAILURE);	
+			(*shell)->io_out = fd;
+
+		}
+		else if (ptr->type == T_DGREAT)
+		{
+			fd = open(ptr->value, O_WRONLY | O_CREAT | O_APPEND, 0644);
+			if (fd == -1)
+				exit (EXIT_FAILURE);
+			(*shell)->io_out = fd;
+		}
+		else if (ptr->type == T_DLESS)
+			check_here_doc(ptr->value, 0, (*shell)->io_in);
+		ptr = ptr->next;
 	}
 }
 void	check_here_doc(char *limiter, int std_in, int fd_out)
@@ -204,6 +203,7 @@ void	check_here_doc(char *limiter, int std_in, int fd_out)
 		return ;
 	while (!(ft_strncmp(line, limiter, len) == 0 && line[len] == '\n'))
 	{
+		ft_putstr_fd(line, 2);
 		ft_putstr_fd(line, fd_out);
 		free(line);
 		line = read_line(&buffer, std_in);
