@@ -3,14 +3,45 @@
 /*                                                        :::      ::::::::   */
 /*   navigate.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 17:34:08 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/13 15:52:08 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/06/14 14:35:48 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static char	*read_line(char **buffer, int std_in)
+{
+	int		i;
+	int		b_read;
+	char	*curr_line;
+
+	i = 0;
+	*buffer = malloc(BUFFER_SIZE + 1);
+	if (*buffer == NULL)
+		return (NULL);
+	b_read = read(std_in, *buffer, BUFFER_SIZE);
+	if (b_read <= 0)
+	{
+		free(*buffer);
+		return (NULL);
+	}
+	(*buffer)[b_read] = '\0';
+	while ((*buffer)[i] != '\n')
+		i++;
+	curr_line = malloc(i + 2);
+	if (curr_line)
+	{
+		free(*buffer);
+		return (NULL);
+	}
+	ft_strlcpy(curr_line, *buffer, i + 2);
+	free(*buffer);
+	*buffer = NULL;
+	return (curr_line);
+}
 
 void	navigate(t_ast **ast, t_ms **shell)
 {
@@ -20,20 +51,19 @@ void	navigate(t_ast **ast, t_ms **shell)
 		navigate(&(*ast)->left, shell);
 	if ((*ast)->token_type == T_PIPE)
 	{
-		ft_printf("Code for pipe under construction\n");
-		exec_pipe(*ast, shell);
+		ms_pipe(*ast, shell);
 	}
 	else if ((*ast)->token_type == T_AND_IF)
 	{
 		ft_printf("Code for AND under construction\n");
-		if ((*ast)->right->type == T_OPERATOR)
-			navigate(&(*ast)->right, shell);
+		//if ((*ast)->right->type == T_OPERATOR)
+		//	navigate(&(*ast)->right, shell);
 	}
 	else if ((*ast)->token_type == T_OR_IF)
 	{
 		ft_printf("Code for OR under construction\n");
-		if ((*ast)->right->type == T_OPERATOR)
-			navigate(&(*ast)->right, shell);
+		//if ((*ast)->right->type == T_OPERATOR)
+		//	navigate(&(*ast)->right, shell);
 	}
 }
 
@@ -42,13 +72,25 @@ void	execute(t_ms *shell)
 	t_ast *ast;
 
 	ast = shell->ast;
+	if (pipe(shell->pip) == -1)
+		print_error(shell, "Error creating pipe");
 	if (ast->type == T_OPERATOR)
 		navigate(&ast, &shell);
 	else
-		exec_cmd(shell->ast->value, shell);
+		exec_cmd(shell->ast->value, shell, 0);
+	close((shell)->pip[1]);
+	char 	buffer[128];
+	ssize_t num_bytes_read = read(shell->pip[0], buffer, sizeof(buffer) - 1);
+	printf("Number read: %zd\n", num_bytes_read);
+    if (num_bytes_read == -1) {
+        perror("read");
+        exit(EXIT_FAILURE);
+    }
+	buffer[num_bytes_read] = '\0';	
+	printf("Read from pipe: %s\n", buffer);
 	//print the
 }
-void	exec_pipe(t_ast *ast, t_ms **shell)
+/*void	exec_pipe(t_ast *ast, t_ms **shell)
 {
 	int		new_pip[2];
 	pid_t	pid;
@@ -100,21 +142,16 @@ void	exec_left_pipe(t_ast *ast, t_ms **shell, int (*new_pip)[2])
 		exit(EXIT_FAILURE);
 	}
 	waitpid(pid, NULL, 0);
-}
+}*/
 
 void	check_redirection(t_ast *ast, t_ms **shell)
 {
 	int		fd;
 	t_io	*ptr;
 
-	/*if (ast->left->io == NULL)
+	if (ast->io != NULL)
 	{
-		(*shell)->io_in = -1;
-		(*shell)->io_out = -1;
-	}*/
-	if (ast->left->io != NULL)
-	{
-		ptr = ast->left->io;
+		ptr = ast->io;
 		while (ptr)
 		{
 			if (ptr->type == T_LESS)
@@ -133,7 +170,7 @@ void	check_redirection(t_ast *ast, t_ms **shell)
 				if (fd == -1)
 				{
 					perror("Error fd out");
-					exit;
+					exit (EXIT_FAILURE);
 					(*shell)->io_out = fd;
 				}
 
@@ -144,7 +181,7 @@ void	check_redirection(t_ast *ast, t_ms **shell)
 				if (fd == -1)
 				{
 					perror("Erro fd out append");
-					exit;
+					exit (EXIT_FAILURE);
 					(*shell)->io_out = fd;
 				}
 			}
@@ -176,33 +213,4 @@ void	check_here_doc(char *limiter, int std_in, int fd_out)
 	free(line);
 }
 
-char	*read_line(char **buffer, int std_in)
-{
-	int		i;
-	int		b_read;
-	char	*curr_line;
 
-	i = 0;
-	*buffer = malloc(BUFFER_SIZE + 1);
-	if (*buffer == NULL)
-		return (NULL);
-	b_read = read(std_in, *buffer, BUFFER_SIZE);
-	if (b_read <= 0)
-	{
-		free(*buffer);
-		return (NULL);
-	}
-	(*buffer)[b_read] = '\0';
-	while ((*buffer)[i] != '\n')
-		i++;
-	curr_line = malloc(i + 2);
-	if (curr_line)
-	{
-		free(*buffer);
-		return (NULL);
-	}
-	ft_strlcpy(curr_line, *buffer, i + 2);
-	free(*buffer);
-	*buffer = NULL;
-	return (curr_line);
-}

@@ -6,7 +6,7 @@
 /*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 11:07:03 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/13 17:14:59 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/06/14 09:14:10 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,9 +120,10 @@ void	expandcmd(char *cmd, t_ms *shell)
 			}
 		}
 		else if (cmd[i] && cmd[i] == '*')
-			i = glob(*cmd, shell, i);
+			i = glob(&cmd, shell, i);
 		else if (cmd[i] && cmd[i] == '$')
-			deal_dollar();
+			//deal_dollar();
+			ft_printf("$ under construction");
 		else if (cmd[i])
 			i++;
 	}

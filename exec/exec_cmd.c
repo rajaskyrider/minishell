@@ -3,21 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 15:36:02 by tle-moel          #+#    #+#             */
-/*   Updated: 2024/06/13 15:52:09 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/06/14 14:40:31 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
- void	exec_cmd(char *full_cmd, t_ms *shell)
+ void	exec_cmd(char *full_cmd, t_ms *shell, int flag)
 {
 	char	**args;
 	char	**paths;
 	char	*tmp;
 
+	(void)flag;
 	if (is_builtin(full_cmd, shell) == 1)
 		return ;
 	if (path_is_given(full_cmd) == 1)
@@ -29,7 +30,11 @@
 		tmp = args[0];
 		args[0] = get_cmd(args[0], paths);
 		free(tmp);
-		execve(args[0], args, shell->env);
+		if (execve(args[0], args, shell->env) == -1)
+		{
+			perror("execve failed");
+   			exit(EXIT_FAILURE);
+		}
 	}
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 14:42:50 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/13 18:06:44 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/06/14 11:58:10 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,7 +155,7 @@ void		ms_cd(t_ms *shell, char **path);
 void		update_pwd(t_ms *shell);
 char		*get_path(t_ms *shell);
 void		ms_pwd(t_ms *shell);
-void		exec_cmd(char *full_cmd, t_ms *shell);
+ void		exec_cmd(char *full_cmd, t_ms *shell, int flag);
 void		exec_given_path(char *full_cmd, t_ms *shell);
 int			is_builtin(char *full_cmd, t_ms *shell);
 int			path_is_given(char *full_cmd);
@@ -163,7 +163,10 @@ char		**find_paths(t_envlst *environ);
 char		*get_cmd(char *cmd, char **paths);
 void		execute(t_ms *shell);
 void		redirect(t_ms *shell, t_ast *ast);
-char		*glob(char *pattern, t_ms *shell);
+int			glob(char **cmd, t_ms *shell, int start);
+void		check_redirection(t_ast *ast, t_ms **shell);
+void		ms_pipe(t_ast *ast, t_ms **shell);
+void		check_here_doc(char *limiter, int std_in, int fd_out);
 
 /*Test functions (to remove)*/
 void		print_token_lst(t_ms *shell);

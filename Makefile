@@ -6,7 +6,7 @@
 #    By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/10 15:30:56 by rpandipe          #+#    #+#              #
-#    Updated: 2024/06/13 11:33:44 by rpandipe         ###   ########.fr        #
+#    Updated: 2024/06/14 09:09:32 by rpandipe         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,8 @@ TOKENIZER	= tokenizer/tokenize.c tokenizer/tokenize_handle.c \
 			  tokenizer/tokenize_utils.c tokenizer/tokenize_quote.c
 PARSER		= parser/parser.c parser/parser_utils.c parser/precedence.c \
 			  parser/parser_check.c parser/deal_io.c
-EXEC		= exec/exec_cmd.c exec/navigate.c exec/redirect.c exec/glob.c
+EXEC		= exec/exec_cmd.c exec/navigate.c exec/redirect.c exec/glob.c \
+			  exec/ms_pipe.c
 TEST		= test/test.c
 SRCS		= main.c prompt.c utils.c validation.c clean.c \
 			  $(BUILTIN) \
