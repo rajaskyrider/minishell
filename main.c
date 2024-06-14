@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 14:45:40 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/13 15:17:58 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/06/14 17:50:49 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,5 +51,6 @@ int	main(int argc, char **argv, char **env)
 		cmd = readline("\x1b[35mminishell>\x1b[0m ");
 		if (cmd)
 			readprompt(&shell, cmd);
+		ft_putstr_fd("After reading the prompt\n", 2);
 	}
 }

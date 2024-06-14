@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 15:36:02 by tle-moel          #+#    #+#             */
-/*   Updated: 2024/06/14 16:48:26 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/06/14 17:58:56 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,18 +20,24 @@
 	int		pid;
 	int		status;
 
-	if (is_builtin(full_cmd, shell) == 1)
+	if (is_builtin(full_cmd, shell, piped) == 1)
 	{
 		if (piped == 0)
 			return ;
 		else
 			exit(EXIT_SUCCESS);
 	}
+	ft_putstr_fd("here\n", 2);
 	if (piped == 0)
 	{
 		pid = fork();
 		if (pid == 0)
 		{
+			check_redirection(shell->ast, &shell);
+			if (shell->io_in != -1)
+				dup2(shell->io_in, STDIN_FILENO);
+			if (shell->io_out != -1)
+				dup2(shell->io_out, STDOUT_FILENO);
 			if (path_is_given(full_cmd) == 1)
 				return (exec_given_path(full_cmd, shell));
 			else
@@ -85,10 +91,27 @@ void	exec_given_path(char *full_cmd, t_ms *shell)
 		execve(args[0], args, NULL);
 }
 
-int		is_builtin(char *full_cmd, t_ms *shell)
+int		is_builtin(char *full_cmd, t_ms *shell, int piped)
 {
 	char	**arg;
 
+	ft_putstr_fd("I'm checking if it is a builtin\n", 2);
+	if (piped == 0)
+	{
+		ft_putstr_fd("I'm a simple cmd\n", 2);
+		check_redirection(shell->ast, &shell);
+		if (shell->io_in != -1)
+			dup2(shell->io_in, STDIN_FILENO);
+		if (shell->io_out != -1)
+		{
+			ft_putstr_fd("io_out changed\n", 2);
+			printf("shell->io_out : %d\n", shell->io_out);
+			if (dup2(shell->io_out, STDOUT_FILENO) == -1)
+				ft_putstr_fd("dup2 failed\n", 2);
+		}
+	}
+	if (STDOUT_FILENO == 1)
+		ft_putstr_fd("STD_OUT = 1\n", 2);
 	arg = ft_split(full_cmd, ' ');
 	if (ms_strcmp(full_cmd, "echo") == 0)
 		return (ms_echo(arg), 1);

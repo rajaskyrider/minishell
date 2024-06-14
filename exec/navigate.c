@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 17:34:08 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/14 17:06:32 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/06/14 17:47:37 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,19 @@ void	execute(t_ms *shell)
 		ft_putstr_fd("Enter simple cmd\n", 2);
 		close_pipe(shell->pip);
 		exec_cmd(shell->ast->value, shell, 0);
+		ft_putstr_fd("Finished the cmd\n", 2);
+		dup2(0, STDIN_FILENO);
+		dup2(1, STDOUT_FILENO);
+		if (shell->io_in != -1)
+		{
+			close(shell->io_in);
+			shell->io_in = -1;
+		}
+		if (shell->io_out != -1)
+		{
+			close(shell->io_out);
+			shell->io_out = -1;
+		}
 	}
 	//print the
 }
@@ -123,7 +136,7 @@ void	execute(t_ms *shell)
 		close((*shell)->pip[0]);
 		close((*shell)->pip[1]);
 		dup2(new_pip[1], STDOUT_FILENO);
-		close(new_pip[0]);
+		close(new_pip[0]);shell
 		close(new_pip[1]);
 		exec_cmd(ast->right->value, *shell);
 		exit(EXIT_FAILURE);
@@ -159,11 +172,13 @@ void	check_redirection(t_ast *ast, t_ms **shell)
 	int		fd;
 	t_io	*ptr;
 
+	ft_putstr_fd("Check redirection\n", 2);
 	ptr = ast->io;
 	while (ptr)
 	{
 		if (ptr->type == T_LESS)
 		{
+			ft_putstr_fd("I'm a input redirection\n", 2);
 			fd = open(ptr->value, O_RDONLY);
 			if (fd == -1)
 				fd = open("/dev/null", O_RDONLY);
@@ -172,6 +187,7 @@ void	check_redirection(t_ast *ast, t_ms **shell)
 		}
 		else if (ptr->type == T_GREAT)
 		{
+			ft_putstr_fd("I'm a output redirection\n", 2);
 			fd = open(ptr->value, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 			if (fd == -1)
 				exit (EXIT_FAILURE);	
@@ -180,13 +196,17 @@ void	check_redirection(t_ast *ast, t_ms **shell)
 		}
 		else if (ptr->type == T_DGREAT)
 		{
+			ft_putstr_fd("I'm a append\n", 2);
 			fd = open(ptr->value, O_WRONLY | O_CREAT | O_APPEND, 0644);
 			if (fd == -1)
 				exit (EXIT_FAILURE);
 			(*shell)->io_out = fd;
 		}
 		else if (ptr->type == T_DLESS)
+		{
+			ft_putstr_fd("I'm a heredoc\n", 2);
 			check_here_doc(ptr->value, 0, (*shell)->io_in);
+		}
 		ptr = ptr->next;
 	}
 }
