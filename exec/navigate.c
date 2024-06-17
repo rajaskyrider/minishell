@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 17:34:08 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/14 17:47:37 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/06/17 09:31:33 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,8 +98,8 @@ void	execute(t_ms *shell)
 		close_pipe(shell->pip);
 		exec_cmd(shell->ast->value, shell, 0);
 		ft_putstr_fd("Finished the cmd\n", 2);
-		dup2(0, STDIN_FILENO);
-		dup2(1, STDOUT_FILENO);
+		dup2(shell->std_in, STDIN_FILENO);
+		dup2(shell->std_out, STDOUT_FILENO);
 		if (shell->io_in != -1)
 		{
 			close(shell->io_in);
