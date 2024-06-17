@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 17:34:08 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/17 09:31:33 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/06/17 09:49:39 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,14 +56,14 @@ void	navigate(t_ast **ast, t_ms **shell)
 	else if ((*ast)->token_type == T_AND_IF)
 	{
 		ft_printf("Code for AND under construction\n");
-		//if ((*ast)->right->type == T_OPERATOR)
-		//	navigate(&(*ast)->right, shell);
+		if ((*ast)->right->type == T_OPERATOR)
+			navigate(&(*ast)->right, shell);
 	}
 	else if ((*ast)->token_type == T_OR_IF)
 	{
 		ft_printf("Code for OR under construction\n");
-		//if ((*ast)->right->type == T_OPERATOR)
-		//	navigate(&(*ast)->right, shell);
+		if ((*ast)->right->type == T_OPERATOR)
+			navigate(&(*ast)->right, shell);
 	}
 }
 

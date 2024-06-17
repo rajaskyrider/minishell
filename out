@@ -1,1 +1,21 @@
-hi
+builtin
+clean.c
+doesn't work
+exec
+in
+libft
+main.c
+Makefile
+minishell
+minishell.h
+out
+parser
+pit
+prompt.c
+res
+script_folder
+script.sh
+test
+tokenizer
+utils.c
+validation.c
