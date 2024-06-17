@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   precedence.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
+/*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 09:35:32 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/11 15:13:39 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/06/17 09:42:10 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,14 @@
 int	get_precedence(t_token_type op)
 {
 	if (op == T_O_PARENT || op == T_C_PARENT)
-		return (5);
-	else if (op == T_LESS || op == T_GREAT || op == T_DLESS || op == T_DGREAT)
 		return (4);
-	else if (op == T_PIPE)
+	else if (op == T_LESS || op == T_GREAT || op == T_DLESS || op == T_DGREAT)
 		return (3);
-	else if (op == T_AND_IF)
+	else if (op == T_PIPE)
 		return (2);
-	else if (op == T_OR_IF)
+	else if (op == T_AND_IF)
 		return (1);
-	else if (op == T_WILDCARD)
+	else if (op == T_OR_IF)
 		return (0);
 	else
 		return (-1);

@@ -6,7 +6,7 @@
 /*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 14:42:50 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/17 10:16:19 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/06/17 10:36:39 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,9 @@ typedef enum e_token_type
 	T_OR_IF,
 	T_O_PARENT,
 	T_C_PARENT,
-	T_DOLLAR,
 	T_EXIT_STATUS,
 	T_SINGLE_QUOTE,
-	T_DOUBLE_QUOTE,
-	T_WILDCARD
+	T_DOUBLE_QUOTE
 }	t_token_type;
 
 typedef struct s_io
@@ -113,7 +111,6 @@ int			handle_parenthesis(t_token **token_lst, char **cmd_line);
 int			handle_subshell(t_token **token_lst, char **cmd_line);
 int			handle_operator(t_token **token_lst, char **cmd_line);
 int			handle_quote(t_token **token_lst, char **cmd_line);
-int			handle_special(t_token **token_lst, char **cmd_line);
 int			handle_word(t_token **token_lst, char **cmd_line);
 void		delete_token(t_token **token);
 void		add_quote_token(t_token **token_lst, char **cmd_line);
