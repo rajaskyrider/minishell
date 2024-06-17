@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 14:42:50 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/17 10:41:19 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/06/17 11:15:40 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,7 +167,7 @@ void		check_redirection(t_ast *ast, t_ms **shell);
 void		ms_pipe(t_ast *ast, t_ms **shell);
 void		check_here_doc(char *limiter, int std_in, int fd_out);
 void		close_pipe(int pip[2]);
-void		expandcmd(char *cmd, t_ms *shell);
+char		*expandcmd(char *cmd, t_ms *shell);
 char		*replace_wildcard(char *cmd, char *matches, int start, t_ms *shell);
 int			deal_dollar(char **cmd, t_ms *shell, int start);
 
