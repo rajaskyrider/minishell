@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 08:12:37 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/14 16:27:24 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/06/17 10:37:14 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	close_pipe(int pip[2])
 void	exec_pipeleft(t_ast *ast, t_ms **shell, int pip[2])
 {
 	pid_t	pid;
+	int		status;
 
 	pid = fork();
 	if (pid == 0)
@@ -49,7 +50,9 @@ void	exec_pipeleft(t_ast *ast, t_ms **shell, int pip[2])
 	}
 	else if (pid < 0)
 		print_error(*shell, "Fork failed");
-	waitpid(pid, NULL, 0);
+	waitpid(pid, &status, 0);
+	if (WIFEXITED(status))
+		(*shell)->lexit_status = WEXITSTATUS(status);
 }
 
 void	copy_pipe(t_ms **shell, int pip[2])
@@ -73,6 +76,7 @@ void	copy_pipe(t_ms **shell, int pip[2])
 void	exec_piperight(t_ast *ast, t_ms **shell, int pip[2])
 {
 	pid_t	pid;
+	int		status;
 
 	pid = fork();
 	if (pid == 0)
@@ -94,7 +98,9 @@ void	exec_piperight(t_ast *ast, t_ms **shell, int pip[2])
 	}
 	else if (pid < 0)
 		print_error(*shell, "Fork failed");
-	waitpid(pid, NULL, 0);
+	waitpid(pid, &status, 0);
+	if (WIFEXITED(status))
+		(*shell)->lexit_status = WEXITSTATUS(status);
 }
 
 void	ms_pipe(t_ast *ast, t_ms **shell)

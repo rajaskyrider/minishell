@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 14:42:50 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/17 09:40:59 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/06/17 10:14:22 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ typedef struct s_ms
 	char		**env;
 	t_envlst	*environ;
 	int			error;
-	int			status;
+	int			lexit_status;
 	int			pip[2];
 	int			io_in;
 	int			io_out;

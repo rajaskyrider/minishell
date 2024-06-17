@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 14:45:40 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/17 09:30:08 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/06/17 10:15:04 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	init_shell(t_ms *shell, char **env)
 	shell->io_out = -1;
 	shell->std_in = dup(STDIN_FILENO);
 	shell->std_out = dup(STDOUT_FILENO);
+	shell->lexit_status = 0;
 }
 
 /// @brief Exit the shell by freeing all allocated memory, 
