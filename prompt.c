@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 15:04:28 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/14 17:49:11 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/06/17 11:19:19 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,10 @@ void	readprompt(t_ms *shell, char *new_cmd)
 	shell->cmd = new_cmd;
 	if (ft_strncmp(shell->cmd, "exit", ft_strlen(shell->cmd)) == 0)
 		exit_shell(shell, EXIT_SUCCESS);
-	tokenize(shell);
-	print_token_lst(shell);
-	parser(shell);
+	if (tokenize(shell) == 0)
+		return ;
+	//print_token_lst(shell);
+	if (parser(shell) == 0)
+		return ;
 	execute(shell);
-	ft_putstr_fd("After execution\n", 2);
-	//printf("%s\n", shell->token_lst->value);
 }

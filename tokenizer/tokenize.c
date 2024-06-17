@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 14:47:49 by tle-moel          #+#    #+#             */
-/*   Updated: 2024/06/17 09:40:14 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/06/17 11:11:30 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,16 @@ t_token	*create_token_lst(char *cmd_line, t_ms *shell)
 	return (token_lst);
 }
 
-void	tokenize(t_ms *shell)
+int	tokenize(t_ms *shell)
 {
 	char	*cmd_line;
 
 	cmd_line = shell->cmd;
 	shell->token_lst = create_token_lst(cmd_line, shell);
 	if (shell->error == 1)
+	{
 		delete_token_lst(&shell->token_lst);
+		return (0);
+	}
+	return (1);
 }
