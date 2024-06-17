@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+         #
+#    By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/10 15:30:56 by rpandipe          #+#    #+#              #
-#    Updated: 2024/06/17 10:19:07 by rpandipe         ###   ########.fr        #
+#    Updated: 2024/06/17 10:44:00 by tle-moel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ TOKENIZER	= tokenizer/tokenize.c tokenizer/tokenize_handle.c \
 			  tokenizer/tokenize_utils.c tokenizer/tokenize_quote.c
 PARSER		= parser/parser.c parser/parser_utils.c parser/precedence.c \
 			  parser/parser_check.c parser/deal_io.c
-EXEC		= exec/exec_cmd.c exec/navigate.c exec/redirect.c exec/glob.c \
+EXEC		= exec/exec_cmd.c exec/navigate.c exec/glob.c \
 			  exec/ms_pipe.c exec/dollar.c
 TEST		= test/test.c
 SRCS		= main.c prompt.c utils.c validation.c clean.c \
