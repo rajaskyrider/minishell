@@ -6,7 +6,7 @@
 /*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 11:07:03 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/14 09:14:10 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/06/17 10:32:52 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ int	glob(char **cmd, t_ms *shell, int start)
 	}
 	closedir(dp);
 	free(pattern);
-	replace_wildcard(*cmd, matches, start, shell);
+	*cmd = replace_wildcard(*cmd, matches, start, shell);
 	end = start + ft_strlen(matches);
 	free(matches);
 	return (end);
@@ -116,14 +116,15 @@ void	expandcmd(char *cmd, t_ms *shell)
 			i++;
 			while (cmd[i] && cmd[i] !='\"')
 			{
+				if (cmd[i] && cmd[i] == '$')
+					i = deal_dollar(&cmd, shell, i);
 				i++;
 			}
 		}
 		else if (cmd[i] && cmd[i] == '*')
 			i = glob(&cmd, shell, i);
 		else if (cmd[i] && cmd[i] == '$')
-			//deal_dollar();
-			ft_printf("$ under construction");
+			i = deal_dollar(&cmd, shell, i);
 		else if (cmd[i])
 			i++;
 	}
