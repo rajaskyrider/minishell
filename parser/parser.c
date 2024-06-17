@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 09:25:09 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/12 16:53:21 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/06/17 11:17:45 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	process_expr(t_ms *shell)
 	}
 }
 
-void	parser(t_ms *shell)
+int		parser(t_ms *shell)
 {
 	t_token	*ptr;
 
@@ -75,6 +75,5 @@ void	parser(t_ms *shell)
 	shell->ast = precedence_climbing(shell, &ptr, 0);
 	printf("Tree created\n");
 	print_ast(shell->ast, 0);
-	//printf("here\n");
-	//printf("redirect :%s \t %s\n", shell->ast->io->value, shell->ast->io->next->value);
+	return (1);
 }

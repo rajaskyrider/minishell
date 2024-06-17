@@ -6,7 +6,7 @@
 /*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 15:36:02 by tle-moel          #+#    #+#             */
-/*   Updated: 2024/06/17 11:16:02 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/06/17 11:41:58 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@
 		else
 			exit(EXIT_SUCCESS);
 	}
-	ft_putstr_fd("here\n", 2);
 	if (piped == 0)
 	{
 		pid = fork();
@@ -54,6 +53,8 @@
 			}
 		}
 		waitpid(pid, &status, 0);
+		if (WIFEXITED(status))
+			shell->lexit_status = WEXITSTATUS(status);
 	}
 	else
 	{
@@ -98,23 +99,14 @@ int		is_builtin(char *full_cmd, t_ms *shell, int piped)
 {
 	char	**arg;
 
-	ft_putstr_fd("I'm checking if it is a builtin\n", 2);
 	if (piped == 0)
 	{
-		ft_putstr_fd("I'm a simple cmd\n", 2);
 		check_redirection(shell->ast, &shell);
 		if (shell->io_in != -1)
 			dup2(shell->io_in, STDIN_FILENO);
 		if (shell->io_out != -1)
-		{
-			ft_putstr_fd("io_out changed\n", 2);
-			printf("shell->io_out : %d\n", shell->io_out);
-			if (dup2(shell->io_out, STDOUT_FILENO) == -1)
-				ft_putstr_fd("dup2 failed\n", 2);
-		}
+			dup2(shell->io_out, STDOUT_FILENO);
 	}
-	if (STDOUT_FILENO == 1)
-		ft_putstr_fd("STD_OUT = 1\n", 2);
 	arg = ft_split(full_cmd, ' ');
 	if (ms_strcmp(full_cmd, "echo") == 0)
 		return (ms_echo(arg), 1);

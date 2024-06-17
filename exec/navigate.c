@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   navigate.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
+/*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 17:34:08 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/17 10:36:09 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/06/17 11:18:42 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,6 @@ void	execute(t_ms *shell)
 		print_error(shell, "Error creating pipe");
 	if (ast->type == T_OPERATOR)
 	{
-		ft_putstr_fd("Enter navigate\n", 2);
 		navigate(&ast, &shell);
 		close((shell)->pip[1]);
 		line = get_next_line(shell->pip[0]);
@@ -94,10 +93,8 @@ void	execute(t_ms *shell)
 	}
 	else
 	{
-		ft_putstr_fd("Enter simple cmd\n", 2);
 		close_pipe(shell->pip);
 		exec_cmd(shell->ast->value, shell, 0);
-		ft_putstr_fd("Finished the cmd\n", 2);
 		dup2(shell->std_in, STDIN_FILENO);
 		dup2(shell->std_out, STDOUT_FILENO);
 		if (shell->io_in != -1)

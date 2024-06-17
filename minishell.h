@@ -6,7 +6,7 @@
 /*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 14:42:50 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/17 11:15:40 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/06/17 11:41:34 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ typedef struct s_ms
 void		readprompt(t_ms *shell, char *new_cmd);
 void		exit_shell(t_ms *shell, int exitcode);
 t_token		*create_token_lst(char *cmd_line, t_ms *shell);
-void		tokenize(t_ms *shell);
+int			tokenize(t_ms *shell);
 int			ms_isspace(char c);
 int			ms_isquote(char c);
 int			ms_isoperator(char *s);
@@ -118,7 +118,7 @@ int			handle_single_quote(t_token **token_lst, char **cmd_line);
 int			handle_double_quote(t_token **token_lst, char **cmd_line);
 void		process_double_quote(t_token *ptr);
 void		exec_replace(char **new_str, char *start, char *end, char *str);
-void		parser(t_ms *shell);
+int			parser(t_ms *shell);
 void		concat_node(t_token *tkn, t_ms *shell);
 void		combine_node(t_ms *shell);
 void		check_reorder(t_ms *shell);
