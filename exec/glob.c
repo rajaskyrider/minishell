@@ -6,7 +6,7 @@
 /*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 11:07:03 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/18 17:59:43 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/06/18 18:06:35 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,5 +141,6 @@ char	*expandcmd(char *cmd, t_ms *shell)
 		else
 			break ;
 	}
+	//printf("cmd : %s\n", cmd);
 	return (cmd);
 }

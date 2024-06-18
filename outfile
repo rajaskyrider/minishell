@@ -1,0 +1,23 @@
+[0m[01;34mbuiltin[0m
+clean.c
+[01;34mdoesn't work[0m
+[01;34mexec[0m
+in
+[01;34mlibft[0m
+main.c
+Makefile
+[01;32mminishell[0m
+minishell.h
+[01;34mminishell_tester[0m
+out
+outfile
+[01;34mparser[0m
+pit
+prompt.c
+res
+[01;34mscript_folder[0m
+[01;32mscript.sh[0m
+[01;34mtest[0m
+[01;34mtokenizer[0m
+utils.c
+validation.c
