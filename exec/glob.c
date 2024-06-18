@@ -6,7 +6,7 @@
 /*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 11:07:03 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/18 10:35:34 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/06/18 11:59:40 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ char	*replace_wildcard(char *cmd, char *matches, int start, t_ms *shell)
 	char	*newcmd;
 
 	end = start;
+	if (!matches)
+		return (cmd);
 	clen = ft_strlen(cmd);
 	mlen = ft_strlen(matches);
 	while (cmd[end] && cmd[end] != ' ')
@@ -127,7 +129,10 @@ char	*expandcmd(char *cmd, t_ms *shell)
 		else if (cmd[i] && cmd[i] == '*')
 			i = glob(&cmd, shell, i);
 		else if (cmd[i] && cmd[i] == '$')
+		{
 			i = deal_dollar(&cmd, shell, i);
+			ft_putstr_fd("out out", 2);
+		}
 		else if (cmd[i])
 			i++;
 	}

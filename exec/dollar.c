@@ -6,7 +6,7 @@
 /*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 09:40:18 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/18 10:36:24 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/06/18 12:00:45 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,29 @@ char	*ms_getenv(char *key, t_ms *shell)
 	elst = shell->environ;
 	while (elst)
 	{
-		if (ft_strncmp(key, elst->key, ft_strlen(elst->key)) == 0)
+		if (ft_strncmp(key, elst->key, ft_strlen(key) + 1) == 0)
 			return (elst->value);
 		elst = elst->next;
 	}
-	return (" ");
+	return (NULL);
+}
+
+int	replace_invalid(char **cmd, int start, int end, t_ms *shell)
+{
+	char	*newcmd;
+	int		len;
+
+	len = ft_strlen(*cmd) - (end - start);
+	newcmd = ft_calloc(len + 1, sizeof(char));
+	if (!newcmd)
+		print_error(shell, "minishell: Memory Allocation Failed");
+	ft_strlcpy(newcmd, *cmd, start + 1);
+	ft_strlcat(newcmd, *cmd + end, len + 1);
+	free (*cmd);
+	printf("%s\n",  newcmd);
+	printf("%d\n",  start);
+	*cmd = newcmd;
+	return (start - 2);
 }
 
 int	deal_dollar(char **cmd, t_ms *shell, int start)
@@ -43,12 +61,16 @@ int	deal_dollar(char **cmd, t_ms *shell, int start)
 	env_val = ms_getenv(pattern, shell);
 	if (env_val)
 		result = ft_strdup(env_val);
-	else
-		result = ft_strdup("");
 	free(pattern);
-	*cmd = replace_wildcard(*cmd, result, start, shell);
-	end = start + ft_strlen(result);
-	free(result);
+	if (result)
+	{
+		*cmd = replace_wildcard(*cmd, result, start, shell);
+		end = start + ft_strlen(result);
+		free(result);
+	}
+	else
+		end = replace_invalid(cmd, start, end, shell);
+	ft_putstr_fd("out out", 2);
 	return (end);
 }
 
