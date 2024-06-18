@@ -6,7 +6,7 @@
 /*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 09:40:18 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/18 12:00:45 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/06/18 18:04:02 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,6 @@ int	replace_invalid(char **cmd, int start, int end, t_ms *shell)
 	ft_strlcpy(newcmd, *cmd, start + 1);
 	ft_strlcat(newcmd, *cmd + end, len + 1);
 	free (*cmd);
-	printf("%s\n",  newcmd);
-	printf("%d\n",  start);
 	*cmd = newcmd;
 	return (start - 2);
 }
@@ -53,31 +51,50 @@ int	deal_dollar(char **cmd, t_ms *shell, int start)
 
 	result = NULL;
 	end = start;
-	while ((*cmd)[end] && (*cmd)[end] != ' ')
+	while ((*cmd)[end] && (*cmd)[end] != ' ' && (*cmd)[end] != '\"')
 		end++;
-	if (end - start == 1)
+	if (start == end)
 		return (end);
-	pattern = ft_substr(*cmd, start + 1, end - start + 1);
+	pattern = ft_substr(*cmd, start, end - start);
 	env_val = ms_getenv(pattern, shell);
 	if (env_val)
 		result = ft_strdup(env_val);
 	free(pattern);
 	if (result)
 	{
-		*cmd = replace_wildcard(*cmd, result, start, shell);
+		*cmd = replace_wildcard(*cmd, result, start - 1, shell);
 		end = start + ft_strlen(result);
 		free(result);
 	}
 	else
-		end = replace_invalid(cmd, start, end, shell);
-	ft_putstr_fd("out out", 2);
+		end = replace_invalid(cmd, start - 1, end, shell);
 	return (end);
 }
-
 
 int find_start(char *cmd, int start)
 {
 	while (start > 0  && cmd[start] != ' ')
 		start--;
 	return (start + 1);
+}
+
+void	remove_quotes(char **cmd, int start, int end)
+{
+	int		len;
+	char	*newcmd;
+	int		i;
+	int		j;
+
+	i = 0;
+	j = 0;
+	len = ft_strlen(*cmd);
+	newcmd = ft_calloc(len - 1, sizeof(char));
+	while ((*cmd)[i])
+	{
+		if (i != start && i != end)
+			newcmd[j++] = (*cmd)[i];
+		i++;
+	}
+	free(*cmd);
+	*cmd = newcmd;
 }

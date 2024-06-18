@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 14:42:11 by tle-moel          #+#    #+#             */
-/*   Updated: 2024/06/14 17:38:59 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/06/18 17:59:10 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	ms_echo(char **arg)
 
 	i = 1;
 	new_line = 1;
-	if (ft_strncmp(arg[i], "-n", 2) == 0)
+	if (arg[i] && ft_strncmp(arg[i], "-n", 2) == 0)
 	{
 		i++;
 		new_line = 0;

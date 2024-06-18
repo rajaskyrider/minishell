@@ -6,7 +6,7 @@
 /*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 11:07:03 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/18 11:59:40 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/06/18 17:59:43 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,38 +103,43 @@ int	glob(char **cmd, t_ms *shell, int start)
 char	*expandcmd(char *cmd, t_ms *shell)
 {
 	int		i;
+	int		start;
+	int		end;
 
 	i = 0;
 	while (cmd[i])
 	{
 		while (cmd[i] && cmd[i] != ' ' && cmd[i] != '\'' \
-				&& cmd[i] != '*' && cmd[i] != '$')
+				&& cmd[i] != '*' && cmd[i] != '$' && cmd[i] != '\"')
 			i++;
 		if (cmd[i] && cmd[i] == '\'')
 		{
-			i++;
+			start = i++;
 			while (cmd[i] && cmd[i] !='\'')
 				i++;
+			end = i--;
+			remove_quotes(&cmd, start, end);
 		}
 		else if (cmd[i] && cmd[i] == '\"')
 		{
-			i++;
+			start = i++;
 			while (cmd[i] && cmd[i] !='\"')
 			{
 				if (cmd[i] && cmd[i] == '$')
-					i = deal_dollar(&cmd, shell, i);
+					i = deal_dollar(&cmd, shell, i + 1);
 				i++;
 			}
+			end = i--;
+			remove_quotes(&cmd, start, end);
 		}
 		else if (cmd[i] && cmd[i] == '*')
 			i = glob(&cmd, shell, i);
 		else if (cmd[i] && cmd[i] == '$')
-		{
-			i = deal_dollar(&cmd, shell, i);
-			ft_putstr_fd("out out", 2);
-		}
+			i = deal_dollar(&cmd, shell, i + 1);
 		else if (cmd[i])
 			i++;
+		else
+			break ;
 	}
 	return (cmd);
 }
