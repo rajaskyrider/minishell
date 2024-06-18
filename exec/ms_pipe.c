@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 08:12:37 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/17 10:37:14 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/06/18 15:41:17 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ void	copy_pipe(t_ms **shell, int pip[2])
 {
 	char	*line;
 
+	close((*shell)->pip[1]);
 	line = get_next_line((*shell)->pip[0]);
 	if (line != NULL)
 	{
@@ -69,8 +70,9 @@ void	copy_pipe(t_ms **shell, int pip[2])
 			line = get_next_line((*shell)->pip[0]);
 		}
 	}
-	else
-		dup2(STDIN_FILENO, pip[0]);
+	close((*shell)->pip[0]);
+	setup_pipe((*shell)->pip, shell);
+	
 }
 
 void	exec_piperight(t_ast *ast, t_ms **shell, int pip[2])
@@ -111,8 +113,14 @@ void	ms_pipe(t_ast *ast, t_ms **shell)
 	if (ast->left->token_type == T_WORD)
 		exec_pipeleft(ast->left, shell, pip);
 	else
+	{
+		ft_putstr_fd("Before copy pipe\n", 2);
 		copy_pipe(shell, pip);
+		ft_putstr_fd("After copy pipe\n", 2);
+
+	}
 	close(pip[1]);
 	exec_piperight(ast->right, shell, pip);
-	close_pipe(pip);
+	ft_putstr_fd("piperight finished\n", 2);
+	close(pip[0]);
 }

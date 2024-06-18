@@ -1,0 +1,10 @@
+Script started on 2024-06-18 17:17:17+02:00 [TERM="xterm-256color" TTY="/dev/pts/1" COLUMNS="-1" LINES="-1"]
+ builtin	 main.c		    output.txt	    test
+ clean.c	 Makefile	    parser	    tokenizer
+"doesn't work"	 minishell	    pit		    typescript
+ exec		 minishell.h	    prompt.c	    utils.c
+ in		 minishell_tester   res		    validation.c
+ libft		 out		    script_folder
+ ls		 outfile	    script.sh
+
+Script done on 2024-06-18 17:17:17+02:00 [COMMAND_EXIT_CODE="0"]

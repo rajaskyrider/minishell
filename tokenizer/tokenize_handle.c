@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 15:09:51 by tle-moel          #+#    #+#             */
-/*   Updated: 2024/06/17 10:47:38 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/06/18 14:18:53 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,11 +95,7 @@ int	handle_word(t_token **token_lst, char **cmd_line)
 		return (0);
 	token->type = T_WORD;
 	i = 0;
-	while (ms_isspace((*cmd_line)[i]) == 0 && \
-			ms_isoperator((*cmd_line) + i) == 0 && \
-			ms_isparenthesis((*cmd_line)[i]) == 0 \
-			&& ms_isquote((*cmd_line)[i]) == 0 && \
-			(*cmd_line)[i] != '\0')
+	while (ms_isspace((*cmd_line)[i]) == 0 && (*cmd_line)[i] != '\0')
 		i++;
 	token->value = ft_substr(*cmd_line, 0, i);
 	add_token_end_lst(token_lst, token);

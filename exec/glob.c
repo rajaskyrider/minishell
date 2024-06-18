@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   glob.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
+/*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 11:07:03 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/18 11:59:40 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/06/18 13:51:23 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,10 +131,11 @@ char	*expandcmd(char *cmd, t_ms *shell)
 		else if (cmd[i] && cmd[i] == '$')
 		{
 			i = deal_dollar(&cmd, shell, i);
-			ft_putstr_fd("out out", 2);
+			//ft_putstr_fd("out out", 2);
 		}
 		else if (cmd[i])
 			i++;
 	}
+	//printf("cmd : %s\n", cmd);
 	return (cmd);
 }
