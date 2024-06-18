@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   precedence.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 09:35:32 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/17 09:42:10 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/06/18 10:45:03 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ t_ast	*create_ast(t_ast_type type, t_token *token, t_ms *shell)
 		exit_shell(shell, EXIT_FAILURE);
 	node->type = type;
 	node->value = NULL;
-	ft_printf("token value %s\n", token->value);
 	if (token->value)
 		node->value = ft_strdup(token->value);
 	node->token_type = token->type;

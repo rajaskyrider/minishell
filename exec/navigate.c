@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   navigate.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 17:34:08 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/17 11:18:42 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/06/18 10:43:25 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,13 +169,11 @@ void	check_redirection(t_ast *ast, t_ms **shell)
 	int		fd;
 	t_io	*ptr;
 
-	ft_putstr_fd("Check redirection\n", 2);
 	ptr = ast->io;
 	while (ptr)
 	{
 		if (ptr->type == T_LESS)
 		{
-			ft_putstr_fd("I'm a input redirection\n", 2);
 			fd = open(ptr->value, O_RDONLY);
 			if (fd == -1)
 				fd = open("/dev/null", O_RDONLY);
@@ -184,7 +182,6 @@ void	check_redirection(t_ast *ast, t_ms **shell)
 		}
 		else if (ptr->type == T_GREAT)
 		{
-			ft_putstr_fd("I'm a output redirection\n", 2);
 			fd = open(ptr->value, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 			if (fd == -1)
 				exit (EXIT_FAILURE);	
@@ -193,7 +190,6 @@ void	check_redirection(t_ast *ast, t_ms **shell)
 		}
 		else if (ptr->type == T_DGREAT)
 		{
-			ft_putstr_fd("I'm a append\n", 2);
 			fd = open(ptr->value, O_WRONLY | O_CREAT | O_APPEND, 0644);
 			if (fd == -1)
 				exit (EXIT_FAILURE);
@@ -201,7 +197,6 @@ void	check_redirection(t_ast *ast, t_ms **shell)
 		}
 		else if (ptr->type == T_DLESS)
 		{
-			ft_putstr_fd("I'm a heredoc\n", 2);
 			check_here_doc(ptr->value, 0, (*shell)->io_in);
 		}
 		ptr = ptr->next;
@@ -213,6 +208,7 @@ void	check_here_doc(char *limiter, int std_in, int fd_out)
 	char	*buffer;
 	int		len;
 
+	(void)fd_out;
 	buffer = NULL;
 	len = ft_strlen(limiter);
 	line = read_line(&buffer, std_in);
@@ -220,8 +216,6 @@ void	check_here_doc(char *limiter, int std_in, int fd_out)
 		return ;
 	while (!(ft_strncmp(line, limiter, len) == 0 && line[len] == '\n'))
 	{
-		ft_putstr_fd(line, 2);
-		ft_putstr_fd(line, fd_out);
 		free(line);
 		line = read_line(&buffer, std_in);
 		if (line == NULL)

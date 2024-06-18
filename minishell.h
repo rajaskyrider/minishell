@@ -6,7 +6,7 @@
 /*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 14:42:50 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/17 11:41:34 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/06/18 10:27:33 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,6 +170,7 @@ void		close_pipe(int pip[2]);
 char		*expandcmd(char *cmd, t_ms *shell);
 char		*replace_wildcard(char *cmd, char *matches, int start, t_ms *shell);
 int			deal_dollar(char **cmd, t_ms *shell, int start);
+int 		find_start(char *cmd, int start);
 
 /*Test functions (to remove)*/
 void		print_token_lst(t_ms *shell);
