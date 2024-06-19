@@ -6,7 +6,7 @@
 /*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 09:40:18 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/18 18:06:20 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/06/19 09:52:03 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,18 @@ int	replace_invalid(char **cmd, int start, int end, t_ms *shell)
 	return (start - 2);
 }
 
+int	check_question(char **cmd, t_ms *shell, int start)
+{
+	char	*result;
+
+	if ((*cmd)[start] != '?')
+		return (0);
+	result = ft_itoa(shell->lexit_status);
+	*cmd = replace_wildcard(*cmd, result, start - 1, shell);
+	free (result);
+	return (1);
+}
+
 int	deal_dollar(char **cmd, t_ms *shell, int start)
 {
 	char		*result;
@@ -49,9 +61,12 @@ int	deal_dollar(char **cmd, t_ms *shell, int start)
 	char		*pattern;
 	int			end;
 
+	if (check_question(cmd, shell, start))
+		return (start);
 	result = NULL;
 	end = start;
-	while ((*cmd)[end] && (*cmd)[end] != ' ' && (*cmd)[end] != '\"')
+	while ((*cmd)[end] && (*cmd)[end] != ' ' \
+			&& (*cmd)[end] != '$' && (*cmd)[end] != '\"')
 		end++;
 	if (start == end)
 		return (end);
@@ -68,7 +83,7 @@ int	deal_dollar(char **cmd, t_ms *shell, int start)
 	}
 	else
 		end = replace_invalid(cmd, start - 1, end, shell);
-	return (end);
+	return (end - 1);
 }
 
 int find_start(char *cmd, int start)
