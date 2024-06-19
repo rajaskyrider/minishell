@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
+/*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 14:42:50 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/18 17:25:17 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/06/19 09:59:26 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,6 +172,8 @@ char		*replace_wildcard(char *cmd, char *matches, int start, t_ms *shell);
 int			deal_dollar(char **cmd, t_ms *shell, int start);
 int 		find_start(char *cmd, int start);
 void		remove_quotes(char **cmd, int start, int end);
+void		cd_home(t_ms *shell);
+
 
 /*Test functions (to remove)*/
 void		print_token_lst(t_ms *shell);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
+/*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 15:47:57 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/11 14:45:21 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/06/19 09:58:34 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,31 @@ void	update_pwd(t_ms *shell)
 
 void	ms_cd(t_ms *shell, char **path)
 {
-	if (chdir(path[1]) == -1)
-		print_error(shell, "minishell: cd: No such file or directory");
-	else
+	if (path[1] == NULL)
+		cd_home(shell);
+	else if (chdir(path[1]) == -1)
 	{
-		update_pwd(shell);
+		print_error(shell, "minishell: cd: No such file or directory");
+		return ;
+	}
+	update_pwd(shell);
+}
+
+void	cd_home(t_ms *shell)
+{
+	t_envlst	*envlst;
+	char		*home_dir;
+
+	envlst = shell->environ;
+	while (envlst)
+	{
+		if (ft_strncmp(envlst->key, "HOME", 4) == 0)
+		{
+			home_dir = envlst->value;
+			if (chdir(home_dir) == -1)
+				print_error(shell, "minishell: cd: HOME not find");
+			return ;
+		}
+		envlst = envlst->next;
 	}
 }

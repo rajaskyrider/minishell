@@ -328,4 +328,134 @@ utils.c
 validation.c
 [?2004htle-moel@c2r4s4:~/42cursus/minishell$ ls | cat./minishell
 [?2004l[?2004h[35mminishell>[0m ls | cat
-[?2004lpiperight fini
+[?2004lpiperight finished
+builtin
+clean.c
+doesn't work
+exec
+in
+libft
+ls
+main.c
+Makefile
+minishell
+minishell.h
+minishell_tester
+out
+outfile
+output.txt
+parser
+pit
+prompt.c
+res
+script_folder
+script.sh
+test
+tokenizer
+typescript
+utils.c
+validation.c
+[?2004h[35mminishell>[0m ^C[?2004l
+[?2004htle-moel@c2r4s4:~/42cursus/minishell$ ./minishell[3Pls | cat | cat
+[?2004lbuiltin
+clean.c
+doesn't work
+exec
+in
+libft
+ls
+main.c
+Makefile
+minishell
+minishell.h
+minishell_tester
+out
+outfile
+output.txt
+parser
+pit
+prompt.c
+res
+script_folder
+script.sh
+test
+tokenizer
+typescript
+utils.c
+validation.c
+[?2004htle-moel@c2r4s4:~/42cursus/minishell$ ls | cat | cat[K./minishell
+[?2004l[?2004h[35mminishell>[0m ls 7 c[K[K[K[K | cat | cat
+[?2004lpiperight finished
+Before copy pipe
+After copy pipe
+piperight finished
+builtin
+clean.c
+doesn't work
+exec
+in
+libft
+ls
+main.c
+Makefile
+minishell
+minishell.h
+minishell_tester
+out
+outfile
+output.txt
+parser
+pit
+prompt.c
+res
+script_folder
+script.sh
+test
+tokenizer
+typescript
+utils.c
+validation.c
+[?2004h[35mminishell>[0m ^C[?2004l
+[?2004htle-moel@c2r4s4:~/42cursus/minishell$ git add .
+[?2004lwarning: adding embedded git repository: minishell_tester
+[33mhint: You've added another git repository inside your current repository.[m
+[33mhint: Clones of the outer repository will not contain the contents of[m
+[33mhint: the embedded repository and will not know how to obtain it.[m
+[33mhint: If you meant to add a submodule, use:[m
+[33mhint: [m
+[33mhint: 	git submodule add <url> minishell_tester[m
+[33mhint: [m
+[33mhint: If you added this path by mistake, you can remove it from the[m
+[33mhint: index with:[m
+[33mhint: [m
+[33mhint: 	git rm --cached minishell_tester[m
+[33mhint: [m
+[33mhint: See "git help submodule" for more information.[m
+[?2004htle-moel@c2r4s4:~/42cursus/minishell$ rm -rf minishell_tester/
+[?2004l[?2004htle-moel@c2r4s4:~/42cursus/minishell$ s[Kls
+[?2004l builtin  "doesn't work"   in	   ls	    Makefile    minishell.h   outfile	   parser   prompt.c   script_folder   test	   typescript   validation.c
+ clean.c   exec		   libft   main.c   minishell   out	      output.txt   pit	    res        script.sh       tokenizer   utils.c
+[?2004htle-moel@c2r4s4:~/42cursus/minishell$ git p[Kadd .
+[?2004l[?2004htle-moel@c2r4s4:~/42cursus/minishell$ git commit -m "ad[K[KPipe [K[K[K[K[Kmultiple pies [K[K[Kpes work now"
+[?2004l[main 1e8ce36] multiple pipes work now
+ Committer: Thomas Le Moel <tle-moel@c2r4s4.42luxembourg.lu>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly. Run the
+following command and follow the instructions in your editor to edit
+your configuration file:
+
+    git config --global --edit
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 13 files changed, 399 insertions(+), 42 deletions(-)
+ create mode 100644 ls
+ create mode 100644 outfile
+ create mode 100644 output.txt
+ create mode 100644 typescript
+[?2004htle-moel@c2r4s4:~/42cursus/minishell$ git push
+[?2004lEnumerating objects: 33, done.
+Counting objects:   3% (1/33)Counting objects:   6% (2/33)Counting objects:   9% (3/33)Counting objects:  12% (4/33)Counting objects:  15% (5/33)Counting objects:  18% (6/33)Counting objects:  21% (7/33)Counting objects:  24% (8/33)Counting objects:  27% (9/33)Counting objects:  30% (10/33)Counting objects:  33% (11/33)Counting objects:  36% (12/33)Counting objects:  39% (13/33)Counting objects:  42% (14/33)Counting objects:  45% (15/33)Counting objects:  48% (16/33)Counting objects:  51% (17/33)Counting objects:  54% (18/33)Counting objects:  57% (19/33)Counting objects:  60% (20/33)Counting objects:  63% (21/33)Counting objects:  66% (22/33)Counting objects:  69% (23/33)Counting objects
