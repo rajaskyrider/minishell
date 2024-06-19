@@ -6,7 +6,7 @@
 /*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 09:40:18 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/19 09:52:03 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/06/19 10:39:46 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int	deal_dollar(char **cmd, t_ms *shell, int start)
 			&& (*cmd)[end] != '$' && (*cmd)[end] != '\"')
 		end++;
 	if (start == end)
-		return (end);
+		return (end - 1);
 	pattern = ft_substr(*cmd, start, end - start);
 	env_val = ms_getenv(pattern, shell);
 	if (env_val)

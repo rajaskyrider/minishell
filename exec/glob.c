@@ -6,7 +6,7 @@
 /*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 11:07:03 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/19 09:50:14 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/06/19 10:52:26 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,10 @@ char	*replace_wildcard(char *cmd, char *matches, int start, t_ms *shell)
 		return (cmd);
 	clen = ft_strlen(cmd);
 	mlen = ft_strlen(matches);
-	while (cmd[end] && cmd[end] != ' ' && cmd[end] != '$')
+	while (cmd[end] && cmd[end] != ' ' && cmd[end] != '$' && cmd[end] != '?')
 		end++;
+	if (cmd[end] == '?')
+		end += 1;
 	newcmd = ft_calloc(clen + mlen - (end - start) + 1, sizeof(char));
 	if (!newcmd)
 		print_error(shell, "minishell: Memory Allocation Failed");
@@ -125,7 +127,7 @@ char	*expandcmd(char *cmd, t_ms *shell)
 			start = i++;
 			while (cmd[i] && cmd[i] !='\"')
 			{
-				if (cmd[i] && cmd[i] == '$')
+				if (cmd[i] && cmd[i] == '$' && cmd[i + 1] != ' ')
 					i = deal_dollar(&cmd, shell, i + 1);
 				i++;
 			}
@@ -134,7 +136,7 @@ char	*expandcmd(char *cmd, t_ms *shell)
 		}
 		else if (cmd[i] && cmd[i] == '*')
 			i = glob(&cmd, shell, i);
-		else if (cmd[i] && cmd[i] == '$')
+		else if (cmd[i] && cmd[i + 1] && cmd[i] == '$' && cmd[i + 1] != ' ')
 			i = deal_dollar(&cmd, shell, i + 1);
 		else if (cmd[i])
 			i++;
