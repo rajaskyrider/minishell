@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   navigate.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
+/*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 17:34:08 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/18 10:43:25 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/06/19 17:10:59 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,43 +71,54 @@ void	execute(t_ms *shell)
 {
 	t_ast *ast;
 	char 	*line;
+	pid_t	pid;
+	int		status;
 
 	ast = shell->ast;
 	if (pipe(shell->pip) == -1)
 		print_error(shell, "Error creating pipe");
-	if (ast->type == T_OPERATOR)
+	pid = fork();
+	if (pid == 0)
 	{
-		navigate(&ast, &shell);
-		close((shell)->pip[1]);
-		line = get_next_line(shell->pip[0]);
-		if (line != NULL)
+		if (ast->type == T_OPERATOR)
 		{
-			while (line != NULL)
+			navigate(&ast, &shell);
+			close((shell)->pip[1]);
+			line = get_next_line(shell->pip[0]);
+			if (line != NULL)
 			{
-				write(STDOUT_FILENO, line, ft_strlen(line));
-				free(line);
-				line = get_next_line(shell->pip[0]);
+				while (line != NULL)
+				{
+					write(STDOUT_FILENO, line, ft_strlen(line));
+					free(line);
+					line = get_next_line(shell->pip[0]);
+				}
+			}
+			close((shell)->pip[0]);
+		}
+		else
+		{
+			close_pipe(shell->pip);
+			exec_cmd(shell->ast->value, shell, 0);
+			dup2(shell->std_in, STDIN_FILENO);
+			dup2(shell->std_out, STDOUT_FILENO);
+			if (shell->io_in != -1)
+			{
+				close(shell->io_in);
+				shell->io_in = -1;
+			}
+			if (shell->io_out != -1)
+			{
+				close(shell->io_out);
+				shell->io_out = -1;
 			}
 		}
-		close((shell)->pip[0]);
+		exit(EXIT_SUCCESS);
 	}
-	else
-	{
-		close_pipe(shell->pip);
-		exec_cmd(shell->ast->value, shell, 0);
-		dup2(shell->std_in, STDIN_FILENO);
-		dup2(shell->std_out, STDOUT_FILENO);
-		if (shell->io_in != -1)
-		{
-			close(shell->io_in);
-			shell->io_in = -1;
-		}
-		if (shell->io_out != -1)
-		{
-			close(shell->io_out);
-			shell->io_out = -1;
-		}
-	}
+	waitpid(pid, &status, 0);
+	if (WIFEXITED(status))
+		shell->lexit_status = WEXITSTATUS(status);
+	close_pipe(shell->pip);
 	//print the
 }
 /*void	exec_pipe(t_ast *ast, t_ms **shell)

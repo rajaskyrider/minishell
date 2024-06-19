@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ms_pipe.c                                          :+:      :+:    :+:   */
+/*   ms_pipe2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 08:12:37 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/18 15:41:17 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/06/19 16:56:11 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,28 +57,32 @@ void	exec_pipeleft(t_ast *ast, t_ms **shell, int pip[2])
 
 void	copy_pipe(t_ms **shell, int pip[2])
 {
-	char	*line;
+	pid_t	pid;
+	int		status;
 
-	close((*shell)->pip[1]);
-	line = get_next_line((*shell)->pip[0]);
-	if (line != NULL)
+	pid = fork();
+	if (pid == 0)
 	{
-		while (line != NULL)
-		{
-			write(pip[1], line, ft_strlen(line));
-			free(line);
-			line = get_next_line((*shell)->pip[0]);
-		}
+		close((*shell)->pip[1]);
+		dup2((*shell)->pip[0], STDIN_FILENO);
+		dup2(pip[1], STDOUT_FILENO);
+		close_pipe(pip);
+		close((*shell)->pip[0]);
+		exec_cmd("cat", (*shell), 1);
+		exit(EXIT_SUCCESS);
 	}
-	close((*shell)->pip[0]);
-	setup_pipe((*shell)->pip, shell);
-	
+	else if (pid < 0)
+		print_error(*shell, "Fork failed");
+	waitpid(pid, &status, 0);
+	if (WIFEXITED(status))
+		(*shell)->lexit_status = WEXITSTATUS(status);
+	//close_pipe(pip);*/
 }
 
 void	exec_piperight(t_ast *ast, t_ms **shell, int pip[2])
 {
 	pid_t	pid;
-	int		status;
+	//int		status;
 
 	pid = fork();
 	if (pid == 0)
@@ -86,6 +90,7 @@ void	exec_piperight(t_ast *ast, t_ms **shell, int pip[2])
 		dup2(pip[0], STDIN_FILENO);
 		close_pipe(pip);
 		dup2((*shell)->pip[1], STDOUT_FILENO);
+		close_pipe((*shell)->pip);
 		if (ast->io)
 		{
 			check_redirection(ast, shell);
@@ -94,33 +99,37 @@ void	exec_piperight(t_ast *ast, t_ms **shell, int pip[2])
 			if ((*shell)->io_out != -1)
 				dup2((*shell)->io_out, STDOUT_FILENO);
 		}
-		close_pipe((*shell)->pip);
 		exec_cmd(ast->value, *shell, 1);
 		exit (EXIT_FAILURE);
 	}
 	else if (pid < 0)
 		print_error(*shell, "Fork failed");
-	waitpid(pid, &status, 0);
+	/*waitpid(pid, &status, 0);
 	if (WIFEXITED(status))
-		(*shell)->lexit_status = WEXITSTATUS(status);
+		(*shell)->lexit_status = WEXITSTATUS(status);*/
 }
 
 void	ms_pipe(t_ast *ast, t_ms **shell)
 {
 	int		pip[2];
+	pid_t	pid;
 
 	setup_pipe(pip, shell);
-	if (ast->left->token_type == T_WORD)
-		exec_pipeleft(ast->left, shell, pip);
-	else
+	pid = fork();
+	if (pid == 0)
 	{
-		ft_putstr_fd("Before copy pipe\n", 2);
-		copy_pipe(shell, pip);
-		ft_putstr_fd("After copy pipe\n", 2);
-
+		if (ast->left->token_type == T_WORD)
+			exec_pipeleft(ast->left, shell, pip);
+		else
+		{
+			close((*shell)->pip[1]);
+			copy_pipe(shell, pip);
+		}
+		exit (EXIT_SUCCESS);
 	}
 	close(pip[1]);
+	close_pipe((*shell)->pip);
+	setup_pipe((*shell)->pip, shell);
 	exec_piperight(ast->right, shell, pip);
-	ft_putstr_fd("piperight finished\n", 2);
 	close(pip[0]);
 }
