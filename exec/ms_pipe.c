@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ms_pipe2.c                                         :+:      :+:    :+:   */
+/*   ms_pipe.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 08:12:37 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/19 16:56:11 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/06/20 17:31:36 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	close_pipe(int pip[2])
 void	exec_pipeleft(t_ast *ast, t_ms **shell, int pip[2])
 {
 	pid_t	pid;
-	int		status;
+	//int		status;
 
 	pid = fork();
 	if (pid == 0)
@@ -50,15 +50,15 @@ void	exec_pipeleft(t_ast *ast, t_ms **shell, int pip[2])
 	}
 	else if (pid < 0)
 		print_error(*shell, "Fork failed");
-	waitpid(pid, &status, 0);
+	/*waitpid(pid, &status, 0);
 	if (WIFEXITED(status))
-		(*shell)->lexit_status = WEXITSTATUS(status);
+		(*shell)->lexit_status = WEXITSTATUS(status);*/
 }
 
 void	copy_pipe(t_ms **shell, int pip[2])
 {
 	pid_t	pid;
-	int		status;
+	//int		status;
 
 	pid = fork();
 	if (pid == 0)
@@ -73,7 +73,7 @@ void	copy_pipe(t_ms **shell, int pip[2])
 	}
 	else if (pid < 0)
 		print_error(*shell, "Fork failed");
-	waitpid(pid, &status, 0);
+	/*waitpid(pid, &status, 0);
 	if (WIFEXITED(status))
 		(*shell)->lexit_status = WEXITSTATUS(status);
 	//close_pipe(pip);*/
