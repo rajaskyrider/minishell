@@ -6,7 +6,7 @@
 /*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 15:36:02 by tle-moel          #+#    #+#             */
-/*   Updated: 2024/06/20 09:54:10 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/06/20 10:13:00 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 	int		status;
 
 	full_cmd = expandcmd(full_cmd, shell);
+	//ft_putstr_fd(full_cmd, 2);
 	if (is_builtin(full_cmd, shell, piped) == 1)
 	{
 		if (piped == 0)

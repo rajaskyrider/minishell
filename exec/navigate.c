@@ -6,7 +6,7 @@
 /*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 17:34:08 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/20 09:53:42 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/06/20 10:32:56 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,10 +77,10 @@ void	execute(t_ms *shell)
 	ast = shell->ast;
 	if (pipe(shell->pip) == -1)
 		print_error(shell, "Error creating pipe");
-	pid = fork();
-	if (pid == 0)
+	if (ast->type == T_OPERATOR)
 	{
-		if (ast->type == T_OPERATOR)
+		pid = fork();
+		if (pid == 0)
 		{
 			navigate(&ast, &shell);
 			close((shell)->pip[1]);
@@ -95,32 +95,32 @@ void	execute(t_ms *shell)
 				}
 			}
 			close((shell)->pip[0]);
+			exit(EXIT_SUCCESS);
 		}
-		else
-		{
-			close_pipe(shell->pip);
-			exec_cmd(shell->ast->value, shell, 0);
-			dup2(shell->std_in, STDIN_FILENO);
-			dup2(shell->std_out, STDOUT_FILENO);
-			if (shell->io_in != -1)
-			{
-				close(shell->io_in);
-				shell->io_in = -1;
-			}
-			if (shell->io_out != -1)
-			{
-				close(shell->io_out);
-				shell->io_out = -1;
-			}
-		}
-		exit(EXIT_SUCCESS);
+		waitpid(pid, &status, 0);
+		if (WIFEXITED(status))
+			shell->lexit_status = WEXITSTATUS(status);
+		close_pipe(shell->pip);
 	}
-	waitpid(pid, &status, 0);
-	if (WIFEXITED(status))
-		shell->lexit_status = WEXITSTATUS(status);
-	close_pipe(shell->pip);
-	//print the
+	else
+	{
+		close_pipe(shell->pip);
+		exec_cmd(shell->ast->value, shell, 0);
+		dup2(shell->std_in, STDIN_FILENO);
+		dup2(shell->std_out, STDOUT_FILENO);
+		if (shell->io_in != -1)
+		{
+			close(shell->io_in);
+			shell->io_in = -1;
+		}
+		if (shell->io_out != -1)
+		{
+			close(shell->io_out);
+			shell->io_out = -1;
+		}
+	}
 }
+
 /*void	exec_pipe(t_ast *ast, t_ms **shell)
 {
 	int		new_pip[2];
@@ -181,7 +181,11 @@ void	check_redirection(t_ast *ast, t_ms **shell)
 	t_io	*ptr;
 
 	ptr = ast->io;
-	ptr->value = expandcmd(ptr->value, *shell);
+	if (ptr)
+	{
+		ptr->value = expandcmd(ptr->value, *shell);
+		//ft_putstr_fd(ptr->value, 2);
+	}
 	while (ptr)
 	{
 		if (ptr->type == T_LESS)
