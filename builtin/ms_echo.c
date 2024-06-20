@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 14:42:11 by tle-moel          #+#    #+#             */
-/*   Updated: 2024/06/20 10:57:58 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/06/20 11:04:07 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,6 @@ void	ms_echo(char **arg)
 {
 	int	new_line;
 	int	i;
-
-	ft_putstr_fd(arg[0], 2);
-	ft_putstr_fd("\n", 2);
-	ft_putstr_fd(arg[1], 2);
-	ft_putstr_fd("\n", 2);
 
 	i = 1;
 	new_line = 1;

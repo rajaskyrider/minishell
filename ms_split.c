@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 10:05:26 by tle-moel          #+#    #+#             */
-/*   Updated: 2024/06/20 10:48:44 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/06/20 11:10:05 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,21 @@ char	**ms_split(char const *s, char c)
 			i++;
 		}
 		while (*s && *s != c)
+		{
+			if (*s == '\'')
+			{
+				s++;
+				while (*s != '\'')
+					s++;
+			}
+			else if (*s == '\"')
+			{
+				s++;
+				while (*s != '\"')
+					s++;
+			}
 			s++;
+		}
 	}
 	arr[i] = NULL;
 	return (arr);

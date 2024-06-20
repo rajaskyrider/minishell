@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 15:36:02 by tle-moel          #+#    #+#             */
-/*   Updated: 2024/06/20 11:03:07 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/06/20 11:03:50 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@
 	int		status;
 	int		i;
 
-	ft_putstr_fd("exec cmd\n", 2);
 	i = 0;
 	if (is_builtin(full_cmd, shell, piped) == 1)
 	{
@@ -121,7 +120,6 @@ int		is_builtin(char *full_cmd, t_ms *shell, int piped)
 	if (piped == 0)
 	{
 		check_redirection(shell->ast, &shell);
-		ft_putstr_fd("HERE\n", 2);
 		if (shell->io_in != -1)
 			dup2(shell->io_in, STDIN_FILENO);
 		if (shell->io_out != -1)
