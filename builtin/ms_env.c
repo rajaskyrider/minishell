@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 09:31:34 by tle-moel          #+#    #+#             */
-/*   Updated: 2024/06/20 13:15:45 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/06/20 17:25:39 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ void	update_envlst(char *key, char *value, t_envlst **environ)
 	ptr = *environ;
 	while (ptr)
 	{
-		if (ft_strncmp(ptr->key, key, ft_strlen(key)) == 0)
+		if (ft_strncmp(key, ptr->key, ft_strlen(ptr->key)) == 0)
 		{
 			free(ptr->value);
 			ptr->value = value;
