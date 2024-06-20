@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 15:46:03 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/11 17:32:46 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/06/20 11:21:27 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ void	clear_shell(t_ms *shell)
 		delete_token(&shell->token_lst);
 	if (shell->ast)
 		delete_ast_lst(&shell->ast);
-	if (shell->environ)
-		delete_env_lst(&shell->environ);
+	//if (shell->environ)
+	//	delete_env_lst(&shell->environ);
 }
 
 void	print_error(t_ms *shell, char *errormsg)
