@@ -6,7 +6,7 @@
 /*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 17:34:08 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/20 10:32:56 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/06/20 11:18:07 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,10 +182,7 @@ void	check_redirection(t_ast *ast, t_ms **shell)
 
 	ptr = ast->io;
 	if (ptr)
-	{
 		ptr->value = expandcmd(ptr->value, *shell);
-		//ft_putstr_fd(ptr->value, 2);
-	}
 	while (ptr)
 	{
 		if (ptr->type == T_LESS)

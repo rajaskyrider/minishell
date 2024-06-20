@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 09:31:34 by tle-moel          #+#    #+#             */
-/*   Updated: 2024/06/11 15:07:06 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/06/20 13:15:45 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ char	*extract_key(char *env_line)
 			return (ft_substr(env_line, 0, i));
 		i++;
 	}
-	return (NULL);
+	return (env_line);
 }
 
 char	*extract_value(char *env_line)

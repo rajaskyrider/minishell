@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 11:48:26 by tle-moel          #+#    #+#             */
-/*   Updated: 2024/06/11 14:28:13 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/06/20 13:18:57 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,37 @@ void	ms_export(char **arg, t_ms *shell)
 	while (arg[i] != NULL)
 	{
 		key = extract_key(arg[i]);
-		value = extract_value(arg[i]);
-		if (key)
-			update_envlst(key, value, &shell->environ);
+		if (key_is_valid(key) == 0)
+		{
+			free(key);
+			shell->lexit_status = 1;
+			ft_putstr_fd("minishell: export: not a valid identifier\n", 2);
+		}
+		else
+		{
+			value = extract_value(arg[i]);
+			if (key)
+				update_envlst(key, value, &shell->environ);
+		}
 		i++;
 	}
+}
+
+int		key_is_valid(char *key)
+{
+	int		i;
+
+	i = 0;
+	if (!ft_isalpha(key[i]) && key[i] != '_')
+	 	return (0);
+	i++;
+	while (key[i])
+	{
+		if (!ft_isalnum(key[i]) && key[i] != '_')
+			return (0);
+		i++;
+	}
+	return (1);
 }
 
 void	print_export(t_envlst *environ)
@@ -49,9 +75,13 @@ void	print_export(t_envlst *environ)
 		{
 			ft_putstr_fd("declar -x ", 1);
 			ft_putstr_fd(ptr2->key, 1);
-			ft_putstr_fd("=\"", 1);
-			ft_putstr_fd(ptr2->value, 1);
-			ft_putstr_fd("\"\n", 1);
+			if (ptr2->value)
+			{
+				ft_putstr_fd("=\"", 1);
+				ft_putstr_fd(ptr2->value, 1);
+				ft_putstr_fd("\"", 1);
+			}
+			ft_putstr_fd("\n", 1);
 		}
 		if (ptr->next)
 			curr_key = find_next_key(curr_key, environ);

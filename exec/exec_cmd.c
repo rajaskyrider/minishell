@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 15:36:02 by tle-moel          #+#    #+#             */
-/*   Updated: 2024/06/20 11:03:50 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/06/20 13:29:58 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,7 +148,7 @@ int		is_builtin(char *full_cmd, t_ms *shell, int piped)
 	else if (ms_strcmp(full_cmd, "env") == 0)
 		return (ms_env(shell), 1);
 	else if (ms_strcmp(full_cmd, "exit") == 0)
-		return (exit_shell(shell, EXIT_SUCCESS), 1);
+		return (ms_exit(arg, shell), 1);
 	else
 		return (0);
 }

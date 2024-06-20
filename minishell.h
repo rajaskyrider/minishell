@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 14:42:50 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/20 10:54:03 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/06/20 13:35:38 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,8 +173,9 @@ int			deal_dollar(char **cmd, t_ms *shell, int start);
 int 		find_start(char *cmd, int start);
 void		remove_quotes(char **cmd, int start, int end);
 void		cd_home(t_ms *shell);
-char	**ms_split(char const *s, char c);
-
+char		**ms_split(char const *s, char c);
+int			key_is_valid(char *key);
+void		ms_exit(char **arg, t_ms *shell);
 
 /*Test functions (to remove)*/
 void		print_token_lst(t_ms *shell);
