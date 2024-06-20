@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 15:47:57 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/19 09:58:34 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/06/20 10:37:28 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,12 @@ void	update_pwd(t_ms *shell)
 
 void	ms_cd(t_ms *shell, char **path)
 {
-	if (path[1] == NULL)
+	if (path[2] != 0)
+	{
+		print_error(shell, "minishell: cd: too many arguments");
+		return ;
+	}
+	else if (path[1] == NULL)
 		cd_home(shell);
 	else if (chdir(path[1]) == -1)
 	{
