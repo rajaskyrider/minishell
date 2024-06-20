@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
+/*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 15:47:57 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/20 10:37:28 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/06/20 11:30:49 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,13 +61,15 @@ void	ms_cd(t_ms *shell, char **path)
 {
 	if (path[2] != 0)
 	{
-		print_error(shell, "minishell: cd: too many arguments");
+		shell->lexit_status = 1;
+		print_error(shell, "minishell: cd: too many arguments\n");
 		return ;
 	}
 	else if (path[1] == NULL)
 		cd_home(shell);
 	else if (chdir(path[1]) == -1)
 	{
+		shell->lexit_status = 1;
 		print_error(shell, "minishell: cd: No such file or directory");
 		return ;
 	}
