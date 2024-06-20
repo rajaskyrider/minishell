@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   navigate.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 17:34:08 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/19 17:10:59 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/06/20 09:53:42 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,6 +181,7 @@ void	check_redirection(t_ast *ast, t_ms **shell)
 	t_io	*ptr;
 
 	ptr = ast->io;
+	ptr->value = expandcmd(ptr->value, *shell);
 	while (ptr)
 	{
 		if (ptr->type == T_LESS)
