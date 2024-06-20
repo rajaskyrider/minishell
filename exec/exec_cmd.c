@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
+/*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 15:36:02 by tle-moel          #+#    #+#             */
-/*   Updated: 2024/06/20 09:54:10 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/06/20 11:01:30 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,10 @@
 	char	*tmp;
 	int		pid;
 	int		status;
+	int		i;
 
-	full_cmd = expandcmd(full_cmd, shell);
+	ft_putstr_fd("exec cmd\n", 2);
+	i = 0;
 	if (is_builtin(full_cmd, shell, piped) == 1)
 	{
 		if (piped == 0)
@@ -43,7 +45,12 @@
 			else
 			{
 				paths = find_paths(shell->environ);
-				args = ft_split(full_cmd, ' ');
+				args = ms_split(full_cmd, ' ');
+				while (args[i])
+				{
+					args[i] = expandcmd(args[i], shell);
+					i++;
+				}
 				tmp = args[0];
 				args[0] = get_cmd(args[0], paths);
 				free(tmp);
@@ -61,7 +68,12 @@
 		else
 		{
 			paths = find_paths(shell->environ);
-			args = ft_split(full_cmd, ' ');
+			args = ms_split(full_cmd, ' ');
+			while (args[i])
+			{
+				args[i] = expandcmd(args[i], shell);
+				i++;
+			}
 			tmp = args[0];
 			args[0] = get_cmd(args[0], paths);
 			free(tmp);
@@ -76,8 +88,15 @@ void	exec_given_path(char *full_cmd, t_ms *shell)
 	char	*path;
 	char	*cwd;
 	char	*tmp;
+	int		i;
 
-	args = ft_split(full_cmd, ' ');
+	i = 0;
+	args = ms_split(full_cmd, ' ');
+	while (args[i])
+	{
+		args[i] = expandcmd(args[i], shell);
+		i++;
+	}
 	path = args[0];
 	if (path[0] != '.' && path[0] != '/')
 	{
@@ -96,16 +115,26 @@ void	exec_given_path(char *full_cmd, t_ms *shell)
 int		is_builtin(char *full_cmd, t_ms *shell, int piped)
 {
 	char	**arg;
+	int		i;
 
+	
 	if (piped == 0)
 	{
 		check_redirection(shell->ast, &shell);
+		ft_putstr_fd("HERE\n", 2);
 		if (shell->io_in != -1)
 			dup2(shell->io_in, STDIN_FILENO);
 		if (shell->io_out != -1)
 			dup2(shell->io_out, STDOUT_FILENO);
 	}
-	arg = ft_split(full_cmd, ' ');
+	i = 0;
+	
+	arg = ms_split(full_cmd, ' ');
+	while (arg[i])
+	{
+		arg[i] = expandcmd(arg[i], shell);
+		i++;
+	}
 	if (ms_strcmp(full_cmd, "echo") == 0)
 		return (ms_echo(arg), 1);
 	else if (ms_strcmp(full_cmd, "cd") == 0)

@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 14:42:50 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/19 11:10:18 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/06/20 10:54:03 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,6 +173,7 @@ int			deal_dollar(char **cmd, t_ms *shell, int start);
 int 		find_start(char *cmd, int start);
 void		remove_quotes(char **cmd, int start, int end);
 void		cd_home(t_ms *shell);
+char	**ms_split(char const *s, char c);
 
 
 /*Test functions (to remove)*/
