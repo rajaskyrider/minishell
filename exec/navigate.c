@@ -6,7 +6,7 @@
 /*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 17:34:08 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/21 09:55:55 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/06/21 10:27:24 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	execute(t_ms *shell)
 {
 	t_ast *ast;
 	char 	*line;
-	//pid_t	pid;
+	pid_t	pid;
 	int		status;
 
 	ast = shell->ast;
@@ -92,10 +92,13 @@ void	execute(t_ms *shell)
 			}
 		}
 		close((shell)->pip[0]);
-		while (wait(&status) > 0)
+		while ((pid = wait(&status)) > 0)
 		{
-			if (WIFEXITED(status))
-				shell->lexit_status = WEXITSTATUS(status);
+			if (shell->pid == pid)
+			{
+				if (WIFEXITED(status))
+					shell->lexit_status = WEXITSTATUS(status);
+			}
 		}
 		close_pipe(shell->pip);
 	}
