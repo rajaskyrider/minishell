@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 17:34:08 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/21 10:58:58 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/06/21 11:29:18 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,13 +130,11 @@ void	check_redirection(t_ast *ast, t_ms **shell)
 		ptr->value = expandcmd(ptr->value, *shell);
 	while (ptr)
 	{
-		ft_putstr_fd("Entering loop\n", 2);
 		if (ptr->type == T_LESS)
 		{
 			fd = open(ptr->value, O_RDONLY);
 			if (fd == -1)
 			{
-				ft_putstr_fd("Problem\n", 2);
 				fd = open("/dev/null", O_RDONLY);
 			}
 			else
@@ -163,7 +161,6 @@ void	check_redirection(t_ast *ast, t_ms **shell)
 		}
 		ptr = ptr->next;
 	}
-	ft_putstr_fd("finish check redir\n", 2);
 }
 void	check_here_doc(char *limiter, int std_in, int fd_out)
 {

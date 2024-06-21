@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 15:36:02 by tle-moel          #+#    #+#             */
-/*   Updated: 2024/06/21 10:54:21 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/06/21 13:19:49 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,15 @@
 	i = 0;
 	check_redirection(shell->ast, &shell);
 	if (shell->io_in != -1)
-			dup2(shell->io_in, STDIN_FILENO);
+	{
+		ft_putstr_fd("FIND A REDIRECTION STDIN\n", 2);
+		dup2(shell->io_in, STDIN_FILENO);
+	}
 	if (shell->io_out != -1)
-			dup2(shell->io_out, STDOUT_FILENO);
+	{
+		ft_putstr_fd("FIND A REDIRECTION STDOUT\n", 2);
+		dup2(shell->io_out, STDOUT_FILENO);
+	}
 	if (is_builtin(full_cmd, shell, piped) == 1)
 	{
 		if (piped == 0)

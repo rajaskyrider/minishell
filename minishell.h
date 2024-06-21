@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 14:42:50 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/20 13:35:38 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/06/21 13:18:30 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,8 +114,8 @@ int			handle_quote(t_token **token_lst, char **cmd_line);
 int			handle_word(t_token **token_lst, char **cmd_line);
 void		delete_token(t_token **token);
 void		add_quote_token(t_token **token_lst, char **cmd_line);
-int			handle_single_quote(t_token **token_lst, char **cmd_line);
-int			handle_double_quote(t_token **token_lst, char **cmd_line);
+int			handle_single_quote(int *i, char **cmd_line);
+int			handle_double_quote(int *i, char **cmd_line);
 void		process_double_quote(t_token *ptr);
 void		exec_replace(char **new_str, char *start, char *end, char *str);
 int			parser(t_ms *shell);

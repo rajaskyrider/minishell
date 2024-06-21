@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 15:40:34 by tle-moel          #+#    #+#             */
-/*   Updated: 2024/06/17 11:12:44 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/06/21 13:16:49 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,57 +14,54 @@
 
 int	handle_quote(t_token **token_lst, char **cmd_line)
 {
-	if (ft_strncmp(*cmd_line, "'", 1) == 0)
-	{
-		if (handle_single_quote(token_lst, cmd_line) == 0)
-			return (0);
-	}
-	else
-	{
-		if (handle_double_quote(token_lst, cmd_line) == 0)
-			return (0);
-	}
-	(*cmd_line)++;
-	return (1);
-}
-
-int	handle_single_quote(t_token **token_lst, char **cmd_line)
-{
 	t_token	*token;
 	int		i;
 
-	i = 1;
-	while ((*cmd_line)[i] != 39 && (*cmd_line)[i] != '\0')
-		i++;
-	if ((*cmd_line)[i] == '\0')
-		return (0);
 	token = NULL;
 	if (init_token(&token) == 0)
 		return (0);
 	token->type = T_WORD;
-	token->value = ft_substr(*cmd_line, 0, i + 1);
+	i = 0;
+	while (ms_isspace((*cmd_line)[i]) == 0 && ms_isparenthesis((*cmd_line)[i]) == 0 && ms_isoperator((*cmd_line) + i) == 0 &&(*cmd_line)[i] != '\0')
+	{
+		if ((*cmd_line)[i] == '\'')
+		{
+			if (handle_single_quote(&i, cmd_line) == 0)
+				return (0);
+		}
+		else if ((*cmd_line)[i] == '\"')
+		{
+			if (handle_double_quote(&i, cmd_line) == 0)
+				return (0);
+		}
+		else
+			i++;
+	}
+	token->value = ft_substr(*cmd_line, 0, i);
 	add_token_end_lst(token_lst, token);
 	(*cmd_line) += i;
 	return (1);
 }
 
-int	handle_double_quote(t_token **token_lst, char **cmd_line)
+int	handle_single_quote(int	*i, char **cmd_line)
 {
-	t_token	*token;
-	int		i;
+	(*i)++;
+	while ((*cmd_line)[*i] != 39 && (*cmd_line)[*i] != '\0')
+		(*i)++;
+	if ((*cmd_line)[*i] == '\0')
+		return (0);
+	(*i)++;
+	return (1);
+}
 
-	i = 1;
-	while ((*cmd_line)[i] != 34 && (*cmd_line)[i] != '\0')
-		i++;
-	if ((*cmd_line)[i] == '\0')
+int	handle_double_quote(int *i, char **cmd_line)
+{
+	(*i)++;
+	while ((*cmd_line)[*i] != 34 && (*cmd_line)[*i] != '\0')
+		(*i)++;
+	if ((*cmd_line)[*i] == '\0')
 		return (0);
-	token = NULL;
-	if (init_token(&token) == 0)
-		return (0);
-	token->type = T_WORD;
-	token->value = ft_substr(*cmd_line, 0, i + 1);
-	add_token_end_lst(token_lst, token);
-	(*cmd_line) += i;
+	(*i)++;
 	return (1);
 }
 
