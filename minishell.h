@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 14:42:50 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/21 13:18:30 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/06/21 13:24:21 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ typedef struct s_ms
 	int			io_out;
 	int			std_in;
 	int			std_out;
+	pid_t		pid;
 }	t_ms;
 
 void		readprompt(t_ms *shell, char *new_cmd);

@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 17:34:08 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/21 11:29:18 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/06/21 13:24:45 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	execute(t_ms *shell)
 {
 	t_ast *ast;
 	char 	*line;
-	//pid_t	pid;
+	pid_t	pid;
 	int		status;
 
 	ast = shell->ast;
@@ -92,10 +92,13 @@ void	execute(t_ms *shell)
 			}
 		}
 		close((shell)->pip[0]);
-		while (wait(&status) > 0)
+		while ((pid = wait(&status)) > 0)
 		{
-			if (WIFEXITED(status))
-				shell->lexit_status = WEXITSTATUS(status);
+			if (shell->pid == pid)
+			{
+				if (WIFEXITED(status))
+					shell->lexit_status = WEXITSTATUS(status);
+			}
 		}
 		close_pipe(shell->pip);
 	}
