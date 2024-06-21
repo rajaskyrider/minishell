@@ -6,7 +6,7 @@
 /*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 14:42:50 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/21 14:01:24 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/06/21 14:51:07 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,7 +165,7 @@ void		execute(t_ms *shell);
 void		redirect(t_ms *shell, t_ast *ast);
 int			glob(char **cmd, t_ms *shell, int start);
 void		check_redirection(t_ast *ast, t_ms **shell);
-void		ms_pipe(t_ast *ast, t_ms **shell);
+void		ms_pipe(t_ast *ast, t_ms **shell, int pipe_fd[2], int last_pipe[2]);
 void		check_here_doc(char *limiter, int std_in, int fd_out);
 void		close_pipe(int pip[2]);
 char		*expandcmd(char *cmd, t_ms *shell);
@@ -177,6 +177,7 @@ void		cd_home(t_ms *shell);
 char		**ms_split(char const *s, char c);
 int			key_is_valid(char *key);
 void		ms_exit(char **arg, t_ms *shell);
+void		setup_pipe(int pip[2], t_ms **shell);
 
 /*Test functions (to remove)*/
 void		print_token_lst(t_ms *shell);

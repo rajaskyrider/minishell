@@ -6,7 +6,7 @@
 /*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 08:12:37 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/21 14:01:46 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/06/21 15:50:39 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	close_pipe(int pip[2])
 		close(pip[1]);
 }
 
-void	exec_pipeleft(t_ast *ast, t_ms **shell, int pip[2])
+void	exec_pipeleft(t_ast *ast, t_ms **shell, int pip[2], int last_pip[2])
 {
 	pid_t	pid;
 	//int		status;
@@ -34,9 +34,11 @@ void	exec_pipeleft(t_ast *ast, t_ms **shell, int pip[2])
 	pid = fork();
 	if (pid == 0)
 	{
+		if (last_pip[0] != 0)
+			close_pipe(last_pip);
 		dup2(pip[1], STDOUT_FILENO);
 		close_pipe(pip);
-		close_pipe((*shell)->pip);
+		//close_pipe((*shell)->pip);
 		exec_cmd(ast, ast->value, *shell, 1);
 		exit (EXIT_FAILURE);
 	}
@@ -71,7 +73,7 @@ void	copy_pipe(t_ms **shell, int pip[2])
 	//close_pipe(pip);*/
 }
 
-void	exec_piperight(t_ast *ast, t_ms **shell, int pip[2])
+void	exec_piperight(t_ast *ast, t_ms **shell, int pip[2], int last_pip[2])
 {
 	//pid_t	pid;
 	//int		status;
@@ -81,8 +83,12 @@ void	exec_piperight(t_ast *ast, t_ms **shell, int pip[2])
 	{
 		dup2(pip[0], STDIN_FILENO);
 		close_pipe(pip);
-		dup2((*shell)->pip[1], STDOUT_FILENO);
-		close_pipe((*shell)->pip);
+		dup2(last_pip[1], STDOUT_FILENO);
+		if (last_pip[1] != 1)
+		{
+			close_pipe(last_pip);
+			//ft_putstr_fd("CLosed last pip\n", 2);
+		}
 		exec_cmd(ast, ast->value, *shell, 1);
 		exit (EXIT_FAILURE);
 	}
@@ -93,19 +99,22 @@ void	exec_piperight(t_ast *ast, t_ms **shell, int pip[2])
 		(*shell)->lexit_status = WEXITSTATUS(status);*/
 }
 
-void	ms_pipe(t_ast *ast, t_ms **shell)
+void	ms_pipe(t_ast *ast, t_ms **shell, int pipe_fd[2], int last_pipe[2])
 {
-	int		pip[2];
-	//pid_t	pid;
-
-	setup_pipe(pip, shell);
-		if (ast->left->token_type == T_WORD)
-			exec_pipeleft(ast->left, shell, pip);
-		else
-			close((*shell)->pip[1]);
-	close(pip[1]);
-	close_pipe((*shell)->pip);
-	setup_pipe((*shell)->pip, shell);
-	exec_piperight(ast->right, shell, pip);
-	close(pip[0]);
+	if (ast->left->token_type == T_WORD)
+	{
+		exec_pipeleft(ast->left, shell, pipe_fd, last_pipe);
+	}
+	//else
+//		close((*shell)->pip[1]);
+	close(pipe_fd[1]);
+	if (last_pipe[0] != 0)
+		close(last_pipe[0]);
+	//close_pipe((*shell)->pip);
+	//setup_pipe((*shell)->pip, shell);
+	exec_piperight(ast->right, shell, pipe_fd, last_pipe);
+	close(pipe_fd[0]);
+	if (last_pipe[1] != 1)
+		close(last_pipe[1]);
+	//close_pipe(last_pipe);
 }

@@ -6,7 +6,7 @@
 /*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 17:34:08 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/21 14:02:14 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/06/21 15:15:33 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,34 +43,43 @@ static char	*read_line(char **buffer, int std_in)
 	return (curr_line);
 }
 
-void	navigate(t_ast **ast, t_ms **shell)
+void	navigate(t_ast **ast, t_ms **shell, int last_pipe[2])
 {
+	int	pipe_fd[2];
+
+	pipe_fd[0] = -1;
+	pipe_fd[1] = -1;
 	if (!ast || !(*ast))
 		return ;
 	if ((*ast)->left->type == T_OPERATOR)
-		navigate(&(*ast)->left, shell);
+	{
+		setup_pipe(pipe_fd, shell);
+		navigate(&(*ast)->left, shell, pipe_fd);
+	}
 	if ((*ast)->token_type == T_PIPE)
 	{
-		ms_pipe(*ast, shell);
+		if (pipe_fd[0] == -1)
+			setup_pipe(pipe_fd, shell);
+		ms_pipe(*ast, shell, pipe_fd, last_pipe);
 	}
 	else if ((*ast)->token_type == T_AND_IF)
 	{
 		ft_printf("Code for AND under construction\n");
 		if ((*ast)->right->type == T_OPERATOR)
-			navigate(&(*ast)->right, shell);
+			navigate(&(*ast)->right, shell, pipe_fd);
 	}
 	else if ((*ast)->token_type == T_OR_IF)
 	{
 		ft_printf("Code for OR under construction\n");
 		if ((*ast)->right->type == T_OPERATOR)
-			navigate(&(*ast)->right, shell);
+			navigate(&(*ast)->right, shell, pipe_fd);
 	}
 }
 
 void	execute(t_ms *shell)
 {
 	t_ast *ast;
-	char 	*line;
+	//char 	*line;
 	pid_t	pid;
 	int		status;
 
@@ -79,8 +88,8 @@ void	execute(t_ms *shell)
 		print_error(shell, "Error creating pipe");
 	if (ast->type == T_OPERATOR)
 	{
-		navigate(&ast, &shell);
-		close((shell)->pip[1]);
+		navigate(&ast, &shell, (int [2]){STDIN_FILENO, STDOUT_FILENO});
+		/*close((shell)->pip[1]);
 		line = get_next_line(shell->pip[0]);
 		if (line != NULL)
 		{
@@ -91,7 +100,7 @@ void	execute(t_ms *shell)
 				line = get_next_line(shell->pip[0]);
 			}
 		}
-		close((shell)->pip[0]);
+		close((shell)->pip[0]);*/
 		while ((pid = wait(&status)) > 0)
 		{
 			if (shell->pid == pid)
