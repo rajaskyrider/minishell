@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_pipe.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
+/*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 08:12:37 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/20 17:31:36 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/06/21 10:53:49 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,14 +35,6 @@ void	exec_pipeleft(t_ast *ast, t_ms **shell, int pip[2])
 	if (pid == 0)
 	{
 		dup2(pip[1], STDOUT_FILENO);
-		if (ast->io)
-		{
-			check_redirection(ast, shell);
-			if ((*shell)->io_in != -1)
-				dup2((*shell)->io_in, STDIN_FILENO);
-			if ((*shell)->io_out != -1)
-				dup2((*shell)->io_out, STDOUT_FILENO);
-		}
 		close_pipe(pip);
 		close_pipe((*shell)->pip);
 		exec_cmd(ast->value, *shell, 1);
@@ -91,14 +83,6 @@ void	exec_piperight(t_ast *ast, t_ms **shell, int pip[2])
 		close_pipe(pip);
 		dup2((*shell)->pip[1], STDOUT_FILENO);
 		close_pipe((*shell)->pip);
-		if (ast->io)
-		{
-			check_redirection(ast, shell);
-			if ((*shell)->io_in != -1)
-				dup2((*shell)->io_in, STDIN_FILENO);
-			if ((*shell)->io_out != -1)
-				dup2((*shell)->io_out, STDOUT_FILENO);
-		}
 		exec_cmd(ast->value, *shell, 1);
 		exit (EXIT_FAILURE);
 	}

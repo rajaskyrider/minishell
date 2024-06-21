@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   navigate.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
+/*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 17:34:08 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/21 09:55:55 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/06/21 10:58:58 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,75 +118,27 @@ void	execute(t_ms *shell)
 	}
 }
 
-/*void	exec_pipe(t_ast *ast, t_ms **shell)
-{
-	int		new_pip[2];
-	pid_t	pid;
-
-	if (pipe(new_pip) == -1)
-		exit(EXIT_FAILURE);
-	if (ast->left->token_type == T_WORD)
-		exec_left_pipe(ast, shell, &new_pip);
-
-	close(new_pip[1]);
-	(*shell)->pip[0] = new_pip[0];
-	close(new_pip[0]);
-
-	if (pipe(new_pip) == -1)
-		exit(EXIT_FAILURE);
-	pid = fork();
-	if (pid == 0)
-	{
-		dup2((*shell)->pip[0], STDIN_FILENO);
-		close((*shell)->pip[0]);
-		close((*shell)->pip[1]);
-		dup2(new_pip[1], STDOUT_FILENO);
-		close(new_pip[0]);shell
-		close(new_pip[1]);
-		exec_cmd(ast->right->value, *shell);
-		exit(EXIT_FAILURE);
-	}
-	waitpid(pid, NULL, 0);
-	close(new_pip[1]);
-	(*shell)->pip[0] = new_pip[0];
-	close(new_pip[0]);
-}
-void	exec_left_pipe(t_ast *ast, t_ms **shell, int (*new_pip)[2])
-{
-	pid_t	pid;
-
-	pid = fork();
-	if (pid == 0)
-	{
-		dup2(new_pip[1], STDOUT_FILENO);
-		close(new_pip[0]);
-		close(new_pip[1]);
-		check_redirection(ast, shell);
-		if ((*shell)->io_in != -1)
-			dup2((*shell)->io_in, STDIN_FILENO);
-		if ((*shell)->io_out != -1)
-			dup2((*shell)->io_out, STDOUT_FILENO);
-		exec_cmd(ast->left->value, *shell);
-		exit(EXIT_FAILURE);
-	}
-	waitpid(pid, NULL, 0);
-}*/
-
 void	check_redirection(t_ast *ast, t_ms **shell)
 {
 	int		fd;
 	t_io	*ptr;
-
+	
+	(*shell)->io_in = -1;
+	(*shell)->io_out = -1;
 	ptr = ast->io;
 	if (ptr)
 		ptr->value = expandcmd(ptr->value, *shell);
 	while (ptr)
 	{
+		ft_putstr_fd("Entering loop\n", 2);
 		if (ptr->type == T_LESS)
 		{
 			fd = open(ptr->value, O_RDONLY);
 			if (fd == -1)
+			{
+				ft_putstr_fd("Problem\n", 2);
 				fd = open("/dev/null", O_RDONLY);
+			}
 			else
 				(*shell)->io_in = fd;
 		}
@@ -211,6 +163,7 @@ void	check_redirection(t_ast *ast, t_ms **shell)
 		}
 		ptr = ptr->next;
 	}
+	ft_putstr_fd("finish check redir\n", 2);
 }
 void	check_here_doc(char *limiter, int std_in, int fd_out)
 {

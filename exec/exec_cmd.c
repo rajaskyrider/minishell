@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 15:36:02 by tle-moel          #+#    #+#             */
-/*   Updated: 2024/06/20 13:29:58 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/06/21 10:54:21 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,11 @@
 	int		i;
 
 	i = 0;
+	check_redirection(shell->ast, &shell);
+	if (shell->io_in != -1)
+			dup2(shell->io_in, STDIN_FILENO);
+	if (shell->io_out != -1)
+			dup2(shell->io_out, STDOUT_FILENO);
 	if (is_builtin(full_cmd, shell, piped) == 1)
 	{
 		if (piped == 0)
@@ -34,11 +39,6 @@
 		pid = fork();
 		if (pid == 0)
 		{
-			check_redirection(shell->ast, &shell);
-			if (shell->io_in != -1)
-				dup2(shell->io_in, STDIN_FILENO);
-			if (shell->io_out != -1)
-				dup2(shell->io_out, STDOUT_FILENO);
 			if (path_is_given(full_cmd) == 1)
 				return (exec_given_path(full_cmd, shell));
 			else
@@ -116,17 +116,8 @@ int		is_builtin(char *full_cmd, t_ms *shell, int piped)
 	char	**arg;
 	int		i;
 
-	
-	if (piped == 0)
-	{
-		check_redirection(shell->ast, &shell);
-		if (shell->io_in != -1)
-			dup2(shell->io_in, STDIN_FILENO);
-		if (shell->io_out != -1)
-			dup2(shell->io_out, STDOUT_FILENO);
-	}
 	i = 0;
-	
+	(void)piped;
 	arg = ms_split(full_cmd, ' ');
 	while (arg[i])
 	{
