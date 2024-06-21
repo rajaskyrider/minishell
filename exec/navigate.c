@@ -6,7 +6,7 @@
 /*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 17:34:08 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/20 11:18:07 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/06/21 09:55:55 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	execute(t_ms *shell)
 {
 	t_ast *ast;
 	char 	*line;
-	pid_t	pid;
+	//pid_t	pid;
 	int		status;
 
 	ast = shell->ast;
@@ -79,27 +79,24 @@ void	execute(t_ms *shell)
 		print_error(shell, "Error creating pipe");
 	if (ast->type == T_OPERATOR)
 	{
-		pid = fork();
-		if (pid == 0)
+		navigate(&ast, &shell);
+		close((shell)->pip[1]);
+		line = get_next_line(shell->pip[0]);
+		if (line != NULL)
 		{
-			navigate(&ast, &shell);
-			close((shell)->pip[1]);
-			line = get_next_line(shell->pip[0]);
-			if (line != NULL)
+			while (line != NULL)
 			{
-				while (line != NULL)
-				{
-					write(STDOUT_FILENO, line, ft_strlen(line));
-					free(line);
-					line = get_next_line(shell->pip[0]);
-				}
+				write(STDOUT_FILENO, line, ft_strlen(line));
+				free(line);
+				line = get_next_line(shell->pip[0]);
 			}
-			close((shell)->pip[0]);
-			exit(EXIT_SUCCESS);
 		}
-		waitpid(pid, &status, 0);
-		if (WIFEXITED(status))
-			shell->lexit_status = WEXITSTATUS(status);
+		close((shell)->pip[0]);
+		while (wait(&status) > 0)
+		{
+			if (WIFEXITED(status))
+				shell->lexit_status = WEXITSTATUS(status);
+		}
 		close_pipe(shell->pip);
 	}
 	else
