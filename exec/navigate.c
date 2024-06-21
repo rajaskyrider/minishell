@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   navigate.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
+/*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 17:34:08 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/21 15:15:33 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/06/21 17:49:46 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,13 +82,16 @@ void	execute(t_ms *shell)
 	//char 	*line;
 	pid_t	pid;
 	int		status;
+	int		shellpipe[2];
 
 	ast = shell->ast;
-	if (pipe(shell->pip) == -1)
-		print_error(shell, "Error creating pipe");
+	//if (pipe(shellpipe) == -1)
+	//	print_error(shell, "Error creating pipe");
+	shellpipe[0] = -1;
+	shellpipe[1] = -1;
 	if (ast->type == T_OPERATOR)
 	{
-		navigate(&ast, &shell, (int [2]){STDIN_FILENO, STDOUT_FILENO});
+		navigate(&ast, &shell, shellpipe);
 		/*close((shell)->pip[1]);
 		line = get_next_line(shell->pip[0]);
 		if (line != NULL)
@@ -109,11 +112,11 @@ void	execute(t_ms *shell)
 					shell->lexit_status = WEXITSTATUS(status);
 			}
 		}
-		close_pipe(shell->pip);
+		close_pipe(shellpipe);
 	}
 	else
 	{
-		close_pipe(shell->pip);
+		close_pipe(shellpipe);
 		exec_cmd(shell->ast, shell->ast->value, shell, 0);
 		dup2(shell->std_in, STDIN_FILENO);
 		dup2(shell->std_out, STDOUT_FILENO);
