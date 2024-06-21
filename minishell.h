@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 14:42:50 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/21 13:24:21 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/06/21 14:01:24 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,7 +155,7 @@ void		ms_cd(t_ms *shell, char **path);
 void		update_pwd(t_ms *shell);
 char		*get_path(t_ms *shell);
 void		ms_pwd(t_ms *shell);
- void		exec_cmd(char *full_cmd, t_ms *shell, int flag);
+ void		exec_cmd(t_ast *ast, char *full_cmd, t_ms *shell, int flag);
 void		exec_given_path(char *full_cmd, t_ms *shell);
 int			is_builtin(char *full_cmd, t_ms *shell, int piped);
 int			path_is_given(char *full_cmd);

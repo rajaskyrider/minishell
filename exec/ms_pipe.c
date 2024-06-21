@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_pipe.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 08:12:37 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/21 13:24:32 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/06/21 14:01:46 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	exec_pipeleft(t_ast *ast, t_ms **shell, int pip[2])
 		dup2(pip[1], STDOUT_FILENO);
 		close_pipe(pip);
 		close_pipe((*shell)->pip);
-		exec_cmd(ast->value, *shell, 1);
+		exec_cmd(ast, ast->value, *shell, 1);
 		exit (EXIT_FAILURE);
 	}
 	else if (pid < 0)
@@ -60,7 +60,7 @@ void	copy_pipe(t_ms **shell, int pip[2])
 		dup2(pip[1], STDOUT_FILENO);
 		close_pipe(pip);
 		close((*shell)->pip[0]);
-		exec_cmd("cat", (*shell), 1);
+		exec_cmd(NULL, "cat", (*shell), 1);
 		exit(EXIT_SUCCESS);
 	}
 	else if (pid < 0)
@@ -83,7 +83,7 @@ void	exec_piperight(t_ast *ast, t_ms **shell, int pip[2])
 		close_pipe(pip);
 		dup2((*shell)->pip[1], STDOUT_FILENO);
 		close_pipe((*shell)->pip);
-		exec_cmd(ast->value, *shell, 1);
+		exec_cmd(ast, ast->value, *shell, 1);
 		exit (EXIT_FAILURE);
 	}
 	else if ((*shell)->pid < 0)

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 15:36:02 by tle-moel          #+#    #+#             */
-/*   Updated: 2024/06/21 13:19:49 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/06/21 14:02:37 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
- void	exec_cmd(char *full_cmd, t_ms *shell, int piped)
+ void	exec_cmd(t_ast *ast, char *full_cmd, t_ms *shell, int piped)
 {
 	char	**args;
 	char	**paths;
@@ -22,15 +22,16 @@
 	int		i;
 
 	i = 0;
-	check_redirection(shell->ast, &shell);
+	if (ast)
+		check_redirection(ast, &shell);
 	if (shell->io_in != -1)
 	{
-		ft_putstr_fd("FIND A REDIRECTION STDIN\n", 2);
+		//ft_putstr_fd("FIND A REDIRECTION STDIN\n", 2);
 		dup2(shell->io_in, STDIN_FILENO);
 	}
 	if (shell->io_out != -1)
 	{
-		ft_putstr_fd("FIND A REDIRECTION STDOUT\n", 2);
+		//ft_putstr_fd("FIND A REDIRECTION STDOUT\n", 2);
 		dup2(shell->io_out, STDOUT_FILENO);
 	}
 	if (is_builtin(full_cmd, shell, piped) == 1)
