@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
+/*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 14:45:40 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/21 15:13:47 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/06/21 17:37:11 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ void	init_shell(t_ms *shell, char **env)
 	shell->environ = init_environ(env);
 	shell->env = env;
 	shell->error = 0;
-	shell->pip[0] = dup(STDIN_FILENO);
-	shell->pip[1] = dup(STDOUT_FILENO);
+	//shell->pip[0] = dup(STDIN_FILENO);
+	//shell->pip[1] = dup(STDOUT_FILENO);
 	shell->io_in = -1;
 	shell->io_out = -1;
 	shell->std_in = dup(STDIN_FILENO);

@@ -6,7 +6,7 @@
 /*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 17:34:08 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/21 16:12:30 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/06/24 16:02:44 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static char	*read_line(char **buffer, int std_in)
 	return (curr_line);
 }
 
-void	navigate(t_ast **ast, t_ms **shell, int last_pipe[2])
+void	navigate(t_ast **ast, t_ms **shell, int next_pipe[2])
 {
 	int	pipe_fd[2];
 
@@ -60,7 +60,7 @@ void	navigate(t_ast **ast, t_ms **shell, int last_pipe[2])
 	{
 		if (pipe_fd[0] == -1)
 			setup_pipe(pipe_fd, shell);
-		ms_pipe(*ast, shell, pipe_fd, last_pipe);
+		ms_pipe(*ast, shell, pipe_fd, next_pipe);
 	}
 	else if ((*ast)->token_type == T_AND_IF)
 	{
@@ -79,28 +79,16 @@ void	navigate(t_ast **ast, t_ms **shell, int last_pipe[2])
 void	execute(t_ms *shell)
 {
 	t_ast *ast;
-	//char 	*line;
 	pid_t	pid;
 	int		status;
+	int		shellpipe[2];
 
 	ast = shell->ast;
-	if (pipe(shell->pip) == -1)
-		print_error(shell, "Error creating pipe");
+	shellpipe[0] = -1;
+	shellpipe[1] = -1;
 	if (ast->type == T_OPERATOR)
 	{
-		navigate(&ast, &shell, (int [2]){STDIN_FILENO, STDOUT_FILENO});
-		/*close((shell)->pip[1]);
-		line = get_next_line(shell->pip[0]);
-		if (line != NULL)
-		{
-			while (line != NULL)
-			{
-				write(STDOUT_FILENO, line, ft_strlen(line));
-				free(line);
-				line = get_next_line(shell->pip[0]);
-			}
-		}
-		close((shell)->pip[0]);*/
+		navigate(&ast, &shell, shellpipe);
 		while ((pid = wait(&status)) > 0)
 		{
 			if (shell->pid == pid)
@@ -109,11 +97,9 @@ void	execute(t_ms *shell)
 					shell->lexit_status = WEXITSTATUS(status);
 			}
 		}
-		close_pipe(shell->pip);
 	}
 	else
 	{
-		close_pipe(shell->pip);
 		exec_cmd(shell->ast, shell->ast->value, shell, 0);
 		dup2(shell->std_in, STDIN_FILENO);
 		dup2(shell->std_out, STDOUT_FILENO);
