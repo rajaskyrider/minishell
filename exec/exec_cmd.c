@@ -6,7 +6,7 @@
 /*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 15:36:02 by tle-moel          #+#    #+#             */
-/*   Updated: 2024/06/21 14:02:37 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/06/25 15:37:34 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@
 					i++;
 				}
 				tmp = args[0];
-				args[0] = get_cmd(args[0], paths);
+				args[0] = get_cmd(args[0], paths, shell);
 				free(tmp);
 				execve(args[0], args, shell->env);
 			}
@@ -81,7 +81,7 @@
 				i++;
 			}
 			tmp = args[0];
-			args[0] = get_cmd(args[0], paths);
+			args[0] = get_cmd(args[0], paths, shell);
 			free(tmp);
 			execve(args[0], args, shell->env);
 		}
@@ -181,13 +181,23 @@ char	**find_paths(t_envlst *environ)
 	return (paths);
 }
 
-char	*get_cmd(char *cmd, char **paths)
+char	*get_cmd(char *cmd, char **paths, t_ms *shell)
 {
-	int		i;
-	char	*path;
-	char	*path_exec;
+	int			i;
+	char		*path;
+	char		*path_exec;
+	struct stat	statbuf;
 
 	i = 0;
+	if (stat(cmd, &statbuf) == 0)
+	{
+		if (S_ISDIR(statbuf.st_mode))
+		{
+			shell->lexit_status = 126;
+			print_error(shell, "minishell: Is a directory");
+			return NULL;
+		}
+	}
 	while (paths[i] != NULL)
 	{
 		path = ft_strjoin(paths[i], "/");

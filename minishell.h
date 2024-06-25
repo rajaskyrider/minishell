@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 14:42:50 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/21 17:58:40 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/06/25 15:36:48 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <sys/wait.h>
 # include <dirent.h>
 # include <fcntl.h>
+#include <sys/stat.h>
 
 typedef enum e_token_type
 {
@@ -160,7 +161,7 @@ void		exec_given_path(char *full_cmd, t_ms *shell);
 int			is_builtin(char *full_cmd, t_ms *shell, int piped);
 int			path_is_given(char *full_cmd);
 char		**find_paths(t_envlst *environ);
-char		*get_cmd(char *cmd, char **paths);
+char		*get_cmd(char *cmd, char **paths, t_ms *shell);
 void		execute(t_ms *shell);
 void		redirect(t_ms *shell, t_ast *ast);
 int			glob(char **cmd, t_ms *shell, int start);
