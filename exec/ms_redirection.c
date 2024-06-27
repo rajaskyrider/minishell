@@ -6,7 +6,7 @@
 /*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 09:40:20 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/25 13:59:02 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/06/27 15:08:28 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void	check_redirection(t_ast *ast, t_ms **shell)
 			fd = open(ptr->value, O_RDONLY);
 			if (fd == -1)
 			{
-				print_error(*shell, "minishell: No such file or directory");
+				print_error(*shell, "minishell: No such file or directory\n");
 				(*shell)->lexit_status = 1;
 				exit(1);
 			}

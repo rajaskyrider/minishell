@@ -6,7 +6,7 @@
 /*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 14:42:50 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/25 15:36:48 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/06/27 17:41:01 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,16 +156,18 @@ void		ms_cd(t_ms *shell, char **path);
 void		update_pwd(t_ms *shell);
 char		*get_path(t_ms *shell);
 void		ms_pwd(t_ms *shell);
- void		exec_cmd(t_ast *ast, char *full_cmd, t_ms *shell, int flag);
-void		exec_given_path(char *full_cmd, t_ms *shell);
-int			is_builtin(char *full_cmd, t_ms *shell, int piped);
+void		exec_cmd(t_ast *ast, char *full_cmd, t_ms *shell, int flag);
+void		exec_given_path(char *full_cmd, t_ms *shell, char **args);
+int			is_builtin(char *full_cmd, t_ms *shell, char **arg);
 int			path_is_given(char *full_cmd);
 char		**find_paths(t_envlst *environ);
 char		*get_cmd(char *cmd, char **paths, t_ms *shell);
+char		**split_and_expand(char *full_cmd, t_ms *shell);
+void		deal_redirection(t_ast *ast, t_ms *shell);
 void		execute(t_ms *shell);
-void		redirect(t_ms *shell, t_ast *ast);
 int			glob(char **cmd, t_ms *shell, int start);
 void		check_redirection(t_ast *ast, t_ms **shell);
+void		check_directory(char *cmd, t_ms *shell);
 void		ms_pipe(t_ast *ast, t_ms **shell, int pipe_fd[2], int last_pipe[2]);
 void		check_here_doc(char *limiter, int std_in, int fd_out);
 void		close_pipe(int pip[2]);
