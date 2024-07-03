@@ -6,7 +6,7 @@
 /*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 09:40:20 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/27 15:08:28 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/07/03 13:22:55 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,11 @@ void	check_redirection(t_ast *ast, t_ms **shell)
 	(*shell)->io_out = -1;
 	ptr = ast->io;
 	if (ptr)
+	{
 		ptr->value = expandcmd(ptr->value, *shell);
+		//if (access(ptr->value, X_OK) != 0)
+ 		//	print_error(*shell, "minishell: Permission denied\n");
+	}
 	while (ptr)
 	{
 		if (ptr->type == T_LESS)

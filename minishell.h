@@ -6,7 +6,7 @@
 /*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 14:42:50 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/27 17:41:01 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/07/03 15:48:08 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,6 +157,8 @@ void		update_pwd(t_ms *shell);
 char		*get_path(t_ms *shell);
 void		ms_pwd(t_ms *shell);
 void		exec_cmd(t_ast *ast, char *full_cmd, t_ms *shell, int flag);
+void		navigate(t_ast **ast, t_ms **shell, int next_pipe[2]);
+void		execute_simple(t_ms *shell);
 void		exec_given_path(char *full_cmd, t_ms *shell, char **args);
 int			is_builtin(char *full_cmd, t_ms *shell, char **arg);
 int			path_is_given(char *full_cmd);
@@ -181,6 +183,8 @@ char		**ms_split(char const *s, char c);
 int			key_is_valid(char *key);
 void		ms_exit(char **arg, t_ms *shell);
 void		setup_pipe(int pip[2], t_ms **shell);
+void		deal_logical(t_ast **ast, t_ms **shell, int next_pipe[2]);
+void		close_fd(t_ms *shell);
 
 /*Test functions (to remove)*/
 void		print_token_lst(t_ms *shell);

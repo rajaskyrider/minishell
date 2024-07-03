@@ -6,7 +6,7 @@
 /*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 17:34:08 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/25 10:14:32 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/07/03 15:46:51 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ void	navigate(t_ast **ast, t_ms **shell, int next_pipe[2])
 	pipe_fd[1] = -1;
 	if (!ast || !(*ast))
 		return ;
+	if ((*ast)->token_type == T_AND_IF || (*ast)->token_type == T_OR_IF)
+		deal_logical(ast, shell, next_pipe);
 	if ((*ast)->left->type == T_OPERATOR)
 	{
 		setup_pipe(pipe_fd, shell);
@@ -30,18 +32,6 @@ void	navigate(t_ast **ast, t_ms **shell, int next_pipe[2])
 		if (pipe_fd[0] == -1)
 			setup_pipe(pipe_fd, shell);
 		ms_pipe(*ast, shell, pipe_fd, next_pipe);
-	}
-	else if ((*ast)->token_type == T_AND_IF)
-	{
-		ft_printf("Code for AND under construction\n");
-		if ((*ast)->right->type == T_OPERATOR)
-			navigate(&(*ast)->right, shell, pipe_fd);
-	}
-	else if ((*ast)->token_type == T_OR_IF)
-	{
-		ft_printf("Code for OR under construction\n");
-		if ((*ast)->right->type == T_OPERATOR)
-			navigate(&(*ast)->right, shell, pipe_fd);
 	}
 }
 
@@ -86,4 +76,5 @@ void	execute(t_ms *shell)
 	}
 	else
 		execute_simple(shell);
+	close_fd (shell);
 }

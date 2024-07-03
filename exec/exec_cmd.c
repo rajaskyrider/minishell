@@ -6,7 +6,7 @@
 /*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 14:51:01 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/27 18:01:04 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/07/03 15:57:15 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,13 +63,13 @@ void	exec_given_path(char * full_cmd, t_ms *shell, char **args)
 	}
 }
 
-void	run_cmd(char *full_cmd, t_ms *shell, char **arg)
+void	run_cmd(t_ms *shell, char **arg)
 {
 	char	**paths;
 	char	*tmp;
 	
-	if (path_is_given(full_cmd) == 1)
-		return (exec_given_path(full_cmd, shell, arg));
+	if (path_is_given(arg[0]) == 1)
+		return (exec_given_path(arg[0], shell, arg));
 	else
 	{
 		paths = find_paths(shell->environ);
@@ -97,11 +97,14 @@ void	exec_cmd(t_ast *ast, char *full_cmd, t_ms *shell, int piped)
 	{
 		pid = fork();
 		if (pid == 0)
-			run_cmd(full_cmd, shell, args);
+		{
+			run_cmd(shell, args);
+			close_fd(shell);
+		}
 		waitpid(pid, &status, 0);
 		if (WIFEXITED(status))
 			shell->lexit_status = WEXITSTATUS(status);
 	}
 	else
-		run_cmd(full_cmd, shell, args);
+		run_cmd(shell, args);
 }
