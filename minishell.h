@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 14:42:50 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/07/11 12:13:19 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/07/11 16:29:27 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include <dirent.h>
 # include <fcntl.h>
 #include <sys/stat.h>
+#include <errno.h>
 
 typedef enum e_token_type
 {

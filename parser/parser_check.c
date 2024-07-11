@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 10:44:46 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/07/11 15:03:29 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/07/11 17:16:20 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ void	format_cmd(t_token **token, t_ms *shell)
 	int		count;
 	int		flag;
 
-	ft_putstr_fd("Enter format_cmd\n", 2);
 	count = 0;
 	flag = 1;
 	ptr = *token;
