@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
+/*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 14:51:01 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/07/03 15:57:15 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/07/11 12:14:59 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,13 @@ void	exec_cmd(t_ast *ast, char *full_cmd, t_ms *shell, int piped)
 	char	**args;
 	
 	args = split_and_expand(full_cmd, shell);
-	deal_redirection(ast, shell);	
+	if (deal_redirection(ast, shell) != 0)
+	{
+		if (piped != 0)
+			exit(EXIT_FAILURE);
+		shell->lexit_status = 1;
+		return ;
+	}
 	if (is_builtin(full_cmd, shell, args) == 1)
 	{
 		if (piped != 0)

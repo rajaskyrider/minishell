@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_redirection.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
+/*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 09:40:20 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/07/03 13:22:55 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/07/11 15:33:11 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	check_here_doc(char *limiter, int std_in, int fd_out)
 	free(line);
 }
 
-void	check_redirection(t_ast *ast, t_ms **shell)
+int		check_redirection(t_ast *ast, t_ms **shell)
 {
 	int		fd;
 	t_io	*ptr;
@@ -73,40 +73,50 @@ void	check_redirection(t_ast *ast, t_ms **shell)
 	(*shell)->io_in = -1;
 	(*shell)->io_out = -1;
 	ptr = ast->io;
-	if (ptr)
+	/*if (ptr)
 	{
 		ptr->value = expandcmd(ptr->value, *shell);
 		//if (access(ptr->value, X_OK) != 0)
  		//	print_error(*shell, "minishell: Permission denied\n");
-	}
+	}*/
 	while (ptr)
 	{
+		ptr->value = expandcmd(ptr->value, *shell);
 		if (ptr->type == T_LESS)
 		{
+			if ((*shell)->io_in != -1)
+				close((*shell)->io_in);
 			fd = open(ptr->value, O_RDONLY);
 			if (fd == -1)
 			{
-				print_error(*shell, "minishell: No such file or directory\n");
-				(*shell)->lexit_status = 1;
-				exit(1);
+				ft_putstr_fd("minishell: No such file or directory\n", 2);
+				return (1);
 			}
-			else
-				(*shell)->io_in = fd;
+			(*shell)->io_in = fd;
 		}
 		else if (ptr->type == T_GREAT)
 		{
+			if ((*shell)->io_out != -1)
+				close((*shell)->io_out);
 			fd = open(ptr->value, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 			if (fd == -1)
-				exit(EXIT_FAILURE);
-				//print_error(*shell,  "minishell: Permission denied");	
+			{
+				ft_putstr_fd("minishell: Permission denied\n", 2);
+				return (1);
+			}
 			(*shell)->io_out = fd;
 
 		}
 		else if (ptr->type == T_DGREAT)
 		{
+			if ((*shell)->io_out != -1)
+				close((*shell)->io_out);
 			fd = open(ptr->value, O_WRONLY | O_CREAT | O_APPEND, 0644);
 			if (fd == -1)
-				exit (EXIT_FAILURE);
+			{
+				ft_putstr_fd("minishell: Permission denied\n", 2);
+				return (1);
+			}
 			(*shell)->io_out = fd;
 		}
 		else if (ptr->type == T_DLESS)
@@ -115,4 +125,5 @@ void	check_redirection(t_ast *ast, t_ms **shell)
 		}
 		ptr = ptr->next;
 	}
+	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
+/*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 14:42:50 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/07/03 15:48:08 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/07/11 12:13:19 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,10 +165,10 @@ int			path_is_given(char *full_cmd);
 char		**find_paths(t_envlst *environ);
 char		*get_cmd(char *cmd, char **paths, t_ms *shell);
 char		**split_and_expand(char *full_cmd, t_ms *shell);
-void		deal_redirection(t_ast *ast, t_ms *shell);
+int			deal_redirection(t_ast *ast, t_ms *shell);
 void		execute(t_ms *shell);
 int			glob(char **cmd, t_ms *shell, int start);
-void		check_redirection(t_ast *ast, t_ms **shell);
+int			check_redirection(t_ast *ast, t_ms **shell);
 void		check_directory(char *cmd, t_ms *shell);
 void		ms_pipe(t_ast *ast, t_ms **shell, int pipe_fd[2], int last_pipe[2]);
 void		check_here_doc(char *limiter, int std_in, int fd_out);

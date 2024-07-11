@@ -3,23 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
+/*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 15:11:48 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/07/03 15:58:10 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/07/11 12:13:12 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	deal_redirection(t_ast *ast, t_ms *shell)
+int		deal_redirection(t_ast *ast, t_ms *shell)
 {
+	int		res;
+
+	res = 0;
 	if (ast)
-		check_redirection(ast, &shell);
+		res = check_redirection(ast, &shell);
 	if (shell->io_in != -1)
 		dup2(shell->io_in, STDIN_FILENO);
 	if (shell->io_out != -1)
 		dup2(shell->io_out, STDOUT_FILENO);
+	return (res);
 }
 
 char	**split_and_expand(char *full_cmd, t_ms *shell)

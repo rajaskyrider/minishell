@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 10:44:08 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/17 11:15:58 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/07/11 15:32:43 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	create_io(t_token *ptr, t_ms *shell)
 {
 	t_io	*io;
+	t_io	*temp;
 
 	io = ft_calloc(sizeof(t_io), 1);
 	if (!io)
@@ -25,10 +26,11 @@ void	create_io(t_token *ptr, t_ms *shell)
 	io->prev = NULL;
 	if (ptr->io)
 	{
-		while (ptr->io->next)
-			ptr->io = ptr->io->next;
-		ptr->io->next = io;
-		io->prev = ptr->io;
+		temp = ptr->io;
+		while (temp->next)
+			temp = temp->next;
+		temp->next = io;
+		io->prev = temp;
 	}
 	else
 		ptr->io = io;
