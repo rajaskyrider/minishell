@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 10:44:46 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/07/11 17:16:20 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/07/15 15:21:47 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ t_token	*setup_reorder(t_token *token, t_token *ptr, t_ms *shell, int count)
 	}
 	return (new);
 }
-
+/*
 void	format_cmd(t_token **token, t_ms *shell)
 {
 	t_token	*ptr;
@@ -80,10 +80,61 @@ void	format_cmd(t_token **token, t_ms *shell)
 		ptr = ptr->next;
 	}
 	*token = setup_reorder(*token, ptr, shell, count);
-}
+}*/
 
+void	format_cmd(t_token **token, t_ms *shell)
+{
+	t_token	*ptr;
+	int		count;
+	int		flag;
+
+	count = 0;
+	flag = 0;
+	ptr = *token;
+	while (ptr->next)
+	{
+		if (ptr->type == T_WORD && ptr->next->type == T_WORD)
+		{
+			flag = 1;
+			count++;
+			while (ptr->next && ptr->next->type == T_WORD)
+			{
+				count++;
+				ptr = ptr->next;
+			}
+			break ;
+		}
+		ptr = ptr->next;
+	}
+	if (flag == 0)
+		return ; //add true as a cmd
+	*token = setup_reorder(*token, ptr, shell, count);
+}
+/*
 void	check_cmd(t_ms *shell)
 {
 	if (ms_isredirect(shell->token_lst->type))
 		format_cmd(&shell->token_lst, shell);
+}*/
+
+void	check_cmd(t_ms *shell)
+{
+	t_token	*ptr;
+	t_token *segment_start;
+
+	ptr = shell->token_lst;
+	segment_start = ptr;
+	if (ms_isredirect(shell->token_lst->type))
+		format_cmd(&shell->token_lst, shell);
+	while (ptr)
+	{
+		if (ptr->type == T_PIPE || ptr->type == T_AND_IF || ptr->type == T_OR_IF)
+		{
+			segment_start = ptr->next;
+			if (segment_start)
+				if (ms_isredirect(segment_start->type))
+					format_cmd(&segment_start, shell);
+		}
+		ptr = ptr->next;
+	}
 }
