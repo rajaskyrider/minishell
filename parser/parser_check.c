@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 10:44:46 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/07/15 15:21:47 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/07/15 16:08:43 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,29 @@ void	format_cmd(t_token **token, t_ms *shell)
 	*token = setup_reorder(*token, ptr, shell, count);
 }*/
 
+void	just_redirection(t_token **token)
+{
+	t_token *new;
+
+	
+	new = (t_token *)malloc(sizeof(t_token));
+	if (new == NULL)
+		return ;
+	new->type = T_WORD;	
+	new->value = "true";
+	new->io = NULL;
+	new->next = *token;
+	if ((*token)->prev)
+	{
+		new->prev = (*token)->prev;
+		(*token)->prev->next = new;
+	}
+	else
+		new->prev = NULL;
+	(*token)->prev = new;
+	*token = new;
+}
+
 void	format_cmd(t_token **token, t_ms *shell)
 {
 	t_token	*ptr;
@@ -107,7 +130,7 @@ void	format_cmd(t_token **token, t_ms *shell)
 		ptr = ptr->next;
 	}
 	if (flag == 0)
-		return ; //add true as a cmd
+		return (just_redirection(token));
 	*token = setup_reorder(*token, ptr, shell, count);
 }
 /*

@@ -7,12 +7,25 @@ Signals
 Redirection : 
 	- Problems with redirection, the opened files are not closed in some instance.. like ls > tyui && cat tyui 
 	(this doesnt work as the file is not closed. I created a function to close_fd to close it but it is still open in one of the children)
-
-	- Crash when the command is only redirection (> file1)
 	
-	- heredoc
+	- heredoc: implemented but some problem with order of execution
+	
+cat <<HERE | ls
 
-Subshell (AND, OR)
+cat <<HERE
+$USER
+oi
+HERE
+
+cat <minishell.h <<HERE <missing | ls
+HERE
+
+cat <minishell.h <<HERE <missing <<DOC | echo oi
+HERE
+DOC
+
+
+Subshell (AND, OR) --> mostly error code and error message wrong
 
 wildcard (working on this currently)
 

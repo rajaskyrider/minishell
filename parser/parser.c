@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 09:25:09 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/07/15 14:54:00 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/07/15 16:08:30 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int		parser(t_ms *shell)
 
 	//print_token_lst(shell);
 	check_cmd(shell);
-	//ft_putstr_fd("\n---------AFTER--------\n", 2);
+	//ft_putstr_fd("\n----AFTER----\n", 2);
 	//print_token_lst(shell);
 	deal_io(shell);
 	//print_token_lst(shell);

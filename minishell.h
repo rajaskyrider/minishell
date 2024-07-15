@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 14:42:50 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/07/11 16:29:27 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/07/15 17:06:42 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,7 +172,7 @@ int			glob(char **cmd, t_ms *shell, int start);
 int			check_redirection(t_ast *ast, t_ms **shell);
 void		check_directory(char *cmd, t_ms *shell);
 void		ms_pipe(t_ast *ast, t_ms **shell, int pipe_fd[2], int last_pipe[2]);
-void		check_here_doc(char *limiter, int std_in, int fd_out);
+void		check_here_doc(char *limiter, int *fd);
 void		close_pipe(int pip[2]);
 char		*expandcmd(char *cmd, t_ms *shell);
 char		*replace_wildcard(char *cmd, char *matches, int start, t_ms *shell);
