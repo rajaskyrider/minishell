@@ -1,7 +1,5 @@
 ./minishell then do env then do ./minishell again and then do env.. doesnt work
 
-$PWD (is correct in the tester but bash gives a bit more info than us)
-
 ***Signals
 
 Redirection : 

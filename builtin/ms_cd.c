@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 15:47:57 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/20 11:30:49 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/07/17 14:04:19 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	ms_cd(t_ms *shell, char **path)
 	else if (chdir(path[1]) == -1)
 	{
 		shell->lexit_status = 1;
-		print_error(shell, "minishell: cd: No such file or directory");
+		print_error(shell, "minishell: cd: No such file or directory\n");
 		return ;
 	}
 	update_pwd(shell);
@@ -88,7 +88,7 @@ void	cd_home(t_ms *shell)
 		{
 			home_dir = envlst->value;
 			if (chdir(home_dir) == -1)
-				print_error(shell, "minishell: cd: HOME not find");
+				print_error(shell, "minishell: cd: HOME not find\n");
 			return ;
 		}
 		envlst = envlst->next;

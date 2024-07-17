@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 15:11:48 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/07/11 12:13:12 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/07/17 14:03:12 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,10 @@ void	check_directory(char *cmd, t_ms *shell)
 	
 	if (stat(cmd, &statbuf) == 0 && S_ISDIR(statbuf.st_mode))
 	{
-		print_error(shell, "minishell: Is a directory\n");
+		ft_putstr_fd("minishell: ", 2);
+		ft_putstr_fd(cmd, 2);
+		ft_putstr_fd(": Is a directory\n", 2);
+		clear_shell(shell);
 		exit (126);
 	}
 	else if (stat(cmd, &statbuf) != 0)
