@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 09:40:20 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/07/15 17:13:09 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/07/17 13:51:38 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static char	*read_line(char **buffer, int std_in)
 	return (curr_line);
 }
 
-void	check_here_doc(char *limiter, int *fd)
+void	check_here_doc(char *limiter, int *fd, t_ms *shell)
 {
 	char	*line;
 	char	*buffer;
@@ -60,13 +60,18 @@ void	check_here_doc(char *limiter, int *fd)
 		return;
     }
 	len = ft_strlen(limiter);
+	ft_printf("> ");
 	line = read_line(&buffer, STDIN_FILENO);
 	if (line == NULL)
 		return ;
 	while (!(ft_strncmp(line, limiter, len) == 0 && line[len] == '\n'))
 	{
+		line[ft_strlen(line) - 1] = '\0';
+		line = expandcmd(line, shell);
+		line[ft_strlen(line)] = '\n';
 		write(tmp_fd, line, ft_strlen(line));
 		free(line);
+		ft_printf("> ");
 		line = read_line(&buffer, STDIN_FILENO);
 		if (line == NULL)
 			return ;
@@ -80,7 +85,6 @@ void	check_here_doc(char *limiter, int *fd)
 		ft_putstr_fd(strerror(errno), 2);
 		ft_putstr_fd("\n", 2);
 	}
-
 }
 
 int		check_redirection(t_ast *ast, t_ms **shell)
@@ -144,7 +148,7 @@ int		check_redirection(t_ast *ast, t_ms **shell)
 		{
 			if ((*shell)->io_in != -1)
 				close((*shell)->io_in);
-			check_here_doc(ptr->value, &(*shell)->io_in);
+			check_here_doc(ptr->value, &(*shell)->io_in, *shell);
 		}
 		ptr = ptr->next;
 	}

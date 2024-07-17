@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   glob.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
+/*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 11:07:03 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/25 15:10:33 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/07/17 13:38:56 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,6 +143,5 @@ char	*expandcmd(char *cmd, t_ms *shell)
 		else
 			break ;
 	}
-	//printf("cmd : %s\n", cmd);
 	return (cmd);
 }

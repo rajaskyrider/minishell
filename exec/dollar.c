@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dollar.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
+/*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 09:40:18 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/25 15:11:16 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/07/17 13:02:52 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,6 @@ int	deal_dollar(char **cmd, t_ms *shell, int start)
 		end = replace_invalid(cmd, start - 1, end, shell);
 	return (end - 1);
 }
-
 int find_start(char *cmd, int start)
 {
 	while (start > 0  && cmd[start] != ' ')
