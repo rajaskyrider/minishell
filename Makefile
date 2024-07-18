@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+         #
+#    By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/10 15:30:56 by rpandipe          #+#    #+#              #
-#    Updated: 2024/07/03 15:28:15 by rpandipe         ###   ########.fr        #
+#    Updated: 2024/07/18 09:59:27 by tle-moel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ EXEC		= exec/exec_cmd.c exec/navigate.c exec/glob.c \
 			  exec/ms_pipe.c exec/dollar.c exec/ms_redirection.c \
 			  exec/exec_setup.c exec/exec_utils.c exec/logical_op.c
 TEST		= test/test.c
-SRCS		= main.c prompt.c utils.c validation.c clean.c ms_split.c\
+SRCS		= main.c prompt.c utils.c validation.c clean.c ms_split.c signals.c\
 			  $(BUILTIN) \
 			  $(TOKENIZER) \
 			  $(PARSER) \

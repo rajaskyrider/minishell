@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 14:51:01 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/07/11 12:14:59 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/07/18 11:25:01 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ void	exec_cmd(t_ast *ast, char *full_cmd, t_ms *shell, int piped)
 	int		status;
 	char	**args;
 	
+	signal_process();
 	args = split_and_expand(full_cmd, shell);
 	if (deal_redirection(ast, shell) != 0)
 	{

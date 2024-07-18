@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 17:34:08 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/07/11 15:33:38 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/07/18 11:25:45 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ void	execute(t_ms *shell)
 		navigate(&ast, &shell, shellpipe);
 		while ((pid = wait(&status)) > 0)
 		{
+			signal_process();
 			if (shell->pid == pid)
 			{
 				if (WIFEXITED(status))

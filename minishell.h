@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 14:42:50 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/07/17 13:39:03 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/07/18 11:29:16 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@
 # include <fcntl.h>
 #include <sys/stat.h>
 #include <errno.h>
+#include <signal.h>
+#include <stdlib.h>
 
 typedef enum e_token_type
 {
@@ -186,6 +188,11 @@ void		ms_exit(char **arg, t_ms *shell);
 void		setup_pipe(int pip[2], t_ms **shell);
 void		deal_logical(t_ast **ast, t_ms **shell, int next_pipe[2]);
 void		close_fd(t_ms *shell);
+void		handle_sigint(int sig);
+void		handle_sigint_process(int sig);
+void		handle_sigquit_process(int sig);
+void		init_signal(void);
+void		signal_process(void);
 
 /*Test functions (to remove)*/
 void		print_token_lst(t_ms *shell);
