@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   logical_op.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
+/*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 15:00:58 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/07/03 15:58:01 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/07/18 14:10:37 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ void	logical_and(t_ast **ast, t_ms **shell, int next_pipe[2])
 	else
 		exec_cmd((*ast)->left, (*ast)->left->value, *shell, 0);
 	close_fd (*shell);
+	dup2((*shell)->std_in, STDIN_FILENO);
+	dup2((*shell)->std_out, STDOUT_FILENO);
 	if ((*shell)->lexit_status == 0)
 	{
 		if ((*ast)->right->type == T_OPERATOR)
@@ -40,6 +42,8 @@ void	logical_or(t_ast **ast, t_ms **shell, int next_pipe[2])
 	else
 		exec_cmd((*ast)->left, (*ast)->left->value, *shell, 0);
 	close_fd (*shell);
+	dup2((*shell)->std_in, STDIN_FILENO);
+	dup2((*shell)->std_out, STDOUT_FILENO);
 	if ((*shell)->lexit_status != 0)
 	{
 		if ((*ast)->right->type == T_OPERATOR)

@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 14:45:40 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/07/18 11:04:26 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/07/18 13:46:11 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ void	init_shell(t_ms *shell, char **env)
 /// @param exitcode EXIT_SUCCESS or EXIT_FAILURE
 void	exit_shell(t_ms *shell, int exitcode)
 {
+	close(shell->std_in);
+	close(shell->std_out);
 	clear_shell(shell);
 	exit(exitcode);
 }
@@ -49,7 +51,6 @@ int	main(int argc, char **argv, char **env)
 	(void)argc;
 	(void)argv;
 	init_shell(&shell, env);
-	
 	while (1)
 	{
 		init_signal();

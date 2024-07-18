@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 09:40:20 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/07/17 13:51:38 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/07/18 13:53:39 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ int		check_redirection(t_ast *ast, t_ms **shell)
 	ptr = ast->io;
 	while (ptr)
 	{
+		//Change expandcmd to a customize expand heredoc !!!
 		ptr->value = expandcmd(ptr->value, *shell);
 		if (ptr->type == T_LESS)
 		{
@@ -105,7 +106,6 @@ int		check_redirection(t_ast *ast, t_ms **shell)
 			fd = open(ptr->value, O_RDONLY);
 			if (fd == -1)
 			{
-				//ft_putstr_fd("minishell: No such file or directory\n", 2);
 				ft_putstr_fd("minishell: ", 2);
 				ft_putstr_fd(strerror(errno), 2);
 				ft_putstr_fd("\n", 2);
@@ -120,7 +120,6 @@ int		check_redirection(t_ast *ast, t_ms **shell)
 			fd = open(ptr->value, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 			if (fd == -1)
 			{
-				//ft_putstr_fd("minishell: Permission denied\n", 2);
 				ft_putstr_fd("minishell: ", 2);
 				ft_putstr_fd(strerror(errno), 2);
 				ft_putstr_fd("\n", 2);
@@ -136,7 +135,6 @@ int		check_redirection(t_ast *ast, t_ms **shell)
 			fd = open(ptr->value, O_WRONLY | O_CREAT | O_APPEND, 0644);
 			if (fd == -1)
 			{
-				//ft_putstr_fd("minishell: Permission denied\n", 2);
 				ft_putstr_fd("minishell: ", 2);
 				ft_putstr_fd(strerror(errno), 2);
 				ft_putstr_fd("\n", 2);

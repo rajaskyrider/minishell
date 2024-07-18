@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 14:51:01 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/07/18 11:25:01 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/07/18 14:06:50 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,8 +105,8 @@ void	exec_cmd(t_ast *ast, char *full_cmd, t_ms *shell, int piped)
 		pid = fork();
 		if (pid == 0)
 		{
-			run_cmd(shell, args);
 			close_fd(shell);
+			run_cmd(shell, args);
 		}
 		waitpid(pid, &status, 0);
 		if (WIFEXITED(status))
