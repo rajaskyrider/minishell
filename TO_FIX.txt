@@ -11,9 +11,9 @@ Redirection :
 	HERE
 	DOC
 
-
-Subshell (AND, OR) --> mostly error code and error message wrong
-
 wildcard (working on this currently)
 
+Subshell (AND, OR) --> mostly error code and error message wrong
+Syntax error
+isatty
 
