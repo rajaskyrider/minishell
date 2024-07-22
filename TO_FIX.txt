@@ -13,7 +13,9 @@ Redirection :
 
 wildcard (working on this currently)
 
-Subshell (AND, OR) --> mostly error code and error message wrong
-Syntax error
 isatty
+exit with max min LONG nbr
+PARENTHESIS
 
+NORME
+LEAKS AND FILE OPEN

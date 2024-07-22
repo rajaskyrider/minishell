@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenize.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
+/*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 14:47:49 by tle-moel          #+#    #+#             */
-/*   Updated: 2024/06/20 10:42:39 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/07/22 11:35:05 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,68 @@ t_token	*create_token_lst(char *cmd_line, t_ms *shell)
 	return (token_lst);
 }
 
+void	check_syntax_error(t_ms *shell)
+{
+	t_token	*ptr;
+
+	ptr = shell->token_lst;
+	if (ptr && ptr->type == T_WORD && ptr->value[0] == '*')
+	{
+		shell->error = 1;
+		shell->lexit_status = 127;
+		ft_putstr_fd("minishell: command not found\n", 2);
+		return ;
+	}
+	else if (ptr && (ptr->type == T_AND_IF || ptr->type == T_OR_IF || ptr->type == T_PIPE))
+	{
+		shell->error = 1;
+		shell->lexit_status = 2;
+		ft_putstr_fd("minishell: syntax error near unexpected token\n", 2);
+		return ;
+	}
+	while (ptr)
+	{
+		if (ptr->type == T_AND_IF || ptr->type == T_OR_IF || ptr->type == T_PIPE || ptr->type == T_GREAT || ptr->type == T_DGREAT || ptr->type == T_LESS || ptr->type == T_DLESS)
+		{
+			if (!ptr->next || ptr->next->type == T_AND_IF || ptr->next->type == T_OR_IF || ptr->next->type == T_PIPE || ptr->next->type == T_GREAT || ptr->next->type == T_DGREAT || ptr->next->type == T_LESS || ptr->next->type == T_DLESS)
+			{
+				shell->error = 1;
+				shell->lexit_status = 2;
+				ft_putstr_fd("minishell: syntax error near unexpected token\n", 2);
+				return ;
+			}
+		}
+		if (ptr->next && (ptr->type == T_GREAT || ptr->type == T_DGREAT || ptr->type == T_LESS))
+		{
+			if (ptr->next->type == T_WORD && ptr->next->value[0] == '*' && ptr->next->value[1] == '\0')
+			{
+				shell->error = 1;
+				shell->lexit_status = 1;
+				ft_putstr_fd("minishell: ambiguous redirect\n", 2);
+				return ;
+			}
+		}
+		if (ptr->next && ptr->type == T_DLESS)
+		{
+			if (ptr->next->type == T_WORD && ptr->next->value[0] == '*' && ptr->next->value[1] == '\0')
+			{
+				shell->error = 1;
+				shell->lexit_status = 0;
+				ft_putstr_fd("minishell: here-document at line 1 delimited by end-of-file (wanted `*\')\n", 2);
+				return ;
+			}
+		}
+		ptr = ptr->next;
+	}
+}
+
 int	tokenize(t_ms *shell)
 {
 	char	*cmd_line;
 
 	cmd_line = shell->cmd;
 	shell->token_lst = create_token_lst(cmd_line, shell);
+	check_syntax_error(shell);
 	if (shell->error == 1)
 	{
 		delete_token_lst(&shell->token_lst);
