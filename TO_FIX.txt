@@ -1,4 +1,4 @@
-./minishell then do env then do ./minishell again and then do env.. doesnt work
+
 
 Redirection : 
 
@@ -13,9 +13,23 @@ Redirection :
 
 wildcard (working on this currently)
 
+./minishell then do env then do ./minishell again and then do env.. doesnt work
+
 isatty
+
 exit with max min LONG nbr
+
+multiple spaces/tabs -> crash
+
+cd wrong directory then cd directory -> problem free and crash
+
+cd + spaces -> too many arguments
+
+when error -> it seems that it launch another instance of minishell..
+
+echo ' " $USER " ' -> don't print the user variable
+
 PARENTHESIS
 
 NORME
-LEAKS AND FILE OPEN
+LEAKS AND FDS OPEN
