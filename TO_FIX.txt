@@ -19,11 +19,7 @@ isatty
 
 exit with max min LONG nbr
 
-multiple spaces/tabs -> crash
-
 cd wrong directory then cd directory -> problem free and crash
-
-cd + spaces -> too many arguments
 
 when error -> it seems that it launch another instance of minishell..
 
