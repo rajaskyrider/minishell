@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 14:51:01 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/07/18 14:06:50 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/07/22 17:15:34 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	exec_given_path(char * full_cmd, t_ms *shell, char **args)
 	}
 	check_directory(full_cmd, shell);
 	if (access(path, X_OK) == 0)
-		execve(args[0], args, NULL);
+		execve(args[0], args, shell->env);
 	else
 	{
 		print_error(shell, "minishell: Permission denied\n");
