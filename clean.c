@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clean.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
+/*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 10:57:50 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/11 16:59:10 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/07/23 17:51:42 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	delete_token_lst(t_token **token_lst)
 	t_token	*next;
 
 	if (!token_lst || !*token_lst)
-		return;
+		return ;
 	current = *token_lst;
 	next = NULL;
 	while (current)
@@ -69,7 +69,7 @@ void	delete_env_lst(t_envlst **environ)
 	t_envlst	*next;
 
 	if (!environ || !*environ)
-		return;
+		return ;
 	current = *environ;
 	next = NULL;
 	while (current)

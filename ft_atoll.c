@@ -6,15 +6,15 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 11:25:03 by tle-moel          #+#    #+#             */
-/*   Updated: 2024/07/23 13:25:56 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/07/23 17:52:25 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 long long	ft_atoll(const char *nptr)
 {
 	long long	ans;
-	int	sign;
-	int	i;
+	int			sign;
+	int			i;
 
 	ans = 0;
 	sign = 1;

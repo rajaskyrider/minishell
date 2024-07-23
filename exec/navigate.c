@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 17:34:08 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/07/23 14:49:31 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/07/23 17:39:41 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	execute_simple(t_ms *shell)
 
 void	execute(t_ms *shell)
 {
-	t_ast 	*ast;
+	t_ast	*ast;
 	pid_t	pid;
 	int		status;
 	int		shellpipe[2];

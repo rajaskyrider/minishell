@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 11:07:03 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/07/23 15:11:17 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/07/23 17:39:16 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	match(char *pattern, char *filename)
 				(*filename && match(pattern, filename + 1)));
 	if (*pattern == *filename)
 		return (match(pattern + 1, filename + 1));
-	return (0);	
+	return (0);
 }
 
 char	*replace_cmd(char *cmd, char *filename, t_ms *shell)
@@ -57,7 +57,8 @@ char	*replace_wildcard(char *cmd, char *matches, int start, t_ms *shell)
 		return (cmd);
 	clen = ft_strlen(cmd);
 	mlen = ft_strlen(matches);
-	while (cmd[end] && cmd[end] != ' ' && cmd[end] != '$' && cmd[end] != '?' && cmd[end] != '\'')
+	while (cmd[end] && cmd[end] != ' ' && cmd[end] != '$' && \
+		cmd[end] != '?' && cmd[end] != '\'')
 		end++;
 	if (cmd[end] == '?')
 		end += 1;
@@ -117,7 +118,7 @@ char	*expandcmd(char *cmd, t_ms *shell)
 		if (cmd[i] && cmd[i] == '\'')
 		{
 			start = i++;
-			while (cmd[i] && cmd[i] !='\'')
+			while (cmd[i] && cmd[i] != '\'')
 				i++;
 			end = i--;
 			remove_quotes(&cmd, start, end);
@@ -125,7 +126,7 @@ char	*expandcmd(char *cmd, t_ms *shell)
 		else if (cmd[i] && cmd[i] == '\"')
 		{
 			start = i++;
-			while (cmd[i] && cmd[i] !='\"')
+			while (cmd[i] && cmd[i] != '\"')
 			{
 				if (cmd[i] && cmd[i] == '$' && cmd[i + 1] != ' ')
 					i = deal_dollar(&cmd, shell, i + 1);

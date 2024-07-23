@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
+/*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 15:26:17 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/12 16:04:05 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/07/23 17:45:44 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	concat_io(t_token *new, t_token *old)
 		new->io = old->io;
 		return ;
 	}
-	while(ptr->next)
+	while (ptr->next)
 		ptr = ptr->next;
 	ptr->next = old->io;
 }

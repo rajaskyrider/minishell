@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 09:40:20 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/07/18 13:53:39 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/07/23 17:45:12 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,12 @@ void	check_here_doc(char *limiter, int *fd, t_ms *shell)
 	buffer = NULL;
 	tmp_fd = open("/tmp/heredoc_tmp", O_WRONLY | O_CREAT | O_TRUNC, 0600);
 	if (tmp_fd == -1)
-    {
-        ft_putstr_fd("minishell: ", 2);
+	{
+		ft_putstr_fd("minishell: ", 2);
 		ft_putstr_fd(strerror(errno), 2);
 		ft_putstr_fd("\n", 2);
-		return;
-    }
+		return ;
+	}
 	len = ft_strlen(limiter);
 	ft_printf("> ");
 	line = read_line(&buffer, STDIN_FILENO);
@@ -87,17 +87,16 @@ void	check_here_doc(char *limiter, int *fd, t_ms *shell)
 	}
 }
 
-int		check_redirection(t_ast *ast, t_ms **shell)
+int	check_redirection(t_ast *ast, t_ms **shell)
 {
 	int		fd;
 	t_io	*ptr;
-	
+
 	(*shell)->io_in = -1;
 	(*shell)->io_out = -1;
 	ptr = ast->io;
 	while (ptr)
 	{
-		//Change expandcmd to a customize expand heredoc !!!
 		ptr->value = expandcmd(ptr->value, *shell);
 		if (ptr->type == T_LESS)
 		{
@@ -126,7 +125,6 @@ int		check_redirection(t_ast *ast, t_ms **shell)
 				return (1);
 			}
 			(*shell)->io_out = fd;
-
 		}
 		else if (ptr->type == T_DGREAT)
 		{

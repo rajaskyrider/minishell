@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 09:25:09 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/07/23 14:15:23 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/07/23 17:46:09 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,21 +56,15 @@ void	process_expr(t_ms *shell)
 	}
 }
 
-int		parser(t_ms *shell)
+int	parser(t_ms *shell)
 {
 	t_token	*ptr;
 
-	//print_token_lst(shell);
 	check_cmd(shell);
-	//ft_putstr_fd("\n----AFTER----\n", 2);
-	//print_token_lst(shell);
 	deal_io(shell);
-	//print_token_lst(shell);
 	combine_node(shell);
-	//print_token_lst(shell);
 	check_reorder(shell);
 	ptr = shell->token_lst;
 	shell->ast = precedence_climbing(shell, &ptr, 0);
-	//print_ast(shell->ast, 0);
 	return (1);
 }

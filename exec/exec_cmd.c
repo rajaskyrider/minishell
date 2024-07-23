@@ -6,13 +6,13 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 14:51:01 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/07/23 15:44:40 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/07/23 17:40:58 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		is_builtin(char *full_cmd, t_ms *shell, char **arg)
+int	is_builtin(char *full_cmd, t_ms *shell, char **arg)
 {
 	if (ms_strcmp(full_cmd, "echo") == 0)
 		return (ms_echo(arg), 1);
@@ -34,7 +34,7 @@ int		is_builtin(char *full_cmd, t_ms *shell, char **arg)
 		return (0);
 }
 
-void	exec_given_path(char * full_cmd, t_ms *shell, char **args)
+void	exec_given_path(char *full_cmd, t_ms *shell, char **args)
 {
 	char	*path;
 	char	*cwd;
@@ -67,7 +67,7 @@ void	run_cmd(t_ms *shell, char **arg)
 {
 	char	**paths;
 	char	*tmp;
-	
+
 	if (path_is_given(arg[0]) == 1)
 		return (exec_given_path(arg[0], shell, arg));
 	else
@@ -85,7 +85,7 @@ void	exec_cmd(t_ast *ast, char *full_cmd, t_ms *shell, int piped)
 	int		pid;
 	int		status;
 	char	**args;
-	
+
 	signal_process();
 	args = split_and_expand(full_cmd, shell);
 	if (deal_redirection(ast, shell) != 0)

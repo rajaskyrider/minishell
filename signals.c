@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 09:51:39 by tle-moel          #+#    #+#             */
-/*   Updated: 2024/07/18 11:24:31 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/07/23 17:53:43 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	signal_process(void)
 	signal(SIGINT, handle_sigint_process);
 	signal(SIGQUIT, handle_sigquit_process);
 }
+
 void	handle_sigint(int sig)
 {
 	(void)sig;

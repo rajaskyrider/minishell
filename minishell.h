@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 14:42:50 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/07/23 16:53:51 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/07/23 17:56:40 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,10 @@
 # include <sys/wait.h>
 # include <dirent.h>
 # include <fcntl.h>
-#include <sys/stat.h>
-#include <errno.h>
-#include <signal.h>
-#include <stdlib.h>
+# include <sys/stat.h>
+# include <errno.h>
+# include <signal.h>
+# include <stdlib.h>
 
 typedef enum e_token_type
 {
@@ -183,7 +183,7 @@ void		close_pipe(int pip[2]);
 char		*expandcmd(char *cmd, t_ms *shell);
 char		*replace_wildcard(char *cmd, char *matches, int start, t_ms *shell);
 int			deal_dollar(char **cmd, t_ms *shell, int start);
-int 		find_start(char *cmd, int start);
+int			find_start(char *cmd, int start);
 void		remove_quotes(char **cmd, int start, int end);
 char		**ms_split(char const *s, char c);
 void		setup_pipe(int pip[2], t_ms **shell);
@@ -201,14 +201,11 @@ char		**update_env(t_ms *shell);
 long long	ft_atoll(const char *nptr);
 void		clean_shell(t_ms *shell);
 void		check_syntax_error(t_ms *shell);
-int		initial_check(t_token *ptr, t_ms *shell);
-int		first_check(t_token *ptr, t_ms *shell);
-int		second_check(t_token *ptr, t_ms *shell);
-int		third_check(t_token *ptr, t_ms *shell);
-int		fourth_check(t_token *ptr, t_ms *shell);
-
-
-
+int			initial_check(t_token *ptr, t_ms *shell);
+int			first_check(t_token *ptr, t_ms *shell);
+int			second_check(t_token *ptr, t_ms *shell);
+int			third_check(t_token *ptr, t_ms *shell);
+int			fourth_check(t_token *ptr, t_ms *shell);
 
 /*Test functions (to remove)*/
 void		print_token_lst(t_ms *shell);

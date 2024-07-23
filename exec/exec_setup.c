@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   exec_setup.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
+/*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 15:22:50 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/27 18:02:23 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/07/23 17:37:43 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		path_is_given(char *full_cmd)
+int	path_is_given(char *full_cmd)
 {
 	int	i;
 
@@ -28,8 +28,8 @@ int		path_is_given(char *full_cmd)
 
 char	**find_paths(t_envlst *environ)
 {
-	char	**paths;
-	t_envlst *ptr;
+	char		**paths;
+	t_envlst	*ptr;
 
 	ptr = environ;
 	while (ptr)
@@ -59,7 +59,6 @@ char	*get_cmd(char *cmd, char **paths, t_ms *shell)
 		free(path_exec);
 		i++;
 	}
-	//check_directory(cmd, shell);
 	print_error(shell, "minishell: command not found\n");
 	exit (127);
 }

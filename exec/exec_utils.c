@@ -6,13 +6,13 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 15:11:48 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/07/23 14:17:01 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/07/23 17:41:34 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		deal_redirection(t_ast *ast, t_ms *shell)
+int	deal_redirection(t_ast *ast, t_ms *shell)
 {
 	int		res;
 
@@ -30,7 +30,7 @@ char	**split_and_expand(char *full_cmd, t_ms *shell)
 {
 	char	**arg;
 	int		i;
-	
+
 	i = 0;
 	arg = ms_split(full_cmd, ' ');
 	while (arg[i])
@@ -46,7 +46,7 @@ char	**split_and_expand(char *full_cmd, t_ms *shell)
 void	check_directory(char *cmd, t_ms *shell)
 {
 	struct stat	statbuf;
-	
+
 	if (stat(cmd, &statbuf) == 0 && S_ISDIR(statbuf.st_mode))
 	{
 		ft_putstr_fd("minishell: ", 2);

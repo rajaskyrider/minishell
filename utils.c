@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 15:46:03 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/07/23 16:08:55 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/07/23 17:54:26 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,8 @@ void	print_error(t_ms *shell, char *errormsg)
 	clear_shell(shell);
 	ft_putstr_fd(errormsg, 2);
 }
-int		ms_strcmp(char *s1, char *s2)
+
+int	ms_strcmp(char *s1, char *s2)
 {
 	int	i;
 

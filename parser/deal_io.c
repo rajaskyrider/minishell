@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 10:44:08 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/07/11 15:32:43 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/07/23 17:45:07 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ void	deal_io(t_ms *shell)
 	ptr = shell->token_lst;
 	while (ptr && ptr->next)
 	{
-		if (ptr->next->type == T_LESS || ptr->next->type == T_GREAT || ptr->next->type == T_DLESS \
-								|| ptr->next->type == T_DGREAT)
+		if (ptr->next->type == T_LESS || ptr->next->type == T_GREAT || \
+			ptr->next->type == T_DLESS || ptr->next->type == T_DGREAT)
 			create_io(ptr, shell);
 		else
 			ptr = ptr->next;
