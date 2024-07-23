@@ -14,12 +14,9 @@ Redirection :
 	DOC
 
 wildcard (working on this currently)
-
-when error -> it seems that it launch another instance of minishell..
-
-echo ' " $USER " ' -> don't print the user variable
-
+ 
 PARENTHESIS
 
 NORME
+
 LEAKS AND FDS OPEN

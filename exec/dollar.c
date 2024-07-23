@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 09:40:18 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/07/17 13:02:52 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/07/23 15:13:37 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int	deal_dollar(char **cmd, t_ms *shell, int start)
 	result = NULL;
 	end = start;
 	while ((*cmd)[end] && (*cmd)[end] != ' ' \
-			&& (*cmd)[end] != '$' && (*cmd)[end] != '\"')
+			&& (*cmd)[end] != '$' && (*cmd)[end] != '\"' && (*cmd)[end] != '\'')
 		end++;
 	if (start == end)
 		return (end - 1);

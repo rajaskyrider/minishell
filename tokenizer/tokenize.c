@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 14:47:49 by tle-moel          #+#    #+#             */
-/*   Updated: 2024/07/22 15:49:03 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/07/23 14:44:01 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,17 @@ void	check_syntax_error(t_ms *shell)
 	}
 	while (ptr)
 	{
-		if (ptr->type == T_AND_IF || ptr->type == T_OR_IF || ptr->type == T_PIPE || ptr->type == T_GREAT || ptr->type == T_DGREAT || ptr->type == T_LESS || ptr->type == T_DLESS)
+		if (ptr->type == T_AND_IF || ptr->type == T_OR_IF || ptr->type == T_PIPE)
+		{
+			if (!ptr->next || ptr->next->type == T_AND_IF || ptr->next->type == T_OR_IF || ptr->next->type == T_PIPE)
+			{
+				shell->error = 1;
+				shell->lexit_status = 2;
+				ft_putstr_fd("minishell: syntax error near unexpected token\n", 2);
+				return ;
+			}
+		}
+		if (ptr->type == T_GREAT || ptr->type == T_DGREAT || ptr->type == T_LESS || ptr->type == T_DLESS)
 		{
 			if (!ptr->next || ptr->next->type == T_AND_IF || ptr->next->type == T_OR_IF || ptr->next->type == T_PIPE || ptr->next->type == T_GREAT || ptr->next->type == T_DGREAT || ptr->next->type == T_LESS || ptr->next->type == T_DLESS)
 			{

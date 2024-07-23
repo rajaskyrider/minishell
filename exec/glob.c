@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 11:07:03 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/07/17 13:38:56 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/07/23 15:11:17 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ char	*replace_wildcard(char *cmd, char *matches, int start, t_ms *shell)
 		return (cmd);
 	clen = ft_strlen(cmd);
 	mlen = ft_strlen(matches);
-	while (cmd[end] && cmd[end] != ' ' && cmd[end] != '$' && cmd[end] != '?')
+	while (cmd[end] && cmd[end] != ' ' && cmd[end] != '$' && cmd[end] != '?' && cmd[end] != '\'')
 		end++;
 	if (cmd[end] == '?')
 		end += 1;

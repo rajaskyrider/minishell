@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 14:45:40 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/07/23 14:04:32 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/07/23 15:16:35 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@ void	init_shell(t_ms *shell, char **env)
 	shell->environ = init_environ(env);
 	shell->env = init_env(env);
 	shell->error = 0;
-	//shell->pip[0] = dup(STDIN_FILENO);
-	//shell->pip[1] = dup(STDOUT_FILENO);
 	shell->io_in = -1;
 	shell->io_out = -1;
 	shell->std_in = dup(STDIN_FILENO);

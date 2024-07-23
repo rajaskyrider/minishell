@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 10:55:29 by tle-moel          #+#    #+#             */
-/*   Updated: 2024/07/23 10:32:06 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/07/23 15:26:05 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	ms_unset(char **arg, t_ms *shell)
 		}
 		i++;
 	}
-	update_env(shell);
+	shell->env = update_env(shell);
 }
 
 void	delete_env_node(t_envlst **head, t_envlst *node)
