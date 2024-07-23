@@ -1,8 +1,9 @@
 isatty (optional, we don't need to implement it)
 
-exit with max min LONG nbr
+exit with max min LONG LONG nbr
 
-Redirection : 
+Redirection : 		//Change expandcmd to a customize expand heredoc !!!
+
 
 	cat <<HERE | ls
 
@@ -13,7 +14,7 @@ Redirection :
 	HERE
 	DOC
 
-wildcard (working on this currently)
+Wildcard
  
 PARENTHESIS
 
