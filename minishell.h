@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 14:42:50 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/07/23 13:43:22 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/07/23 16:53:51 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ typedef struct s_ms
 	t_token		*token_lst;
 	t_ast		*ast;
 	char		**env;
-	t_envlst	*environ;
+	t_envlst	*envlst;
 	int			error;
 	int			lexit_status;
 	//int			pip[2];
@@ -102,6 +102,21 @@ typedef struct s_ms
 	pid_t		pid;
 }	t_ms;
 
+void		ms_cd(t_ms *shell, char **path);
+void		ms_echo(char **arg);
+void		ms_env(t_ms *shell);
+void		ms_exit(char **arg, t_ms *shell);
+void		ms_export(char **arg, t_ms *shell);
+void		ms_pwd(t_ms *shell);
+void		ms_unset(char **arg, t_ms *shell);
+char		*extract_key(char *env_line);
+char		*extract_value(char *env_line);
+void		update_envlst(char *key, char *value, t_envlst **environ);
+void		add_node_envlst(char *key, char *value, t_envlst **environ);
+t_envlst	*init_envlst(char **env);
+int			key_is_valid(char *key);
+char		*find_min_key(t_envlst *environ);
+char		*find_next_key(char *curr_key, t_envlst *environ);
 void		readprompt(t_ms *shell, char *new_cmd);
 void		exit_shell(t_ms *shell, int exitcode);
 t_token		*create_token_lst(char *cmd_line, t_ms *shell);
@@ -138,27 +153,16 @@ void		delete_ast_lst(t_ast **ast);
 void		delete_env_lst(t_envlst **environ);
 int			init_token(t_token **token);
 t_ast		*precedence_climbing(t_ms *shell, t_token **node, int precedence);
-void		ms_echo(char **arg);
 void		clear_shell(t_ms *shell);
 int			ms_strcmp(char *s1, char *s2);
 void		print_error(t_ms *shell, char *errormsg);
-void		ms_env(t_ms *shell);
-t_envlst	*init_environ(char **env);
 char		*extract_key(char *env_line);
 char		*extract_value(char *env_line);
-void		update_envlst(char *key, char *value, t_envlst **environ);
-void		add_node_envlst(char *key, char *value, t_envlst **environ);
 void		check_cmd(t_ms *shell);
-void		ms_export(char **arg, t_ms *shell);
 void		print_export(t_envlst *environ);
-char		*find_min_key(t_envlst *environ);
-char		*find_next_key(char *curr_key, t_envlst *environ);
-void		ms_unset(char **arg, t_ms *shell);
 void		delete_env_node(t_envlst **head, t_envlst *node);
-void		ms_cd(t_ms *shell, char **path);
 void		update_pwd(t_ms *shell);
 char		*get_path(t_ms *shell);
-void		ms_pwd(t_ms *shell);
 void		exec_cmd(t_ast *ast, char *full_cmd, t_ms *shell, int flag);
 void		navigate(t_ast **ast, t_ms **shell, int next_pipe[2]);
 void		execute_simple(t_ms *shell);
@@ -181,10 +185,7 @@ char		*replace_wildcard(char *cmd, char *matches, int start, t_ms *shell);
 int			deal_dollar(char **cmd, t_ms *shell, int start);
 int 		find_start(char *cmd, int start);
 void		remove_quotes(char **cmd, int start, int end);
-void		cd_home(t_ms *shell);
 char		**ms_split(char const *s, char c);
-int			key_is_valid(char *key);
-void		ms_exit(char **arg, t_ms *shell);
 void		setup_pipe(int pip[2], t_ms **shell);
 void		deal_logical(t_ast **ast, t_ms **shell, int next_pipe[2]);
 void		close_fd(t_ms *shell);
@@ -199,6 +200,13 @@ int			count_env_elements(t_envlst *environ);
 char		**update_env(t_ms *shell);
 long long	ft_atoll(const char *nptr);
 void		clean_shell(t_ms *shell);
+void		check_syntax_error(t_ms *shell);
+int		initial_check(t_token *ptr, t_ms *shell);
+int		first_check(t_token *ptr, t_ms *shell);
+int		second_check(t_token *ptr, t_ms *shell);
+int		third_check(t_token *ptr, t_ms *shell);
+int		fourth_check(t_token *ptr, t_ms *shell);
+
 
 
 

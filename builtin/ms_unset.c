@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 10:55:29 by tle-moel          #+#    #+#             */
-/*   Updated: 2024/07/23 15:26:05 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/07/23 15:44:26 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,12 @@ void	ms_unset(char **arg, t_ms *shell)
 	i = 1;
 	while (arg[i] != NULL)
 	{
-		ptr = shell->environ;
+		ptr = shell->envlst;
 		while (ptr)
 		{
 			if (ft_strncmp(ptr->key, arg[i], ft_strlen(ptr->key)) == 0)
 			{
-				delete_env_node(&shell->environ, ptr);
+				delete_env_node(&shell->envlst, ptr);
 				break ;
 			}
 			ptr = ptr->next;

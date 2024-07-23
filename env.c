@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   my_env.c                                           :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 10:29:28 by tle-moel          #+#    #+#             */
-/*   Updated: 2024/07/23 15:30:44 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/07/23 16:25:21 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,11 +73,11 @@ char	**update_env(t_ms *shell)
 	t_envlst	*ptr;
 
 	clean_env(shell->env);
-	size = count_env_elements(shell->environ);
+	size = count_env_elements(shell->envlst);
 	new_env = calloc(size + 1, sizeof(char *));
 	if (new_env == NULL)
 		return (NULL);
-	ptr = shell->environ;
+	ptr = shell->envlst;
 	i = 0;
 	while (ptr)
 	{

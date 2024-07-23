@@ -6,19 +6,26 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 13:23:59 by tle-moel          #+#    #+#             */
-/*   Updated: 2024/07/23 13:25:32 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/07/23 15:53:06 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+void	round_exit_value(long long exit_value, t_ms *shell)
+{
+	if (exit_value < 0)
+		shell->lexit_status = (exit_value + 256) % 256;
+	else
+		shell->lexit_status = (exit_value - 256) % 256;
+}
+
 void	ms_exit(char **arg, t_ms *shell)
 {
 	long long	exit_value;
-	int		i;
+	int			i;
 
 	i = 0;
-
 	if (arg[1] == NULL)
 		exit_shell(shell, EXIT_SUCCESS);
 	if (arg[2] != NULL)
@@ -37,9 +44,6 @@ void	ms_exit(char **arg, t_ms *shell)
 		i++;
 	}
 	exit_value = ft_atoll(arg[1]);
-	if (exit_value < 0)
-		shell->lexit_status = (exit_value + 256) % 256;
-	else
-		shell->lexit_status = (exit_value - 256) % 256;
+	round_exit_value(exit_value, shell);
 	exit_shell(shell, shell->lexit_status);
 }

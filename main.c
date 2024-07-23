@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 14:45:40 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/07/23 15:16:35 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/07/23 15:43:11 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	init_shell(t_ms *shell, char **env)
 	shell->cmd = NULL;
 	shell->ast = NULL;
 	shell->token_lst = NULL;
-	shell->environ = init_environ(env);
+	shell->envlst = init_envlst(env);
 	shell->env = init_env(env);
 	shell->error = 0;
 	shell->io_in = -1;
@@ -39,7 +39,7 @@ void	clean_shell(t_ms *shell)
 	close(shell->std_in);
 	close(shell->std_out);
 	clean_env(shell->env);
-	delete_env_lst(&(shell->environ));
+	delete_env_lst(&(shell->envlst));
 	clear_shell(shell);
 }
 

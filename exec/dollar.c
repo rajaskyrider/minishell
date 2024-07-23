@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 09:40:18 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/07/23 15:13:37 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/07/23 16:07:30 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ char	*ms_getenv(char *key, t_ms *shell)
 {
 	t_envlst	*elst;
 
-	elst = shell->environ;
+	elst = shell->envlst;
 	while (elst)
 	{
 		if (ft_strncmp(key, elst->key, ft_strlen(key) + 1) == 0)

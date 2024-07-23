@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 15:47:57 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/07/23 13:50:00 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/07/23 15:45:23 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	update_pwd(t_ms *shell)
 
 	oldpwd_node = NULL;
 	pwd_node = NULL;
-	envlst = shell->environ;
+	envlst = shell->envlst;
 	pwd = get_path(shell);
 	while (envlst && (!oldpwd_node || !pwd_node))
 	{
@@ -56,6 +56,25 @@ void	update_pwd(t_ms *shell)
 	pwd_node->value = ft_strdup(pwd);
 	free(pwd);
 	shell->env = update_env(shell);
+}
+
+void	cd_home(t_ms *shell)
+{
+	t_envlst	*envlst;
+	char		*home_dir;
+
+	envlst = shell->envlst;
+	while (envlst)
+	{
+		if (ft_strncmp(envlst->key, "HOME", 4) == 0)
+		{
+			home_dir = envlst->value;
+			if (chdir(home_dir) == -1)
+				print_error(shell, "minishell: cd: HOME not find\n");
+			return ;
+		}
+		envlst = envlst->next;
+	}
 }
 
 void	ms_cd(t_ms *shell, char **path)
@@ -75,23 +94,4 @@ void	ms_cd(t_ms *shell, char **path)
 		return ;
 	}
 	update_pwd(shell);
-}
-
-void	cd_home(t_ms *shell)
-{
-	t_envlst	*envlst;
-	char		*home_dir;
-
-	envlst = shell->environ;
-	while (envlst)
-	{
-		if (ft_strncmp(envlst->key, "HOME", 4) == 0)
-		{
-			home_dir = envlst->value;
-			if (chdir(home_dir) == -1)
-				print_error(shell, "minishell: cd: HOME not find\n");
-			return ;
-		}
-		envlst = envlst->next;
-	}
 }

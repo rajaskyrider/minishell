@@ -6,7 +6,7 @@
 #    By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/10 15:30:56 by rpandipe          #+#    #+#              #
-#    Updated: 2024/07/23 13:43:40 by tle-moel         ###   ########.fr        #
+#    Updated: 2024/07/23 17:11:00 by tle-moel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,8 +16,9 @@ CC			= cc
 CFLAG		= -Wall -Werror -Wextra -g -I.
 LFLAG		= -Llibft -lft
 RM 			= rm -rf
-BUILTIN		= builtin/ms_echo.c builtin/ms_env.c builtin/ms_export.c \
-			  builtin/ms_unset.c builtin/ms_cd.c builtin/ms_pwd.c builtin/ms_exit.c
+BUILTIN		= builtin/ms_cd.c builtin/ms_echo.c builtin/ms_env_utils.c \
+			  builtin/ms_env.c builtin/ms_exit.c builtin/ms_export_utils.c \
+			  builtin/ms_export.c builtin/ms_pwd.c builtin/ms_unset.c
 TOKENIZER	= tokenizer/tokenize.c tokenizer/tokenize_handle.c \
 			  tokenizer/tokenize_utils.c tokenizer/tokenize_quote.c
 PARSER		= parser/parser.c parser/parser_utils.c parser/precedence.c \
@@ -25,7 +26,7 @@ PARSER		= parser/parser.c parser/parser_utils.c parser/precedence.c \
 EXEC		= exec/exec_cmd.c exec/navigate.c exec/glob.c \
 			  exec/ms_pipe.c exec/dollar.c exec/ms_redirection.c \
 			  exec/exec_setup.c exec/exec_utils.c exec/logical_op.c
-SRCS		= main.c prompt.c utils.c validation.c clean.c ms_split.c signals.c my_env.c ft_atoll.c test_print.c\
+SRCS		= main.c prompt.c utils.c validation.c clean.c ms_split.c signals.c env.c ft_atoll.c test_print.c\
 			  $(BUILTIN) \
 			  $(TOKENIZER) \
 			  $(PARSER) \
