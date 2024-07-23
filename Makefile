@@ -6,7 +6,7 @@
 #    By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/10 15:30:56 by rpandipe          #+#    #+#              #
-#    Updated: 2024/07/23 17:11:00 by tle-moel         ###   ########.fr        #
+#    Updated: 2024/07/23 17:21:31 by tle-moel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,8 @@ BUILTIN		= builtin/ms_cd.c builtin/ms_echo.c builtin/ms_env_utils.c \
 			  builtin/ms_env.c builtin/ms_exit.c builtin/ms_export_utils.c \
 			  builtin/ms_export.c builtin/ms_pwd.c builtin/ms_unset.c
 TOKENIZER	= tokenizer/tokenize.c tokenizer/tokenize_handle.c \
-			  tokenizer/tokenize_utils.c tokenizer/tokenize_quote.c
+			  tokenizer/tokenize_utils.c tokenizer/tokenize_quote.c \
+			  tokenizer/tokenize_syntax.c
 PARSER		= parser/parser.c parser/parser_utils.c parser/precedence.c \
 			  parser/parser_check.c parser/deal_io.c
 EXEC		= exec/exec_cmd.c exec/navigate.c exec/glob.c \
