@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 14:45:40 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/07/23 10:01:11 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/07/23 14:04:32 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,18 @@ void	init_shell(t_ms *shell, char **env)
 
 void	exit_shell(t_ms *shell, int exitcode)
 {
-	close(shell->std_in);
-	close(shell->std_out);
+	clean_shell(shell);
 	clear_shell(shell);
 	exit(exitcode);
+}
+
+void	clean_shell(t_ms *shell)
+{
+	close(shell->std_in);
+	close(shell->std_out);
+	clean_env(shell->env);
+	delete_env_lst(&(shell->environ));
+	clear_shell(shell);
 }
 
 int	main(int argc, char **argv, char **env)
@@ -51,6 +59,7 @@ int	main(int argc, char **argv, char **env)
 		cmd = readline("\x1b[35mminishell>\x1b[0m ");
 		if (!cmd)
 		{
+			clean_shell(&shell);
 			printf("exit\n");
 			break ;
 		}

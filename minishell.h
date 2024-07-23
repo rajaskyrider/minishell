@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 14:42:50 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/07/23 10:34:43 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/07/23 13:43:22 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -197,6 +197,9 @@ char		**init_env(char **env);
 void		clean_env(char	**env);
 int			count_env_elements(t_envlst *environ);
 char		**update_env(t_ms *shell);
+long long	ft_atoll(const char *nptr);
+void		clean_shell(t_ms *shell);
+
 
 
 /*Test functions (to remove)*/

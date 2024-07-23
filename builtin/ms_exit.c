@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
+/*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 13:23:59 by tle-moel          #+#    #+#             */
-/*   Updated: 2024/06/27 16:14:37 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/07/23 13:25:32 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ms_exit(char **arg, t_ms *shell)
 {
-	int		exit_value;
+	long long	exit_value;
 	int		i;
 
 	i = 0;
@@ -36,7 +36,10 @@ void	ms_exit(char **arg, t_ms *shell)
 		}
 		i++;
 	}
-	exit_value = ft_atoi(arg[1]);
-	shell->lexit_status = (256 + exit_value) % 256;
+	exit_value = ft_atoll(arg[1]);
+	if (exit_value < 0)
+		shell->lexit_status = (exit_value + 256) % 256;
+	else
+		shell->lexit_status = (exit_value - 256) % 256;
 	exit_shell(shell, shell->lexit_status);
 }

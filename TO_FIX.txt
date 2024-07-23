@@ -1,5 +1,7 @@
 isatty (optional, we don't need to implement it)
 
+exit with max min LONG nbr
+
 Redirection : 
 
 	cat <<HERE | ls
@@ -12,10 +14,6 @@ Redirection :
 	DOC
 
 wildcard (working on this currently)
-
-exit with max min LONG nbr
-
-cd wrong directory then cd directory -> problem free and crash
 
 when error -> it seems that it launch another instance of minishell..
 

@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 10:29:28 by tle-moel          #+#    #+#             */
-/*   Updated: 2024/07/23 10:30:00 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/07/23 13:57:09 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,15 @@ void	clean_env(char	**env)
 	int	i;
 
 	i = 0;
-	while (env[i])
+	if (env)
 	{
-		free(env[i]);
-		i++;
+		while (env[i])
+		{
+			free(env[i]);
+			i++;
+		}
+		free(env);
 	}
-	free(env);
 }
 
 int	count_env_elements(t_envlst *environ)

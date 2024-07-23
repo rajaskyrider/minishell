@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 15:47:57 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/07/23 10:30:54 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/07/23 13:50:00 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	update_pwd(t_ms *shell)
 	oldpwd_node->value = pwd_node->value;
 	pwd_node->value = ft_strdup(pwd);
 	free(pwd);
-	update_env(shell);
+	shell->env = update_env(shell);
 }
 
 void	ms_cd(t_ms *shell, char **path)
