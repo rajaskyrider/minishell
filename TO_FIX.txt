@@ -13,9 +13,6 @@ Redirection :
 
 wildcard (working on this currently)
 
-./minishell then do ./minishell again and then do env.. doesnt work --> I have to create a char ** array copying the env and update each function that change this env. So that when I execute ./minishell and I don't do execve(..,..,NULL) but execve(..,..,myownenvironment) in order that it will keep all the info of the envlst. 
--> change also that it can be possible to not find the cmd in the env ... and write a error message in that case !
-
 exit with max min LONG nbr
 
 cd wrong directory then cd directory -> problem free and crash

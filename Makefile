@@ -6,7 +6,7 @@
 #    By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/10 15:30:56 by rpandipe          #+#    #+#              #
-#    Updated: 2024/07/22 17:17:18 by tle-moel         ###   ########.fr        #
+#    Updated: 2024/07/23 10:33:29 by tle-moel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,7 @@ PARSER		= parser/parser.c parser/parser_utils.c parser/precedence.c \
 EXEC		= exec/exec_cmd.c exec/navigate.c exec/glob.c \
 			  exec/ms_pipe.c exec/dollar.c exec/ms_redirection.c \
 			  exec/exec_setup.c exec/exec_utils.c exec/logical_op.c
-SRCS		= main.c prompt.c utils.c validation.c clean.c ms_split.c signals.c\
+SRCS		= main.c prompt.c utils.c validation.c clean.c ms_split.c signals.c my_env.c\
 			  $(BUILTIN) \
 			  $(TOKENIZER) \
 			  $(PARSER) \

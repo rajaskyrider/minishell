@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 14:42:50 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/07/18 11:29:16 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/07/23 10:34:43 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -193,6 +193,11 @@ void		handle_sigint_process(int sig);
 void		handle_sigquit_process(int sig);
 void		init_signal(void);
 void		signal_process(void);
+char		**init_env(char **env);
+void		clean_env(char	**env);
+int			count_env_elements(t_envlst *environ);
+char		**update_env(t_ms *shell);
+
 
 /*Test functions (to remove)*/
 void		print_token_lst(t_ms *shell);

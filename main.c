@@ -6,21 +6,19 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 14:45:40 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/07/18 13:46:11 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/07/23 10:01:11 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/// @brief Initialitize the struct, edit when new members are added
-/// @param shell The struct to initialize
 void	init_shell(t_ms *shell, char **env)
 {
 	shell->cmd = NULL;
 	shell->ast = NULL;
 	shell->token_lst = NULL;
 	shell->environ = init_environ(env);
-	shell->env = env;
+	shell->env = init_env(env);
 	shell->error = 0;
 	//shell->pip[0] = dup(STDIN_FILENO);
 	//shell->pip[1] = dup(STDOUT_FILENO);
@@ -31,10 +29,6 @@ void	init_shell(t_ms *shell, char **env)
 	shell->lexit_status = 0;
 }
 
-/// @brief Exit the shell by freeing all allocated memory, 
-///        edit when new members are added
-/// @param shell The main struct
-/// @param exitcode EXIT_SUCCESS or EXIT_FAILURE
 void	exit_shell(t_ms *shell, int exitcode)
 {
 	close(shell->std_in);
