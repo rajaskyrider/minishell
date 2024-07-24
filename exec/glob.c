@@ -6,7 +6,7 @@
 /*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 11:07:03 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/07/24 11:42:21 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/07/24 14:17:01 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,8 +98,11 @@ int	glob(char **cmd, t_ms *shell, int start)
 	closedir(dp);
 	free(pattern);
 	*cmd = replace_wildcard(*cmd, matches, start, shell);
-	end = start + ft_strlen(matches);
-	free(matches);
+	if (matches)
+	{
+		end = start + ft_strlen(matches);
+		free(matches);
+	}
 	return (end);
 }
 
@@ -133,7 +136,13 @@ char	*expandcmd(char *cmd, t_ms *shell)
 				i++;
 			}
 			end = i--;
+			ft_putstr_fd("here out\n", 2);
+			ft_putstr_fd(&cmd[start], 2);
+			ft_putstr_fd("\n", 2);
 			remove_quotes(&cmd, start, end);
+			ft_putstr_fd("here outttt\n", 2);
+			ft_putstr_fd(&cmd[start], 2);
+			ft_putstr_fd("\n", 2);
 		}
 		else if (cmd[i] && cmd[i] == '*')
 			i = glob(&cmd, shell, i);
@@ -144,5 +153,8 @@ char	*expandcmd(char *cmd, t_ms *shell)
 		else
 			break ;
 	}
+	ft_putstr_fd("here final\n", 2);
+	ft_putstr_fd(cmd, 2);
+	ft_putstr_fd("\n", 2);
 	return (cmd);
 }
