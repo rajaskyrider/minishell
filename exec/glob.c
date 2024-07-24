@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 11:07:03 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/07/24 14:16:32 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/07/24 14:19:44 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int	glob(char **cmd, t_ms *shell, int start)
 	char			*pattern;
 
 	matches = NULL;
-	start = find_start(*cmd, start);
+	start = find_start(*cmd, start) - 1;
 	end = start;
 	while ((*cmd)[end] && (*cmd)[end] != ' ')
 		end++;
