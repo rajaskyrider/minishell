@@ -6,7 +6,7 @@
 /*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 11:07:03 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/07/24 14:17:01 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/07/24 14:27:58 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,6 @@ char	*replace_wildcard(char *cmd, char *matches, int start, t_ms *shell)
 
 int	glob(char **cmd, t_ms *shell, int start)
 {
-	struct dirent	*entry;
-	DIR				*dp;
 	char			*matches;
 	int				end;
 	char			*pattern;
@@ -87,15 +85,7 @@ int	glob(char **cmd, t_ms *shell, int start)
 	while ((*cmd)[end] && (*cmd)[end] != ' ')
 		end++;
 	pattern = ft_substr(*cmd, start, end - start);
-	dp = opendir(".");
-	if (!dp)
-		print_error(shell, "minishell: Error opening directory");
-	while ((entry = readdir(dp)))
-	{
-		if (match(pattern, entry->d_name))
-			matches = replace_cmd(matches, entry->d_name, shell);
-	}
-	closedir(dp);
+	glob_logic(shell, &matches, pattern);
 	free(pattern);
 	*cmd = replace_wildcard(*cmd, matches, start, shell);
 	if (matches)
@@ -109,8 +99,6 @@ int	glob(char **cmd, t_ms *shell, int start)
 char	*expandcmd(char *cmd, t_ms *shell)
 {
 	int		i;
-	int		start;
-	int		end;
 
 	i = 0;
 	while (cmd[i])
@@ -119,31 +107,9 @@ char	*expandcmd(char *cmd, t_ms *shell)
 				&& cmd[i] != '*' && cmd[i] != '$' && cmd[i] != '\"')
 			i++;
 		if (cmd[i] && cmd[i] == '\'')
-		{
-			start = i++;
-			while (cmd[i] && cmd[i] != '\'')
-				i++;
-			end = i--;
-			remove_quotes(&cmd, start, end);
-		}
+			single_quote(&i, &cmd);
 		else if (cmd[i] && cmd[i] == '\"')
-		{
-			start = i++;
-			while (cmd[i] && cmd[i] != '\"')
-			{
-				if (cmd[i] && cmd[i] == '$' && cmd[i + 1] != ' ')
-					i = deal_dollar(&cmd, shell, i + 1);
-				i++;
-			}
-			end = i--;
-			ft_putstr_fd("here out\n", 2);
-			ft_putstr_fd(&cmd[start], 2);
-			ft_putstr_fd("\n", 2);
-			remove_quotes(&cmd, start, end);
-			ft_putstr_fd("here outttt\n", 2);
-			ft_putstr_fd(&cmd[start], 2);
-			ft_putstr_fd("\n", 2);
-		}
+			double_quote(shell, &i, &cmd);
 		else if (cmd[i] && cmd[i] == '*')
 			i = glob(&cmd, shell, i);
 		else if (cmd[i] && cmd[i + 1] && cmd[i] == '$' && cmd[i + 1] != ' ')

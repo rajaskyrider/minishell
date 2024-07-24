@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 17:34:08 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/07/23 17:39:41 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/07/24 12:56:00 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,12 @@ void	execute_simple(t_ms *shell)
 	}
 }
 
+void	set_execute(int *pip0, int *pip1)
+{
+	*pip0 = -1;
+	*pip1 = -1;
+}
+
 void	execute(t_ms *shell)
 {
 	t_ast	*ast;
@@ -60,12 +66,12 @@ void	execute(t_ms *shell)
 	int		shellpipe[2];
 
 	ast = shell->ast;
-	shellpipe[0] = -1;
-	shellpipe[1] = -1;
+	set_execute(&(shellpipe[0]), &(shellpipe[1]));
 	if (ast->type == T_OPERATOR)
 	{
 		navigate(&ast, &shell, shellpipe);
-		while ((pid = wait(&status)) > 0)
+		pid = wait(&status);
+		while (pid > 0)
 		{
 			signal_process();
 			if (shell->pid == pid)
@@ -73,6 +79,7 @@ void	execute(t_ms *shell)
 				if (WIFEXITED(status))
 					shell->lexit_status = WEXITSTATUS(status);
 			}
+			pid = wait(&status);
 		}
 	}
 	else
