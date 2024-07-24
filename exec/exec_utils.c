@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 15:11:48 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/07/23 17:41:34 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/07/24 11:42:42 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,18 +26,48 @@ int	deal_redirection(t_ast *ast, t_ms *shell)
 	return (res);
 }
 
+char	**split_again(char **arg, int size)
+{
+	char	*exp_arg;
+	int		i;
+
+	i = 1;
+	exp_arg = NULL;
+	exp_arg = ft_calloc(size, sizeof(char));
+	ft_strlcpy(exp_arg, arg[0], ft_strlen(arg[0]) + 1);
+	ft_strlcat(exp_arg, " ", size + 1);
+	while (arg[i])
+	{
+		ft_strlcat(exp_arg, arg[i], size + 1);
+		ft_strlcat(exp_arg, " ", size + 1);
+		free (arg[i]);
+		i++;
+	}
+	free (arg);
+	arg = ms_split(exp_arg, ' ');
+	return (arg);
+}
+
 char	**split_and_expand(char *full_cmd, t_ms *shell)
 {
 	char	**arg;
 	int		i;
+	int		size;
+	int		exp_size;
 
 	i = 0;
+	size = 0;
+	exp_size = 0;
 	arg = ms_split(full_cmd, ' ');
 	while (arg[i])
 	{
+		size += ft_strlen(arg[i]) + 1;
 		arg[i] = expandcmd(arg[i], shell);
+		exp_size += ft_strlen(arg[i]) + 1;
 		i++;
 	}
+	if (exp_size != size)
+		arg = split_again(arg, exp_size);
 	if (arg[0][0] == 0 && arg[1])
 		arg++;
 	return (arg);
