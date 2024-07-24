@@ -13,13 +13,13 @@ Redirection : 		//Change expandcmd to a customize expand heredoc !!!
 	cat <minishell.h <<HERE <missing <<DOC | echo oi
 	HERE
 	DOC
-
-Wildcard
  
 PARENTHESIS
 
---NORME
+PWD, OLPWD -> echo $PWD should work
 
-unset PWD, HOME CD
+awk ???
 
 LEAKS AND FDS OPEN
+
+CHECK NORME BEFORE SUBMIT (rm not necessary files/functions)

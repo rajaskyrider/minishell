@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 15:47:57 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/07/23 15:45:23 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/07/24 14:58:06 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ void	update_pwd(t_ms *shell)
 	pwd_node = NULL;
 	envlst = shell->envlst;
 	pwd = get_path(shell);
+	///
+	printf("pwd : %s\n", pwd);
 	while (envlst && (!oldpwd_node || !pwd_node))
 	{
 		if (ft_strncmp(envlst->key, "PWD", 3) == 0)
@@ -51,9 +53,17 @@ void	update_pwd(t_ms *shell)
 			oldpwd_node = envlst;
 		envlst = envlst->next;
 	}
-	free(oldpwd_node->value);
-	oldpwd_node->value = pwd_node->value;
-	pwd_node->value = ft_strdup(pwd);
+	if (oldpwd_node)
+	{
+		free(oldpwd_node->value);
+		oldpwd_node->value = NULL;
+	}
+	if (pwd_node)
+	{
+		if (oldpwd_node)
+			oldpwd_node->value = pwd_node->value;
+		pwd_node->value = ft_strdup(pwd);
+	}
 	free(pwd);
 	shell->env = update_env(shell);
 }
@@ -75,6 +85,8 @@ void	cd_home(t_ms *shell)
 		}
 		envlst = envlst->next;
 	}
+	print_error(shell, "minishell: cd: HOME not set\n");
+	shell->lexit_status = 1;
 }
 
 void	ms_cd(t_ms *shell, char **path)

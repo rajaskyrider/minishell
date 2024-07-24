@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 14:51:01 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/07/24 10:54:55 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/07/24 15:38:35 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,12 @@ void	run_cmd(t_ms *shell, char **arg)
 	else
 	{
 		paths = find_paths(shell->envlst);
+		if (!paths)
+		{
+			shell->lexit_status = 127;
+			ft_putstr_fd("minishell: no such file or directory\n", 2);
+			exit(127);
+		}
 		tmp = arg[0];
 		arg[0] = get_cmd(arg[0], paths, shell);
 		free(tmp);

@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 15:22:50 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/07/23 17:37:43 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/07/24 15:35:16 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ char	**find_paths(t_envlst *environ)
 	char		**paths;
 	t_envlst	*ptr;
 
+	paths = NULL;
 	ptr = environ;
 	while (ptr)
 	{
@@ -38,7 +39,8 @@ char	**find_paths(t_envlst *environ)
 			break ;
 		ptr = ptr->next;
 	}
-	paths = ft_split(ptr->value, ':');
+	if (ptr)
+		paths = ft_split(ptr->value, ':');
 	return (paths);
 }
 
