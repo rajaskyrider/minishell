@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 09:40:20 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/07/23 17:45:12 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/07/24 11:33:11 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,23 +24,28 @@ static char	*read_line(char **buffer, int std_in)
 		return (NULL);
 	b_read = read(std_in, *buffer, BUFFER_SIZE);
 	if (b_read <= 0)
-	{
-		free(*buffer);
-		return (NULL);
-	}
+		return (free(*buffer), NULL);
 	(*buffer)[b_read] = '\0';
 	while ((*buffer)[i] != '\n')
 		i++;
 	curr_line = malloc(i + 2);
 	if (!curr_line)
-	{
-		free(*buffer);
-		return (NULL);
-	}
+		return (free(*buffer), NULL);
 	ft_strlcpy(curr_line, *buffer, i + 2);
 	free(*buffer);
 	*buffer = NULL;
 	return (curr_line);
+}
+
+void	take_new_line(char **line, char **buffer, t_ms *shell, int tmp_fd)
+{
+	(*line)[ft_strlen(*line) - 1] = '\0';
+	*line = expandcmd(*line, shell);
+	(*line)[ft_strlen(*line)] = '\n';
+	write(tmp_fd, *line, ft_strlen(*line));
+	free(*line);
+	ft_putstr_fd("> ", 1);
+	*line = read_line(buffer, STDIN_FILENO);
 }
 
 void	check_here_doc(char *limiter, int *fd, t_ms *shell)
@@ -53,26 +58,15 @@ void	check_here_doc(char *limiter, int *fd, t_ms *shell)
 	buffer = NULL;
 	tmp_fd = open("/tmp/heredoc_tmp", O_WRONLY | O_CREAT | O_TRUNC, 0600);
 	if (tmp_fd == -1)
-	{
-		ft_putstr_fd("minishell: ", 2);
-		ft_putstr_fd(strerror(errno), 2);
-		ft_putstr_fd("\n", 2);
-		return ;
-	}
+		return (err_mss_heredoc());
 	len = ft_strlen(limiter);
-	ft_printf("> ");
+	ft_putstr_fd("> ", 1);
 	line = read_line(&buffer, STDIN_FILENO);
 	if (line == NULL)
 		return ;
 	while (!(ft_strncmp(line, limiter, len) == 0 && line[len] == '\n'))
 	{
-		line[ft_strlen(line) - 1] = '\0';
-		line = expandcmd(line, shell);
-		line[ft_strlen(line)] = '\n';
-		write(tmp_fd, line, ft_strlen(line));
-		free(line);
-		ft_printf("> ");
-		line = read_line(&buffer, STDIN_FILENO);
+		take_new_line(&line, &buffer, shell, tmp_fd);
 		if (line == NULL)
 			return ;
 	}
@@ -80,11 +74,7 @@ void	check_here_doc(char *limiter, int *fd, t_ms *shell)
 	close(tmp_fd);
 	*fd = open("/tmp/heredoc_tmp", O_RDONLY);
 	if (*fd == -1)
-	{
-		ft_putstr_fd("minishell: ", 2);
-		ft_putstr_fd(strerror(errno), 2);
-		ft_putstr_fd("\n", 2);
-	}
+		return (err_mss_heredoc());
 }
 
 int	check_redirection(t_ast *ast, t_ms **shell)
@@ -98,47 +88,12 @@ int	check_redirection(t_ast *ast, t_ms **shell)
 	while (ptr)
 	{
 		ptr->value = expandcmd(ptr->value, *shell);
-		if (ptr->type == T_LESS)
-		{
-			if ((*shell)->io_in != -1)
-				close((*shell)->io_in);
-			fd = open(ptr->value, O_RDONLY);
-			if (fd == -1)
-			{
-				ft_putstr_fd("minishell: ", 2);
-				ft_putstr_fd(strerror(errno), 2);
-				ft_putstr_fd("\n", 2);
-				return (1);
-			}
-			(*shell)->io_in = fd;
-		}
-		else if (ptr->type == T_GREAT)
-		{
-			if ((*shell)->io_out != -1)
-				close((*shell)->io_out);
-			fd = open(ptr->value, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-			if (fd == -1)
-			{
-				ft_putstr_fd("minishell: ", 2);
-				ft_putstr_fd(strerror(errno), 2);
-				ft_putstr_fd("\n", 2);
-				return (1);
-			}
-			(*shell)->io_out = fd;
-		}
+		if (less_or_great(shell, &fd, ptr) == 1)
+			return (1);
 		else if (ptr->type == T_DGREAT)
 		{
-			if ((*shell)->io_out != -1)
-				close((*shell)->io_out);
-			fd = open(ptr->value, O_WRONLY | O_CREAT | O_APPEND, 0644);
-			if (fd == -1)
-			{
-				ft_putstr_fd("minishell: ", 2);
-				ft_putstr_fd(strerror(errno), 2);
-				ft_putstr_fd("\n", 2);
+			if (handle_dgreat(shell, &fd, ptr) == 1)
 				return (1);
-			}
-			(*shell)->io_out = fd;
 		}
 		else if (ptr->type == T_DLESS)
 		{

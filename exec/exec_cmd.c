@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 14:51:01 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/07/23 17:40:58 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/07/24 10:54:55 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,10 +80,24 @@ void	run_cmd(t_ms *shell, char **arg)
 	}
 }
 
+void	exec_not_piped(t_ms *shell, char **args)
+{
+	int	pid;
+	int	status;
+
+	pid = fork();
+	if (pid == 0)
+	{
+		close_fd(shell);
+		run_cmd(shell, args);
+	}
+	waitpid(pid, &status, 0);
+	if (WIFEXITED(status))
+		shell->lexit_status = WEXITSTATUS(status);
+}
+
 void	exec_cmd(t_ast *ast, char *full_cmd, t_ms *shell, int piped)
 {
-	int		pid;
-	int		status;
 	char	**args;
 
 	signal_process();
@@ -101,17 +115,7 @@ void	exec_cmd(t_ast *ast, char *full_cmd, t_ms *shell, int piped)
 			exit(EXIT_SUCCESS);
 	}
 	else if (piped == 0)
-	{
-		pid = fork();
-		if (pid == 0)
-		{
-			close_fd(shell);
-			run_cmd(shell, args);
-		}
-		waitpid(pid, &status, 0);
-		if (WIFEXITED(status))
-			shell->lexit_status = WEXITSTATUS(status);
-	}
+		exec_not_piped(shell, args);
 	else
 		run_cmd(shell, args);
 }

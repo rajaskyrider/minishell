@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 09:40:18 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/07/23 17:36:49 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/07/24 11:48:26 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,18 +42,6 @@ int	replace_invalid(char **cmd, int start, int end, t_ms *shell)
 	return (start - 2);
 }
 
-int	check_question(char **cmd, t_ms *shell, int start)
-{
-	char	*result;
-
-	if ((*cmd)[start] != '?')
-		return (0);
-	result = ft_itoa(shell->lexit_status);
-	*cmd = replace_wildcard(*cmd, result, start - 1, shell);
-	free (result);
-	return (1);
-}
-
 int	deal_dollar(char **cmd, t_ms *shell, int start)
 {
 	char		*result;
@@ -63,11 +51,7 @@ int	deal_dollar(char **cmd, t_ms *shell, int start)
 
 	if (check_question(cmd, shell, start))
 		return (start);
-	result = NULL;
-	end = start;
-	while ((*cmd)[end] && (*cmd)[end] != ' ' \
-			&& (*cmd)[end] != '$' && (*cmd)[end] != '\"' && (*cmd)[end] != '\'')
-		end++;
+	logic_deal_dollar(cmd, start, &end, &result);
 	if (start == end)
 		return (end - 1);
 	pattern = ft_substr(*cmd, start, end - start);

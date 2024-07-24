@@ -18,6 +18,8 @@ Wildcard
  
 PARENTHESIS
 
-NORME
+--NORME
+
+unset PWD, HOME CD
 
 LEAKS AND FDS OPEN

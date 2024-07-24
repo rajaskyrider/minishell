@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 14:42:50 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/07/23 17:56:40 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/07/24 14:17:02 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -206,6 +206,16 @@ int			first_check(t_token *ptr, t_ms *shell);
 int			second_check(t_token *ptr, t_ms *shell);
 int			third_check(t_token *ptr, t_ms *shell);
 int			fourth_check(t_token *ptr, t_ms *shell);
+void		err_mss_heredoc(void);
+int			less_or_great(t_ms **shell, int *fd, t_io *ptr);
+int			handle_dgreat(t_ms **shell, int *fd, t_io *ptr);
+void		logic_deal_dollar(char **cmd, int start, int *end, char **result);
+int			check_question(char **cmd, t_ms *shell, int start);
+void		glob_logic(t_ms *shell, char **matches, char *pattern);
+int			match(char *pattern, char *filename);
+char		*replace_cmd(char *cmd, char *filename, t_ms *shell);
+void		single_quote(int *i, char **cmd);
+void		double_quote(t_ms *shell, int *i, char **cmd);
 
 /*Test functions (to remove)*/
 void		print_token_lst(t_ms *shell);
