@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 14:47:49 by tle-moel          #+#    #+#             */
-/*   Updated: 2024/07/25 10:27:42 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/07/25 13:26:45 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_token	*create_token_lst(char *cmd_line, t_ms *shell)
 				return (shell->error = 1, token_lst);
 		}
 		else if (ms_isparenthesis(*cmd_line) == 1 && \
-			handle_parenthesis(&token_lst, &cmd_line) == 0)
+			handle_parenthesis(&token_lst, &cmd_line, shell) == 0)
 			return (shell->error = 1, token_lst);
 		else if (*cmd_line != '\0')
 		{

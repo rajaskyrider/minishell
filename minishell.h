@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 14:42:50 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/07/25 11:23:01 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/07/25 13:27:57 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,7 @@ typedef enum e_token_type
 	T_DGREAT,
 	T_AND_IF,
 	T_OR_IF,
-	T_O_PARENT,
-	T_C_PARENT,
+	T_PARENT,
 	T_EXIT_STATUS,
 	T_SINGLE_QUOTE,
 	T_DOUBLE_QUOTE
@@ -129,8 +128,8 @@ int			ms_isoperator(char *s);
 int			ms_isparenthesis(char c);
 int			ms_isredirect(t_token_type t);
 void		add_token_end_lst(t_token **token_lst, t_token *token);
-int			handle_parenthesis(t_token **token_lst, char **cmd_line);
-int			handle_subshell(t_token **token_lst, char **cmd_line);
+int			handle_parenthesis(t_token **token_lst, char **cmd_line, t_ms *shell);
+char		*handle_subshell(t_token **token_lst, char **cmd_line);
 int			handle_operator(t_token **token_lst, char **cmd_line);
 int			handle_quote(t_token **token_lst, char **cmd_line);
 int			handle_word(t_token **token_lst, char **cmd_line);

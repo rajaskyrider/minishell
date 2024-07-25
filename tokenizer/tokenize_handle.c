@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenize_handle.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
+/*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 15:09:51 by tle-moel          #+#    #+#             */
-/*   Updated: 2024/07/25 10:36:35 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/07/25 13:28:45 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,30 @@ int	handle_operator(t_token **token_lst, char **cmd_line)
 	return (1);
 }
 
+int	handle_parenthesis(t_token **token_lst, char **cmd_line, t_ms *shell)
+{
+	t_token	*token;
+
+	token = NULL;
+	if (ft_strncmp(*cmd_line, ")", 1) == 0)
+	{
+		shell->lexit_status = 2;
+		ft_putstr_fd("minishell: syntax error near ", 2);
+		ft_putstr_fd("unexpected token\n", 2);
+		return (0);
+	}
+	(*cmd_line)++;
+	if (init_token(&token) == 0)
+		return (0);
+	token->type = T_PARENT;
+	token->value = handle_subshell(token_lst, cmd_line);
+	if (!token->value)
+		return (0);
+	add_token_end_lst(token_lst, token);
+	(*cmd_line)++;
+	return (1);
+}
+/*
 int	handle_parenthesis(t_token **token_lst, char **cmd_line)
 {
 	t_token	*token_open;
@@ -63,8 +87,24 @@ int	handle_parenthesis(t_token **token_lst, char **cmd_line)
 	add_token_end_lst(token_lst, token_close);
 	(*cmd_line)++;
 	return (1);
-}
+}*/
 
+char	*handle_subshell(t_token **token_lst, char **cmd_line)
+{
+	char	*value;
+	int		i;
+
+	(void)token_lst;
+	i = 0;
+	while ((*cmd_line)[i] != ')' && (*cmd_line)[i] != '\0')
+		i++;
+	if ((*cmd_line)[i] == '\0')
+		return (NULL);
+	value = ft_substr(*cmd_line, 0, i);
+	(*cmd_line) += i;
+	return (value);
+}
+/*
 int	handle_subshell(t_token **token_lst, char **cmd_line)
 {
 	t_token	*token;
@@ -83,7 +123,7 @@ int	handle_subshell(t_token **token_lst, char **cmd_line)
 	add_token_end_lst(token_lst, token);
 	(*cmd_line) += i;
 	return (1);
-}
+}*/
 
 int	handle_word(t_token **token_lst, char **cmd_line)
 {
