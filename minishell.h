@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 14:42:50 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/07/25 13:27:57 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/07/25 14:02:17 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ typedef struct s_ms
 	char		*oldpwd;
 }	t_ms;
 
+void		init_shell(t_ms *shell, char **env);
 void		ms_cd(t_ms *shell, char **path);
 void		ms_echo(char **arg);
 void		ms_env(t_ms *shell);
@@ -219,6 +220,7 @@ void		single_quote(int *i, char **cmd);
 void		double_quote(t_ms *shell, int *i, char **cmd);
 char		*get_shellpwd(t_ms *shell);
 void		update_shelloldpwd(t_ms *shell);
+void		ms_subshell(t_ast *ast, t_ms *shell);
 
 /*Test functions (to remove)*/
 void		print_token_lst(t_ms *shell);

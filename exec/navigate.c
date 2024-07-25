@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   navigate.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 17:34:08 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/07/24 12:56:00 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/07/25 13:59:59 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ void	navigate(t_ast **ast, t_ms **shell, int next_pipe[2])
 			setup_pipe(pipe_fd, shell);
 		ms_pipe(*ast, shell, pipe_fd, next_pipe);
 	}
+	else if ((*ast)->token_type == T_PARENT)
+		ms_subshell(*ast, *shell);
 }
 
 void	execute_simple(t_ms *shell)
