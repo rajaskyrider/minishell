@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 15:11:48 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/07/24 14:19:35 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/07/25 10:38:32 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ char	**split_and_expand(char *full_cmd, t_ms *shell)
 		exp_size += ft_strlen(arg[i]) + 1;
 		i++;
 	}
-	if (exp_size != size)
+	if (exp_size > size)
 		arg = split_again(arg, exp_size);
 	if (arg[0][0] == 0 && arg[1])
 		arg++;

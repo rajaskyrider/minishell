@@ -6,7 +6,7 @@
 /*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 11:07:03 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/07/24 14:27:58 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/07/25 10:15:43 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,8 +119,5 @@ char	*expandcmd(char *cmd, t_ms *shell)
 		else
 			break ;
 	}
-	ft_putstr_fd("here final\n", 2);
-	ft_putstr_fd(cmd, 2);
-	ft_putstr_fd("\n", 2);
 	return (cmd);
 }

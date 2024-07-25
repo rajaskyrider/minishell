@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   glob_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 13:05:30 by tle-moel          #+#    #+#             */
-/*   Updated: 2024/07/24 14:16:37 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/07/25 11:00:12 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,11 @@ void	glob_logic(t_ms *shell, char **matches, char *pattern)
 	entry = readdir(dp);
 	while (entry)
 	{
+		if (entry->d_name[0] == '.')
+		{
+			entry = readdir(dp);
+			continue ;
+		}
 		if (match(pattern, entry->d_name))
 			*matches = replace_cmd(*matches, entry->d_name, shell);
 		entry = readdir(dp);
