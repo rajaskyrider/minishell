@@ -1,5 +1,3 @@
-exit with max min LONG LONG nbr
-
 Redirection : 		//Change expandcmd to a customize expand heredoc !!!
 
 

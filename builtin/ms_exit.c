@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
+/*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 13:23:59 by tle-moel          #+#    #+#             */
-/*   Updated: 2024/07/25 11:42:39 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/07/25 13:13:57 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ int	checkoverflow(char *str)
 
 void	exit_error(t_ms *shell)
 {
+	ft_putstr_fd("exit\n", 2);
 	ft_putstr_fd("minishell: exit: numeric argument required\n", 2);
 	exit_shell(shell, 2);
 }
@@ -58,7 +59,7 @@ void	ms_exit(char **arg, t_ms *shell)
 	long long	exit_value;
 	int			i;
 
-	i = 0;
+	i = 1;
 	if (arg[1] == NULL)
 		exit_shell(shell, EXIT_SUCCESS);
 	if (arg[2] != NULL)
@@ -69,9 +70,11 @@ void	ms_exit(char **arg, t_ms *shell)
 	}
 	if (checkoverflow(arg[1]))
 		exit_error(shell);
+	if (!ft_isdigit(arg[1][0]) && arg[1][0] != '+' && arg[1][0] != '-')
+		exit_error(shell);
 	while (arg[1][i])
 	{
-		if (!ft_isdigit(arg[1][i]) && arg[1][i] != '+' && arg[1][i] != '-')
+		if (!ft_isdigit(arg[1][i]))
 			exit_error(shell);
 		i++;
 	}
