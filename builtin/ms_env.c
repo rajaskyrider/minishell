@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 09:31:34 by tle-moel          #+#    #+#             */
-/*   Updated: 2024/07/23 15:44:03 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/07/24 16:19:55 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,11 @@ void	update_envlst(char *key, char *value, t_envlst **environ)
 	{
 		if (ft_strncmp(key, ptr->key, ft_strlen(ptr->key)) == 0)
 		{
-			free(ptr->value);
-			ptr->value = value;
+			if (value)
+			{
+				free(ptr->value);
+				ptr->value = value;
+			}
 			return ;
 		}
 		ptr = ptr->next;

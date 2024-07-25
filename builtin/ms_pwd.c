@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 15:31:19 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/07/23 15:56:25 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/07/25 11:22:14 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,5 +22,5 @@ void	ms_pwd(t_ms *shell)
 	if (envlst)
 		ft_printf("%s\n", envlst->value);
 	else
-		print_error(shell, "Internal Error");
+		ft_printf("%s\n", get_shellpwd(shell));
 }

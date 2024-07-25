@@ -6,25 +6,45 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 14:45:40 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/07/23 15:43:11 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/07/25 11:29:43 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	init_oldpwd(t_ms *shell)
+{
+	char		**ptr;
+
+	ptr = shell->env;
+	while (ptr)
+	{
+		if (ft_strncmp(*ptr, "OLDPWD=", 7) == 0)
+		{
+			shell->oldpwd = *ptr;
+			return ;
+		}
+		ptr++;
+	}
+	shell->oldpwd = NULL;
+}
 
 void	init_shell(t_ms *shell, char **env)
 {
 	shell->cmd = NULL;
 	shell->ast = NULL;
 	shell->token_lst = NULL;
-	shell->envlst = init_envlst(env);
 	shell->env = init_env(env);
+	shell->pwd = NULL;
+	shell->oldpwd = NULL;
+	shell->envlst = init_envlst(env);
 	shell->error = 0;
 	shell->io_in = -1;
 	shell->io_out = -1;
 	shell->std_in = dup(STDIN_FILENO);
 	shell->std_out = dup(STDOUT_FILENO);
 	shell->lexit_status = 0;
+	//check_env(shell);
 }
 
 void	exit_shell(t_ms *shell, int exitcode)

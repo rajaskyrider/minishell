@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 09:40:18 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/07/24 11:48:26 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/07/25 10:19:24 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,10 @@ char	*ms_getenv(char *key, t_ms *shell)
 			return (elst->value);
 		elst = elst->next;
 	}
+	if (ft_strncmp(key, "PWD", ft_strlen(key)) == 0)
+		return (shell->pwd);
+	if (ft_strncmp(key, "OLDPWD", ft_strlen(key)) == 0)
+		return (shell->oldpwd);
 	return (NULL);
 }
 

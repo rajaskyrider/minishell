@@ -6,7 +6,7 @@
 #    By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/10 15:30:56 by rpandipe          #+#    #+#              #
-#    Updated: 2024/07/24 13:06:00 by tle-moel         ###   ########.fr        #
+#    Updated: 2024/07/25 10:46:18 by tle-moel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,8 @@ LFLAG		= -Llibft -lft
 RM 			= rm -rf
 BUILTIN		= builtin/ms_cd.c builtin/ms_echo.c builtin/ms_env_utils.c \
 			  builtin/ms_env.c builtin/ms_exit.c builtin/ms_export_utils.c \
-			  builtin/ms_export.c builtin/ms_pwd.c builtin/ms_unset.c
+			  builtin/ms_export.c builtin/ms_pwd.c builtin/ms_unset.c \
+			  builtin/update_shellpwd.c
 TOKENIZER	= tokenizer/tokenize.c tokenizer/tokenize_handle.c \
 			  tokenizer/tokenize_utils.c tokenizer/tokenize_quote.c \
 			  tokenizer/tokenize_syntax.c

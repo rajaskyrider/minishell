@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 15:47:57 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/07/24 14:58:06 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/07/25 11:42:07 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,6 @@ void	update_pwd(t_ms *shell)
 	pwd_node = NULL;
 	envlst = shell->envlst;
 	pwd = get_path(shell);
-	///
-	printf("pwd : %s\n", pwd);
 	while (envlst && (!oldpwd_node || !pwd_node))
 	{
 		if (ft_strncmp(envlst->key, "PWD", 3) == 0)
@@ -57,7 +55,13 @@ void	update_pwd(t_ms *shell)
 	{
 		free(oldpwd_node->value);
 		oldpwd_node->value = NULL;
+		if (!pwd_node)
+			oldpwd_node->value = shell->pwd;
 	}
+	if (!oldpwd_node)
+		update_shelloldpwd(shell);
+	if (!pwd_node)
+		shell->pwd = get_shellpwd(shell);
 	if (pwd_node)
 	{
 		if (oldpwd_node)

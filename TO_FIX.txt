@@ -1,5 +1,3 @@
-isatty (optional, we don't need to implement it)
-
 exit with max min LONG LONG nbr
 
 Redirection : 		//Change expandcmd to a customize expand heredoc !!!
@@ -15,10 +13,6 @@ Redirection : 		//Change expandcmd to a customize expand heredoc !!!
 	DOC
  
 PARENTHESIS
-
-PWD, OLPWD -> echo $PWD should work
-
-awk ???
 
 LEAKS AND FDS OPEN
 

@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 14:42:50 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/07/24 14:17:02 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/07/25 11:23:01 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,8 @@ typedef struct s_ms
 	int			std_in;
 	int			std_out;
 	pid_t		pid;
+	char		*pwd;
+	char		*oldpwd;
 }	t_ms;
 
 void		ms_cd(t_ms *shell, char **path);
@@ -216,6 +218,8 @@ int			match(char *pattern, char *filename);
 char		*replace_cmd(char *cmd, char *filename, t_ms *shell);
 void		single_quote(int *i, char **cmd);
 void		double_quote(t_ms *shell, int *i, char **cmd);
+char		*get_shellpwd(t_ms *shell);
+void		update_shelloldpwd(t_ms *shell);
 
 /*Test functions (to remove)*/
 void		print_token_lst(t_ms *shell);
