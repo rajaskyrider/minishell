@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 15:09:51 by tle-moel          #+#    #+#             */
-/*   Updated: 2024/07/25 14:14:27 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/07/25 14:57:17 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ int	handle_parenthesis(t_token **token_lst, char **cmd_line, t_ms *shell)
 {
 	t_token	*token;
 
-	printf("ENTER HANDLE PARENTHESIS\n");
 	token = NULL;
 	if (ft_strncmp(*cmd_line, ")", 1) == 0)
 	{
@@ -140,7 +139,6 @@ int	handle_word(t_token **token_lst, char **cmd_line)
 	t_token	*token;
 	int		i;
 
-	printf("ENTER HANDLE WORD\n");
 	token = NULL;
 	if (init_token(&token) == 0)
 		return (0);

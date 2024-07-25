@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   navigate.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
+/*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 17:34:08 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/07/25 14:43:28 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/07/25 15:05:33 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	navigate(t_ast **ast, t_ms **shell, int next_pipe[2])
 		return ;
 	if ((*ast)->token_type == T_AND_IF || (*ast)->token_type == T_OR_IF)
 		deal_logical(ast, shell, next_pipe);
-	if ((*ast)->left->type == T_OPERATOR)
+	else if ((*ast)->left->type == T_OPERATOR)
 	{
 		setup_pipe(pipe_fd, shell);
 		navigate(&(*ast)->left, shell, pipe_fd);
