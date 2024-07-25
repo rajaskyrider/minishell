@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 13:42:37 by tle-moel          #+#    #+#             */
-/*   Updated: 2024/07/23 13:42:41 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/07/25 13:51:37 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,7 @@ void	print_token_lst(t_ms *shell)
 		"T_DGREAT",
 		"T_AND_IF",
 		"T_OR_IF",
-		"T_O_PARENT",
-		"T_C_PARENT",
+		"T_PARENT",
 		"T_DOLLAR",
 		"T_EXIT_STATUS",
 		"T_SINGLE_QUOTE",
@@ -60,8 +59,7 @@ void	print_ast(t_ast *tree, int level)
 		"T_DGREAT",
 		"T_AND_IF",
 		"T_OR_IF",
-		"T_O_PARENT",
-		"T_C_PARENT",
+		"T_PARENT",
 		"T_DOLLAR",
 		"T_EXIT_STATUS",
 		"T_SINGLE_QUOTE",

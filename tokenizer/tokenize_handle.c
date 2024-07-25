@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 15:09:51 by tle-moel          #+#    #+#             */
-/*   Updated: 2024/07/25 13:28:45 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/07/25 13:50:53 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	handle_parenthesis(t_token **token_lst, char **cmd_line, t_ms *shell)
 	{
 		shell->lexit_status = 2;
 		ft_putstr_fd("minishell: syntax error near ", 2);
-		ft_putstr_fd("unexpected token\n", 2);
+		ft_putstr_fd("unexpected tokenHERE\n", 2);
 		return (0);
 	}
 	(*cmd_line)++;
@@ -93,11 +93,20 @@ char	*handle_subshell(t_token **token_lst, char **cmd_line)
 {
 	char	*value;
 	int		i;
+	int		count;
 
 	(void)token_lst;
 	i = 0;
-	while ((*cmd_line)[i] != ')' && (*cmd_line)[i] != '\0')
+	count = 1;
+	while (count != 0 && (*cmd_line)[i] != '\0')
+	{
+		if ((*cmd_line)[i] == ')')
+			count--;
+		if ((*cmd_line)[i] != '(')
+			count++;
 		i++;
+	}
+	i--;
 	if ((*cmd_line)[i] == '\0')
 		return (NULL);
 	value = ft_substr(*cmd_line, 0, i);
