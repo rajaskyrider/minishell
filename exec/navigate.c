@@ -6,7 +6,7 @@
 /*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 17:34:08 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/07/25 13:59:59 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/07/25 14:43:28 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,8 @@ void	execute(t_ms *shell)
 			pid = wait(&status);
 		}
 	}
+	else if (ast->token_type == T_PARENT)
+		ms_subshell(ast, shell);
 	else
 		execute_simple(shell);
 	close_fd (shell);
