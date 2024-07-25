@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenize_handle.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 15:09:51 by tle-moel          #+#    #+#             */
-/*   Updated: 2024/07/23 17:13:50 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/07/25 10:36:35 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,8 +97,21 @@ int	handle_word(t_token **token_lst, char **cmd_line)
 	i = 0;
 	while (ms_isspace((*cmd_line)[i]) == 0 && \
 		ms_isparenthesis((*cmd_line)[i]) == 0 && \
-		ms_isoperator((*cmd_line) + i) == 0 && (*cmd_line)[i] != '\0')
+		ms_isoperator((*cmd_line) + i) == 0 && \
+		(*cmd_line)[i] != '\0')
+	{
+		if (ms_isquote((*cmd_line)[i]) == 1)
+		{
+			i++;
+			while (ms_isquote((*cmd_line)[i]) == 0)
+			{
+				if (!(*cmd_line)[i])
+					return (0);
+				i++;
+			}
+		}
 		i++;
+	}
 	token->value = ft_substr(*cmd_line, 0, i);
 	add_token_end_lst(token_lst, token);
 	(*cmd_line) += i;

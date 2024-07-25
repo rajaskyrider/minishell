@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 11:07:03 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/07/24 16:17:18 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/07/25 11:45:39 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,8 +119,5 @@ char	*expandcmd(char *cmd, t_ms *shell)
 		else
 			break ;
 	}
-	//ft_putstr_fd("here final\n", 2);
-	//ft_putstr_fd(cmd, 2);
-	//ft_putstr_fd("\n", 2);
 	return (cmd);
 }

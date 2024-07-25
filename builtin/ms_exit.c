@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 13:23:59 by tle-moel          #+#    #+#             */
-/*   Updated: 2024/07/23 15:53:06 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/07/25 11:42:39 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,39 @@ void	round_exit_value(long long exit_value, t_ms *shell)
 		shell->lexit_status = (exit_value + 256) % 256;
 	else
 		shell->lexit_status = (exit_value - 256) % 256;
+}
+
+int	checkoverflow(char *str)
+{
+	int	digits;
+	int	count;
+
+	count = 0;
+	if (*str == '-')
+		count = 1;
+	digits = ft_strlen(str + count);
+	if (digits > 19)
+		return (1);
+	if (digits == 19)
+	{
+		if (count == 0)
+		{
+			if (!(ft_strncmp(str, "9223372036854775807", digits) <= 0))
+				return (1);
+		}
+		else
+		{
+			if (!(ft_strncmp(str, "-9223372036854775808", 20) <= 0))
+				return (1);
+		}
+	}
+	return (0);
+}
+
+void	exit_error(t_ms *shell)
+{
+	ft_putstr_fd("minishell: exit: numeric argument required\n", 2);
+	exit_shell(shell, 2);
 }
 
 void	ms_exit(char **arg, t_ms *shell)
@@ -34,13 +67,12 @@ void	ms_exit(char **arg, t_ms *shell)
 		shell->lexit_status = 1;
 		return ;
 	}
+	if (checkoverflow(arg[1]))
+		exit_error(shell);
 	while (arg[1][i])
 	{
 		if (!ft_isdigit(arg[1][i]) && arg[1][i] != '+' && arg[1][i] != '-')
-		{
-			ft_putstr_fd("minishell: exit: numeric argument required\n", 2);
-			exit_shell(shell, 2);
-		}
+			exit_error(shell);
 		i++;
 	}
 	exit_value = ft_atoll(arg[1]);
