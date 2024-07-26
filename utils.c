@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 15:46:03 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/07/23 17:54:26 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/07/26 10:46:26 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ void	clear_shell(t_ms *shell)
 
 void	print_error(t_ms *shell, char *errormsg)
 {
-	clear_shell(shell);
+	(void)shell;
+	//clear_shell(shell);
 	ft_putstr_fd(errormsg, 2);
 }
 
@@ -66,3 +67,18 @@ int	ms_strcmp(char *s1, char *s2)
 	else
 		return (s1[i] - s2[i]);
 }
+
+/*int	ms_strcmp(char *s1, char *s2)
+{
+	int	i;
+
+	i = 0;
+	while (s1[i] && s2[i])
+	{
+		if (s1[i] != s2[i])
+			return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+		i++;
+	}
+	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+}*/
+

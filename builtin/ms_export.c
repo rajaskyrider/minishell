@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 11:48:26 by tle-moel          #+#    #+#             */
-/*   Updated: 2024/07/23 16:01:44 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/07/26 10:45:07 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,12 +59,12 @@ void	print_export(t_envlst *environ)
 	while (ptr)
 	{
 		ptr2 = environ;
-		while (curr_key && ft_strncmp(curr_key, ptr2->key, \
-				ft_strlen(curr_key)) != 0 && ptr2)
+		while (curr_key && ms_strcmp(curr_key, ptr2->key \
+				) != 0 && ptr2)
 			ptr2 = ptr2->next;
-		if (curr_key && ft_strncmp(ptr2->key, "_", 2) != 0)
+		if (curr_key && ms_strcmp(ptr2->key, "_") != 0)
 		{
-			ft_putstr_fd("declar -x ", 1);
+			ft_putstr_fd("declare -x ", 1);
 			ft_putstr_fd(ptr2->key, 1);
 			if (ptr2->value)
 				print_value(ptr2->value);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_export_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 15:56:09 by tle-moel          #+#    #+#             */
-/*   Updated: 2024/07/23 16:01:53 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/07/26 10:42:21 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ char	*find_min_key(t_envlst *environ)
 	min = ptr->key;
 	while (ptr)
 	{
-		if (ft_strncmp(ptr->key, min, ft_strlen(ptr->key)) < 0)
+		if (ms_strcmp(ptr->key, min) < 0)
 			min = ptr->key;
 		ptr = ptr->next;
 	}
@@ -55,11 +55,11 @@ char	*find_next_key(char *curr_key, t_envlst *environ)
 	ptr = environ;
 	while (ptr)
 	{
-		cmp = ft_strncmp(ptr->key, curr_key, ft_strlen(ptr->key));
+		cmp = ms_strcmp(ptr->key, curr_key);
 		if (cmp > 0)
 		{
 			if (next_key == NULL || \
-				ft_strncmp(ptr->key, next_key, ft_strlen(ptr->key)) < 0)
+				ms_strcmp(ptr->key, next_key) < 0)
 				next_key = ptr->key;
 		}
 		ptr = ptr->next;
