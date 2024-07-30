@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_redirection.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 09:40:20 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/07/24 11:33:11 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/07/30 09:41:30 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,20 @@ void	check_here_doc(char *limiter, int *fd, t_ms *shell)
 		return (err_mss_heredoc());
 }
 
+void	set_here_doc(char *limiter, int *fd, t_ms *shell)
+{
+	int		std_in;
+	int		std_out;
+
+	std_in = dup(STDIN_FILENO);
+	std_out = dup(STDOUT_FILENO);
+	dup2(shell->std_in, STDIN_FILENO);
+	dup2(shell->std_out, STDOUT_FILENO);
+	check_here_doc(limiter, fd, shell);
+	dup2(std_in, STDIN_FILENO);
+	dup2(std_out, STDOUT_FILENO);
+}
+
 int	check_redirection(t_ast *ast, t_ms **shell)
 {
 	int		fd;
@@ -99,7 +113,7 @@ int	check_redirection(t_ast *ast, t_ms **shell)
 		{
 			if ((*shell)->io_in != -1)
 				close((*shell)->io_in);
-			check_here_doc(ptr->value, &(*shell)->io_in, *shell);
+			set_here_doc(ptr->value, &(*shell)->io_in, *shell);
 		}
 		ptr = ptr->next;
 	}

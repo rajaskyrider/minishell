@@ -1,14 +1,16 @@
-Redirection : 		//Change expandcmd to a customize expand heredoc !!!
 
 
-	cat <<HERE | ls
+cat <minishell.h <<HERE <missing <<DOC | echo oi
+HERE
+DOC
+#regardless of the order, do HEREDOC first and then do redirections.
+change in tokenize ? so in this example do HERE -> DOC -> minishell.h ->missing
 
-	cat <minishell.h <<HERE <missing | ls
-	HERE
+#invalid command, followed by empty variable, should clear the exit code
+doesntexist
+$EMPTY
+echo $?
 
-	cat <minishell.h <<HERE <missing <<DOC | echo oi
-	HERE
-	DOC
 
 LEAKS AND FDS OPEN
 
@@ -29,4 +31,12 @@ export :
 Export - delcar
 export | sort | grep -v SHLVL | grep -v "declare -x _" | grep -v "PS.="
 (./tester os_specific)
+
+Redirection : 		//Change expandcmd to a customize expand heredoc !!!
+
+
+	cat <<HERE | ls
+
+	cat <minishell.h <<HERE <missing | ls
+	HERE
 

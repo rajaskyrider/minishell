@@ -6,7 +6,7 @@
 /*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 14:42:50 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/07/25 14:02:17 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/07/30 10:03:48 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # include <errno.h>
 # include <signal.h>
 # include <stdlib.h>
+# include <termios.h>
 
 typedef enum e_token_type
 {
@@ -129,7 +130,8 @@ int			ms_isoperator(char *s);
 int			ms_isparenthesis(char c);
 int			ms_isredirect(t_token_type t);
 void		add_token_end_lst(t_token **token_lst, t_token *token);
-int			handle_parenthesis(t_token **token_lst, char **cmd_line, t_ms *shell);
+int			handle_parenthesis(t_token **token_lst, \
+								char **cmd_line, t_ms *shell);
 char		*handle_subshell(t_token **token_lst, char **cmd_line);
 int			handle_operator(t_token **token_lst, char **cmd_line);
 int			handle_quote(t_token **token_lst, char **cmd_line);
@@ -180,6 +182,7 @@ int			glob(char **cmd, t_ms *shell, int start);
 int			check_redirection(t_ast *ast, t_ms **shell);
 void		check_directory(char *cmd, t_ms *shell);
 void		ms_pipe(t_ast *ast, t_ms **shell, int pipe_fd[2], int last_pipe[2]);
+void		sync_heredoc(t_ast *ast, int pid, t_ms *shell);
 void		check_here_doc(char *limiter, int *fd, t_ms *shell);
 void		close_pipe(int pip[2]);
 char		*expandcmd(char *cmd, t_ms *shell);

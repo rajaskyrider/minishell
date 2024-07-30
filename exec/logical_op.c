@@ -6,7 +6,7 @@
 /*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 15:00:58 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/07/25 14:53:16 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/07/30 09:39:56 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	logical_and(t_ast **ast, t_ms **shell, int next_pipe[2])
 	if ((*ast)->left->type == T_OPERATOR)
 		navigate(&(*ast)->left, shell, next_pipe);
 	else if ((*ast)->left->token_type == T_PARENT)
-			ms_subshell((*ast)->left, *shell);
+		ms_subshell((*ast)->left, *shell);
 	else
 		exec_cmd((*ast)->left, (*ast)->left->value, *shell, 0);
 	close_fd (*shell);
@@ -44,7 +44,7 @@ void	logical_or(t_ast **ast, t_ms **shell, int next_pipe[2])
 	if ((*ast)->left->type == T_OPERATOR)
 		navigate(&(*ast)->left, shell, next_pipe);
 	else if ((*ast)->left->token_type == T_PARENT)
-			ms_subshell((*ast)->left, *shell);
+		ms_subshell((*ast)->left, *shell);
 	else
 		exec_cmd((*ast)->left, (*ast)->left->value, *shell, 0);
 	close_fd (*shell);

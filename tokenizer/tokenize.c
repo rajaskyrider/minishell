@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenize.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 14:47:49 by tle-moel          #+#    #+#             */
-/*   Updated: 2024/07/25 14:17:50 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/07/30 09:45:03 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,8 @@ t_token	*create_token_lst(char *cmd_line, t_ms *shell)
 			if (handle_parenthesis(&token_lst, &cmd_line, shell) == 0)
 				return (shell->error = 1, token_lst);
 		}
-		else if (*cmd_line != '\0' && \
-			handle_word(&token_lst, &cmd_line) == 0)
-				return (shell->error = 1, token_lst);
+		else if (*cmd_line != '\0' && handle_word(&token_lst, &cmd_line) == 0)
+			return (shell->error = 1, token_lst);
 	}
 	return (token_lst);
 }

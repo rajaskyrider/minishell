@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 15:04:28 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/07/25 14:56:49 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/07/30 09:39:22 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,7 @@ void	readprompt(t_ms *shell, char *new_cmd)
 		exit_shell(shell, EXIT_SUCCESS);
 	if (tokenize(shell) == 0)
 		return ;
-	//print_token_lst(shell);
 	if (parser(shell) == 0)
 		return ;
-	//print_ast(shell->ast, 0);
 	execute(shell);
 }

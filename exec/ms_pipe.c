@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_pipe.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 08:12:37 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/07/18 11:16:54 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/07/30 08:19:34 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void	exec_pipeleft(t_ast *ast, t_ms **shell, int pip[2], int next_pipe[2])
 	}
 	else if (pid < 0)
 		print_error(*shell, "Fork failed");
+	sync_heredoc(ast, pid, *shell);
 }
 
 void	exec_piperight(t_ast *ast, t_ms **shell, int pip[2], int next_pipe[2])
@@ -60,6 +61,7 @@ void	exec_piperight(t_ast *ast, t_ms **shell, int pip[2], int next_pipe[2])
 	}
 	else if ((*shell)->pid < 0)
 		print_error(*shell, "Fork failed");
+	sync_heredoc(ast, (*shell)->pid, *shell);
 }
 
 void	ms_pipe(t_ast *ast, t_ms **shell, int pipe_fd[2], int next_pipe[2])

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 10:55:29 by tle-moel          #+#    #+#             */
-/*   Updated: 2024/07/25 10:21:08 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/07/30 09:42:45 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ void	ms_unset(char **arg, t_ms *shell)
 			{
 				if (ft_strncmp(ptr->key, "PWD", ft_strlen(ptr->key)) == 0)
 					shell->pwd = NULL;
-				else if (ft_strncmp(ptr->key, "OLDPWD", ft_strlen(ptr->key)) == 0)
+				else if (ft_strncmp(ptr->key, "OLDPWD", \
+							ft_strlen(ptr->key)) == 0)
 					shell->oldpwd = NULL;
 				delete_env_node(&shell->envlst, ptr);
 				break ;
