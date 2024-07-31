@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
+/*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 14:51:01 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/07/31 10:57:09 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/07/31 11:46:43 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,8 @@ void	exec_not_piped(t_ms *shell, char **args)
 	if (pid == 0)
 	{
 		close_fd(shell);
+		if (ft_strlen(args[0]) == 0)
+			exit_shell(shell, 0);
 		run_cmd(shell, args);
 	}
 	waitpid(pid, &status, 0);

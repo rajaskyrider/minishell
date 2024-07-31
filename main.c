@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
+/*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 14:45:40 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/07/31 10:51:41 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/07/31 11:44:52 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	init_shell(t_ms *shell, char **env)
 void	exit_shell(t_ms *shell, int exitcode)
 {
 	clean_shell(shell);
-	clear_shell(shell);
+	//clear_shell(shell);
 	exit(exitcode);
 }
 
