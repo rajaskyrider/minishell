@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
+/*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 14:51:01 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/07/31 14:10:53 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/07/31 14:22:25 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,6 +142,5 @@ void	exec_cmd(t_ast *ast, char *full_cmd, t_ms *shell, int piped)
 		exec_not_piped(shell, args);
 	else
 		run_cmd(shell, args);
-	dprintf(2, "here\n");
 	free_args(args);
 }
