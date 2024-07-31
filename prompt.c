@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 15:04:28 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/07/31 13:48:50 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/07/31 14:18:45 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,6 @@ void	readprompt(t_ms *shell, char *new_cmd)
 	if (parser(shell) == 0)
 		return ;
 	execute(shell);
+	clear_shell(shell);
 	clear_shell(shell);
 }

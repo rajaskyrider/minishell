@@ -6,7 +6,7 @@
 /*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 14:42:50 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/07/30 10:03:48 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/07/31 13:56:26 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -224,6 +224,7 @@ void		double_quote(t_ms *shell, int *i, char **cmd);
 char		*get_shellpwd(t_ms *shell);
 void		update_shelloldpwd(t_ms *shell);
 void		ms_subshell(t_ast *ast, t_ms *shell);
+void		free_args(char **args);
 
 /*Test functions (to remove)*/
 void		print_token_lst(t_ms *shell);
