@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 09:40:18 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/07/25 10:19:24 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/07/31 14:47:34 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ int	replace_invalid(char **cmd, int start, int end, t_ms *shell)
 	ft_strlcat(newcmd, *cmd + end, len + 1);
 	free (*cmd);
 	*cmd = newcmd;
+	if (start == 0)
+		return (1);
 	return (start - 2);
 }
 
