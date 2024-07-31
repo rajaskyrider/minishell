@@ -12,7 +12,21 @@ $EMPTY
 echo $?
 
 
+echo "$USER'" FAIL !
+
 LEAKS AND FDS OPEN
+from builtins :
+7
+15
+24
+26
+27
+29
+32
+
+leaks when pipe
+
+need to check for redirections and extras and wildcard.
 
 CHECK NORME BEFORE SUBMIT (rm not necessary files/functions)
 
