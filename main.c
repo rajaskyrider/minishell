@@ -6,7 +6,7 @@
 /*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 14:45:40 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/07/30 10:22:05 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/07/31 10:51:41 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,14 @@ void	clean_shell(t_ms *shell)
 	clear_shell(shell);
 }
 
+int	handle_paste(int count, int key)
+{
+	(void)count;
+	(void)key;
+	rl_redisplay();
+	return (0);
+}
+
 int	main(int argc, char **argv, char **env)
 {
 	t_ms	shell;
@@ -52,6 +60,8 @@ int	main(int argc, char **argv, char **env)
 
 	(void)argc;
 	(void)argv;
+	rl_bind_keyseq("\\e[200~", handle_paste);
+    rl_bind_keyseq("\\e[201~", (rl_command_func_t *)rl_redisplay);
 	init_shell(&shell, env);
 	while (1)
 	{
