@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 10:57:50 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/07/23 17:51:42 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/07/31 15:22:17 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,19 @@ void	delete_token_lst(t_token **token_lst)
 	*token_lst = NULL;
 }
 
+void	free_io(t_io *io)
+{
+	t_io	*ptr;
+
+	while (io)
+	{
+		free(io->value);
+		ptr = io;
+		io = io->next;
+		free(ptr);
+	}
+}
+
 void	delete_ast_lst(t_ast **ast)
 {
 	if (!ast || !*ast)
@@ -58,6 +71,10 @@ void	delete_ast_lst(t_ast **ast)
 	{
 		free((*ast)->value);
 		(*ast)->value = NULL;
+	}
+	if ((*ast)->io)
+	{
+		free_io((*ast)->io);
 	}
 	free(*ast);
 	*ast = NULL;
