@@ -6,7 +6,7 @@
 /*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 15:11:48 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/07/30 09:40:06 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/07/31 14:16:01 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,9 @@ char	**split_again(char **arg, int size)
 
 	i = 1;
 	exp_arg = NULL;
-	exp_arg = ft_calloc(size, sizeof(char));
+	exp_arg = ft_calloc(size + 1, sizeof(char));
 	ft_strlcpy(exp_arg, arg[0], ft_strlen(arg[0]) + 1);
+	free(arg[0]);
 	ft_strlcat(exp_arg, " ", size + 1);
 	while (arg[i])
 	{
@@ -45,6 +46,7 @@ char	**split_again(char **arg, int size)
 	}
 	free (arg);
 	arg = ms_split(exp_arg, ' ');
+	free (exp_arg);
 	return (arg);
 }
 

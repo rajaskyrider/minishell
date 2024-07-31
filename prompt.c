@@ -6,7 +6,7 @@
 /*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 15:04:28 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/07/30 09:39:22 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/07/31 13:45:27 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,4 +28,5 @@ void	readprompt(t_ms *shell, char *new_cmd)
 	if (parser(shell) == 0)
 		return ;
 	execute(shell);
+	clear_shell(shell);
 }
