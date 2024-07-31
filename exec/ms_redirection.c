@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_redirection.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
+/*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 09:40:20 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/07/30 09:41:30 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/07/31 15:47:44 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,13 @@ static char	*read_line(char **buffer, int std_in)
 
 void	take_new_line(char **line, char **buffer, t_ms *shell, int tmp_fd)
 {
+	int	len;
+
 	(*line)[ft_strlen(*line) - 1] = '\0';
 	*line = expandcmd(*line, shell);
-	(*line)[ft_strlen(*line)] = '\n';
-	write(tmp_fd, *line, ft_strlen(*line));
+	len = ft_strlen(*line);
+	(*line)[len] = '\n';
+	write(tmp_fd, *line, len + 1);
 	free(*line);
 	ft_putstr_fd("> ", 1);
 	*line = read_line(buffer, STDIN_FILENO);
