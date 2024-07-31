@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 14:51:01 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/07/31 11:46:43 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/07/31 13:27:23 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,19 @@ void	exec_not_piped(t_ms *shell, char **args)
 		shell->lexit_status = WEXITSTATUS(status);
 }
 
+void	free_args(char **args)
+{
+	int	i;
+
+	i = 0;
+	while (args[i])
+	{
+		free(args[i]);
+		i++;
+	}
+	free(args);
+}
+
 void	exec_cmd(t_ast *ast, char *full_cmd, t_ms *shell, int piped)
 {
 	char	**args;
@@ -126,5 +139,5 @@ void	exec_cmd(t_ast *ast, char *full_cmd, t_ms *shell, int piped)
 		exec_not_piped(shell, args);
 	else
 		run_cmd(shell, args);
-	free (args);
+	free_args(args);
 }
