@@ -6,7 +6,7 @@
 /*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 09:51:39 by tle-moel          #+#    #+#             */
-/*   Updated: 2024/07/25 11:07:56 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/08/01 17:00:47 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	signal_process(void)
 {
 	signal(SIGINT, handle_sigint_process);
 	signal(SIGQUIT, handle_sigquit_process);
+	signal(SIGPIPE, SIG_IGN);
 }
 
 void	handle_sigint(int sig)

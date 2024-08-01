@@ -6,7 +6,7 @@
 /*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 15:11:48 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/08/01 15:20:23 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/08/01 16:14:27 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ int	deal_redirection(t_ast *ast, t_ms *shell)
 		dup2(shell->io_in, STDIN_FILENO);
 	if (shell->io_out != -1)
 		dup2(shell->io_out, STDOUT_FILENO);
+	close_fd(shell);
 	return (res);
 }
 
