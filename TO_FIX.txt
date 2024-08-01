@@ -6,10 +6,14 @@ DOC
 #regardless of the order, do HEREDOC first and then do redirections.
 change in tokenize ? so in this example do HERE -> DOC -> minishell.h ->missing
 
-#invalid command, followed by empty variable, should clear the exit code
-doesntexist
-$EMPTY
-echo $?
+
+LEAKS AND FDS OPEN
+
+CHECK NORME BEFORE SUBMIT (rm not necessary files/functions)
+
+
+./tester bonus_bonus
+
 
 LEAKS AND FDS OPEN
 
