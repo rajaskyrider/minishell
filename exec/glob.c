@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   glob.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 11:07:03 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/07/31 11:46:47 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/08/01 10:24:37 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ char	*replace_wildcard(char *cmd, char *matches, int start, t_ms *shell)
 	clen = ft_strlen(cmd);
 	mlen = ft_strlen(matches);
 	while (cmd[end] && cmd[end] != ' ' && cmd[end] != '$' && \
-		cmd[end] != '?' && cmd[end] != '\'')
+		cmd[end] != '?' && cmd[end] != '\'' && cmd[end] != '\"')
 		end++;
 	if (cmd[end] == '?')
 		end += 1;

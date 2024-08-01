@@ -6,7 +6,7 @@
 /*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 13:05:30 by tle-moel          #+#    #+#             */
-/*   Updated: 2024/07/25 11:00:12 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/08/01 10:23:58 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ void	double_quote(t_ms *shell, int *i, char **cmd)
 			*i = deal_dollar(cmd, shell, *i + 1);
 		(*i)++;
 	}
-	end = (*i)--;
+	end = (*i) - 1;
 	remove_quotes(cmd, start, end);
+	(*i) = ft_strlen(*cmd) - 1;
 }
