@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 14:45:40 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/07/31 11:44:52 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/08/01 14:39:19 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,10 @@ void	exit_shell(t_ms *shell, int exitcode)
 
 void	clean_shell(t_ms *shell)
 {
-	close(shell->std_in);
-	close(shell->std_out);
+	if (shell->std_in !=-1)
+		close(shell->std_in);
+	if (shell->std_out != -1)
+		close(shell->std_out);
 	clean_env(shell->env);
 	delete_env_lst(&(shell->envlst));
 	clear_shell(shell);

@@ -6,7 +6,7 @@
 /*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 08:12:37 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/07/30 08:19:34 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/08/01 14:40:02 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ void	setup_pipe(int pip[2], t_ms **shell)
 
 void	close_pipe(int pip[2])
 {
-	if (pip[0])
+	if (pip[0] && pip[0] != -1)
 		close(pip[0]);
-	if (pip[1])
+	if (pip[1] && pip[0] != -1)
 		close(pip[1]);
 }
 
@@ -68,7 +68,9 @@ void	ms_pipe(t_ast *ast, t_ms **shell, int pipe_fd[2], int next_pipe[2])
 {
 	if (ast->left->token_type == T_WORD)
 		exec_pipeleft(ast->left, shell, pipe_fd, next_pipe);
-	close(pipe_fd[1]);
+	if (pipe_fd[1] != -1)
+		close(pipe_fd[1]);
 	exec_piperight(ast->right, shell, pipe_fd, next_pipe);
-	close(pipe_fd[0]);
+	if (pipe_fd[0] != -1)
+		close(pipe_fd[0]);
 }

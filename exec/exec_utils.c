@@ -6,7 +6,7 @@
 /*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 15:11:48 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/07/31 14:16:01 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/08/01 15:02:36 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ char	**split_and_expand(char *full_cmd, t_ms *shell)
 	if (exp_size > size)
 		arg = split_again(arg, exp_size);
 	if (arg[0][0] == 0 && arg[1])
-		arg++;
+		arg = split_again(arg, exp_size);
 	return (arg);
 }
 
