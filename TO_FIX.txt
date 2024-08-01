@@ -23,6 +23,7 @@ need to check for redirections and extras and wildcard.
 
 CHECK NORME BEFORE SUBMIT (rm not necessary files/functions)
 
+<<<<<<< HEAD
 
 
 
@@ -51,3 +52,7 @@ Redirection : 		//Change expandcmd to a customize expand heredoc !!!
 doesntexist
 $EMPTY
 echo $?
+=======
+echo "hello
+echo 'hello
+>>>>>>> 88595a66298aed99c52f7ab2872dc3b679b720c5

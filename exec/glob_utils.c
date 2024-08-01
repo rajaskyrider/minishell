@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   glob_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
+/*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 13:05:30 by tle-moel          #+#    #+#             */
-/*   Updated: 2024/08/01 10:23:58 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/08/01 14:12:58 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,11 +55,11 @@ void	double_quote(t_ms *shell, int *i, char **cmd)
 	start = (*i)++;
 	while ((*cmd)[*i] && (*cmd)[*i] != '\"')
 	{
-		if ((*cmd)[*i] && (*cmd)[*i] == '$' && (*cmd)[*i + 1] != ' ')
+		if ((*cmd)[*i] && (*cmd)[*i] == '$' && (*cmd)[*i + 1] != ' ' && (*cmd)[*i + 1] != '\"')
 			*i = deal_dollar(cmd, shell, *i + 1);
-		(*i)++;
+		else
+			(*i)++;
 	}
-	end = (*i) - 1;
+	end = (*i)--;
 	remove_quotes(cmd, start, end);
-	(*i) = ft_strlen(*cmd) - 1;
 }
