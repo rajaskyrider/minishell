@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 10:44:46 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/07/23 17:50:08 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/08/01 17:08:45 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	just_redirection(t_token **token)
 	if (new == NULL)
 		return ;
 	new->type = T_WORD;
-	new->value = "true";
+	new->value = ft_strdup("true");
 	new->io = NULL;
 	new->next = *token;
 	if ((*token)->prev)

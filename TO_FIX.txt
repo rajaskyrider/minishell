@@ -1,30 +1,13 @@
-
-
 cat <minishell.h <<HERE <missing <<DOC | echo oi
 HERE
 DOC
 #regardless of the order, do HEREDOC first and then do redirections.
 change in tokenize ? so in this example do HERE -> DOC -> minishell.h ->missing
 
-
 LEAKS AND FDS OPEN
-
-CHECK NORME BEFORE SUBMIT (rm not necessary files/functions)
-
-
-./tester bonus_bonus
-
-
-LEAKS AND FDS OPEN
-
-need to check for extras and wildcard.
 
 CHECK NORME BEFORE SUBMIT (rm not necessary files/functions)
 
 redirects : 
-8
-9
-10
 12
 14
-20
