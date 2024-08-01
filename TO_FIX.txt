@@ -13,8 +13,6 @@ echo $?
 
 LEAKS AND FDS OPEN
 
-leaks when pipe
-
 need to check for redirections and extras and wildcard.
 
 CHECK NORME BEFORE SUBMIT (rm not necessary files/functions)

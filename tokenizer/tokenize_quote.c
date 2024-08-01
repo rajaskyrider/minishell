@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 15:40:34 by tle-moel          #+#    #+#             */
-/*   Updated: 2024/07/23 17:19:02 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/08/01 14:40:21 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,10 @@ int	handle_quote(t_token **token_lst, char **cmd_line)
 		ms_isoperator((*cmd_line) + i) == 0 && (*cmd_line)[i] != '\0')
 	{
 		if (quote_condition(&i, cmd_line) == 0)
+		{
+			free(token);
 			return (0);
+		}
 	}
 	token->value = ft_substr(*cmd_line, 0, i);
 	add_token_end_lst(token_lst, token);
