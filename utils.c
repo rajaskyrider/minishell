@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 15:46:03 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/08/01 14:33:48 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/08/01 15:16:45 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,12 @@ void	clear_shell(t_ms *shell)
 		delete_ast_lst(&shell->ast);
 		shell->ast = NULL;
 	}
+}
+
+void	exit_process(t_ms *shell, int extcode)
+{
+	clear_shell(shell);
+	exit(extcode);
 }
 
 void	print_error(t_ms *shell, char *errormsg)

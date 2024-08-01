@@ -6,7 +6,7 @@
 /*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 14:51:01 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/08/01 15:02:17 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/08/01 15:28:37 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	exec_given_path(char *full_cmd, t_ms *shell, char **args)
 	else
 	{
 		print_error(shell, "minishell: Permission denied\n");
-		exit (126);
+		exit_process(shell, 126);
 	}
 }
 
@@ -77,7 +77,7 @@ void	run_cmd(t_ms *shell, char **arg)
 		{
 			shell->lexit_status = 127;
 			ft_putstr_fd("minishell: no such file or directory\n", 2);
-			exit(127);
+			exit_process(shell, 127);
 		}
 		tmp = arg[0];
 		arg[0] = get_cmd(arg[0], paths, shell);
@@ -129,14 +129,15 @@ void	exec_cmd(t_ast *ast, char *full_cmd, t_ms *shell, int piped)
 	if (deal_redirection(ast, shell) != 0)
 	{
 		if (piped != 0)
-			exit(EXIT_FAILURE);
+			exit_process(shell, EXIT_FAILURE);
 		shell->lexit_status = 1;
+		free_args(args);
 		return ;
 	}
 	if (is_builtin(full_cmd, shell, args) == 1)
 	{
 		if (piped != 0)
-			exit(EXIT_SUCCESS);
+			exit_process(shell, EXIT_SUCCESS);
 	}
 	else if (piped == 0)
 		exec_not_piped(shell, args);

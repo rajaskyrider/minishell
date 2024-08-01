@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_setup.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 15:22:50 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/07/24 15:35:16 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/08/01 15:24:04 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,5 +62,6 @@ char	*get_cmd(char *cmd, char **paths, t_ms *shell)
 		i++;
 	}
 	print_error(shell, "minishell: command not found\n");
-	exit (127);
+	clear_shell(shell);
+	exit(127);
 }

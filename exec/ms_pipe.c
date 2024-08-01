@@ -6,7 +6,7 @@
 /*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 08:12:37 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/08/01 14:40:02 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/08/01 15:20:53 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	exec_pipeleft(t_ast *ast, t_ms **shell, int pip[2], int next_pipe[2])
 		dup2(pip[1], STDOUT_FILENO);
 		close_pipe(pip);
 		exec_cmd(ast, ast->value, *shell, 1);
-		exit (EXIT_FAILURE);
+		exit_process(*shell, EXIT_FAILURE);
 	}
 	else if (pid < 0)
 		print_error(*shell, "Fork failed");
@@ -57,7 +57,7 @@ void	exec_piperight(t_ast *ast, t_ms **shell, int pip[2], int next_pipe[2])
 			close_pipe(next_pipe);
 		}
 		exec_cmd(ast, ast->value, *shell, 1);
-		exit (EXIT_FAILURE);
+		exit_process(*shell, EXIT_FAILURE);
 	}
 	else if ((*shell)->pid < 0)
 		print_error(*shell, "Fork failed");

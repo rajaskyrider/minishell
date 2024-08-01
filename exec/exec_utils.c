@@ -6,7 +6,7 @@
 /*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 15:11:48 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/08/01 15:02:36 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/08/01 15:20:23 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,12 +84,11 @@ void	check_directory(char *cmd, t_ms *shell)
 		ft_putstr_fd("minishell: ", 2);
 		ft_putstr_fd(cmd, 2);
 		ft_putstr_fd(": Is a directory\n", 2);
-		clear_shell(shell);
-		exit (126);
+		exit_process(shell, 126);
 	}
 	else if (stat(cmd, &statbuf) != 0)
 	{
 		print_error(shell, "minishell: No such file or directory\n");
-		exit (127);
+		exit_process(shell, 127);
 	}
 }
