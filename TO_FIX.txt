@@ -13,9 +13,14 @@ echo $?
 
 LEAKS AND FDS OPEN
 
-need to check for redirections and extras and wildcard.
+need to check for extras and wildcard.
 
 CHECK NORME BEFORE SUBMIT (rm not necessary files/functions)
 
-echo "hello
-echo 'hello
+redirects : 
+8
+9
+10
+12
+14
+20
