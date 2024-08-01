@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 15:09:51 by tle-moel          #+#    #+#             */
-/*   Updated: 2024/07/25 14:57:17 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/08/01 14:48:09 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	handle_parenthesis(t_token **token_lst, char **cmd_line, t_ms *shell)
 	{
 		shell->lexit_status = 2;
 		ft_putstr_fd("minishell: syntax error near ", 2);
-		ft_putstr_fd("unexpected tokenHERE\n", 2);
+		ft_putstr_fd("unexpected token\n", 2);
 		return (0);
 	}
 	(*cmd_line)++;
