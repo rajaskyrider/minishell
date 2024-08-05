@@ -1,0 +1,39 @@
+---- 1th element ----
+type : T_WORD
+value : cat main.c
+---- 2th element ----
+type : T_PIPE
+value : (null)
+---- 3th element ----
+type : T_WORD
+value : ls
+builtin
+clean.c
+env.c
+exec
+file1
+file2
+ft_atoll.c
+libft
+main.c
+Makefile
+minishell
+minishell.h
+minishell_tester
+ms_split.c
+objs
+otfile
+otfile2
+otfile3
+out
+outfile
+parser
+prompt.c
+signals.c
+test
+test_print.c
+testtt
+TO_FIX.txt
+tokenizer
+utils.c
+validation.c

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_pipe.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 08:12:37 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/08/05 12:39:52 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/08/05 15:12:22 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,10 @@ void	exec_pipeleft(t_ast *ast, t_ms **shell, int pip[2], int next_pipe[2])
 		close_pipe(next_pipe);
 		dup2(pip[1], STDOUT_FILENO);
 		close_pipe(pip);
-		exec_cmd(ast, ast->value, *shell, 1);
+		if (ast->token_type == T_PARENT)
+			ms_subshell(ast, *shell);
+		else
+			exec_cmd(ast, ast->value, *shell, 1);
 		exit_process(*shell, EXIT_FAILURE);
 	}
 	else if (pid < 0)
@@ -56,7 +59,10 @@ void	exec_piperight(t_ast *ast, t_ms **shell, int pip[2], int next_pipe[2])
 			dup2(next_pipe[1], STDOUT_FILENO);
 			close_pipe(next_pipe);
 		}
-		exec_cmd(ast, ast->value, *shell, 1);
+		if (ast->token_type == T_PARENT)
+			ms_subshell(ast, *shell);
+		else
+			exec_cmd(ast, ast->value, *shell, 1);
 		exit_process(*shell, EXIT_FAILURE);
 	}
 	else if ((*shell)->pid < 0)
@@ -66,7 +72,7 @@ void	exec_piperight(t_ast *ast, t_ms **shell, int pip[2], int next_pipe[2])
 
 void	ms_pipe(t_ast *ast, t_ms **shell, int pipe_fd[2], int next_pipe[2])
 {
-	if (ast->left->token_type == T_WORD)
+	if (ast->left->token_type == T_WORD || ast->left->token_type == T_PARENT)
 		exec_pipeleft(ast->left, shell, pipe_fd, next_pipe);
 	if (pipe_fd[1] != -1)
 		close(pipe_fd[1]);

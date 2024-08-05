@@ -1,0 +1,20 @@
+/*   main.c                                             :+:      :+:    :+:   */
+#include "minishell.h"
+void	init_shell(t_ms *shell, char **env)
+	shell->env = init_env(env);
+	shell->envlst = init_envlst(env);
+	shell->io_in = -1;
+	shell->std_in = dup(STDIN_FILENO);
+void	exit_shell(t_ms *shell, int exitcode)
+	if (shell->std_in !=-1)
+		close(shell->std_in);
+int	handle_paste(int count, int key)
+void sigpipe_handler(int signum)
+int	main(int argc, char **argv, char **env)
+	rl_bind_keyseq("\\e[200~", handle_paste);
+    rl_bind_keyseq("\\e[201~", (rl_command_func_t *)rl_redisplay);
+	init_shell(&shell, env);
+		init_signal();
+			cmd = readline("\x1b[35mminishell>\x1b[0m ");
+			cmd = get_next_line(STDIN_FILENO);
+			//printf("exit\n");
