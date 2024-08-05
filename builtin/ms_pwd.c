@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 15:31:19 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/07/25 11:22:14 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/08/05 11:35:14 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,4 +23,5 @@ void	ms_pwd(t_ms *shell)
 		ft_printf("%s\n", envlst->value);
 	else
 		ft_printf("%s\n", get_shellpwd(shell));
+	shell->lexit_status = 0;
 }

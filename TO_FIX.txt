@@ -7,9 +7,6 @@ redirects :
 14
 
 
-echo -n -n -n -n hello
-cat << EOF;hi;ha;ho;EOF
-touch /home/rpandipe/bin/asdfg; asdfg  (return value)
 cat /dev/urandom | head -3 | wc -l
 export a=\'"quotes"\'; export
 exit one two; echo $?
@@ -20,7 +17,7 @@ echo $/imaslash
 cat <<EOF <<OH;i;am;here;EOF;oh;OH
 rm *; touch ls; *
 mkdir empty; cd empty; echo *; echo .*
-echo a || echo b && echo c
+echo a || echo b && echo c || echo d
 cat fail || echo a | cat || echo b
 (echo a && echo a2) | (echo b || echo b2)
 (cat | grep in) < infile

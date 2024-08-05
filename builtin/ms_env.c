@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 09:31:34 by tle-moel          #+#    #+#             */
-/*   Updated: 2024/07/31 13:48:35 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/08/05 11:37:11 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	ms_env(t_ms *shell)
 {
 	t_envlst	*envlst;
 
+	shell->lexit_status = 0;
 	envlst = shell->envlst;
 	while (envlst)
 	{

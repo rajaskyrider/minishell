@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
+/*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 14:51:01 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/08/01 15:28:37 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/08/05 11:33:49 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	is_builtin(char *full_cmd, t_ms *shell, char **arg)
 {
 	if (ms_strcmp(full_cmd, "echo") == 0)
-		return (ms_echo(arg), 1);
+		return (ms_echo(shell, arg), 1);
 	else if (ms_strcmp(full_cmd, "cd") == 0)
 		return (ms_cd(shell, arg), 1);
 	else if (ms_strcmp(full_cmd, "pwd") == 0)

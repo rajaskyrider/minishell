@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 15:47:57 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/07/25 11:42:07 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/08/05 11:33:31 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,5 +109,6 @@ void	ms_cd(t_ms *shell, char **path)
 		print_error(shell, "minishell: cd: No such file or directory\n");
 		return ;
 	}
+	shell->lexit_status = 0;
 	update_pwd(shell);
 }
