@@ -6,9 +6,7 @@ redirects :
 12
 14
 
-
-cat /dev/urandom | head -3 | wc -l
-export a=\'"quotes"\'; export
+export a=\'"quotes"\'; export (not have to be handled)
 exit one two; echo $?
 echo - "" " " hello "$FAIL"
 echo $PWD-end

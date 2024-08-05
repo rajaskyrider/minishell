@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
+/*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 14:45:40 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/08/05 08:47:31 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/08/05 13:52:58 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,11 @@ int	handle_paste(int count, int key)
 	return (0);
 }
 
+void sigpipe_handler(int signum)
+{
+	(void)signum;
+}
+
 int	main(int argc, char **argv, char **env)
 {
 	t_ms	shell;
@@ -62,18 +67,19 @@ int	main(int argc, char **argv, char **env)
 
 	(void)argc;
 	(void)argv;
+	signal(SIGPIPE, sigpipe_handler);
 	rl_bind_keyseq("\\e[200~", handle_paste);
     rl_bind_keyseq("\\e[201~", (rl_command_func_t *)rl_redisplay);
 	init_shell(&shell, env);
 	while (1)
 	{
 		init_signal();
-		if (isatty(STDIN_FILENO))
+		/*if (isatty(STDIN_FILENO))*/
 			cmd = readline("\x1b[35mminishell>\x1b[0m ");
-		else
+		/*else
 		{
 			cmd = get_next_line(STDIN_FILENO);
-		}
+		}*/
 		if (!cmd)
 		{
 			clean_shell(&shell);

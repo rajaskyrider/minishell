@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 13:23:59 by tle-moel          #+#    #+#             */
-/*   Updated: 2024/07/25 13:13:57 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/08/05 13:17:09 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,16 +62,16 @@ void	ms_exit(char **arg, t_ms *shell)
 	i = 1;
 	if (arg[1] == NULL)
 		exit_shell(shell, EXIT_SUCCESS);
+	if (checkoverflow(arg[1]))
+		exit_error(shell);
+	if (!ft_isdigit(arg[1][0]) && arg[1][0] != '+' && arg[1][0] != '-')
+		exit_error(shell);
 	if (arg[2] != NULL)
 	{
 		ft_putstr_fd("minishell: exit: too many arguments\n", 2);
 		shell->lexit_status = 1;
 		return ;
 	}
-	if (checkoverflow(arg[1]))
-		exit_error(shell);
-	if (!ft_isdigit(arg[1][0]) && arg[1][0] != '+' && arg[1][0] != '-')
-		exit_error(shell);
 	while (arg[1][i])
 	{
 		if (!ft_isdigit(arg[1][i]))
