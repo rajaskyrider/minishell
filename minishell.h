@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
+/*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 14:42:50 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/08/01 15:17:19 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/08/05 11:34:09 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ typedef struct s_ms
 
 void		init_shell(t_ms *shell, char **env);
 void		ms_cd(t_ms *shell, char **path);
-void		ms_echo(char **arg);
+void		ms_echo(t_ms *shell, char **arg);
 void		ms_env(t_ms *shell);
 void		ms_exit(char **arg, t_ms *shell);
 void		ms_export(char **arg, t_ms *shell);

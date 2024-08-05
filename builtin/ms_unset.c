@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
+/*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 10:55:29 by tle-moel          #+#    #+#             */
-/*   Updated: 2024/07/30 09:42:45 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/08/05 11:36:57 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	ms_unset(char **arg, t_ms *shell)
 	int			i;
 	t_envlst	*ptr;
 
+	shell->lexit_status = 0;
 	i = 1;
 	while (arg[i] != NULL)
 	{

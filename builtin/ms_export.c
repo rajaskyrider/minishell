@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 11:48:26 by tle-moel          #+#    #+#             */
-/*   Updated: 2024/08/01 11:09:58 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/08/05 11:36:04 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	ms_export(char **arg, t_ms *shell)
 	char	*key;
 	char	*value;
 
+	shell->lexit_status = 0;
 	i = 1;
 	if (arg[i] == NULL)
 		return (print_export(shell->envlst));
