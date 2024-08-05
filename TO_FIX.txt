@@ -5,3 +5,36 @@ CHECK NORME BEFORE SUBMIT (rm not necessary files/functions)
 redirects : 
 12
 14
+
+
+echo -n -n -n -n hello
+cat << EOF;hi;ha;ho;EOF
+touch /home/rpandipe/bin/asdfg; asdfg  (return value)
+cat /dev/urandom | head -3 | wc -l
+export a=\'"quotes"\'; export
+exit one two; echo $?
+echo - "" " " hello "$FAIL"
+echo $PWD-end
+echo " $PATH   $PWD $hi_"
+echo $/imaslash
+cat <<EOF <<OH;i;am;here;EOF;oh;OH
+rm *; touch ls; *
+mkdir empty; cd empty; echo *; echo .*
+echo a || echo b && echo c
+cat fail || echo a | cat || echo b
+(echo a && echo a2) | (echo b || echo b2)
+(cat | grep in) < infile
+
+
+touch a b c A B C aa ab ac Aa Ab Ac aA aB aC; echo *
+grep o << EOF > out;hello;there;EOF; ls -l --time-style=+
+cat << EOF;hello;there;EOF
+
+Leaks
+.
+..
+export PATH="$PATH:$PWD"; mkdir asdfg; asdfg
+cd; ls
+echo - "" " " hello "$FAIL"
+unset PWD; cd ..; echo $PWD
+unset OLDPWD; cd ..; echo $OLDPWD
