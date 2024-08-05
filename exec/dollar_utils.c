@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dollar_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
+/*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 11:40:53 by tle-moel          #+#    #+#             */
-/*   Updated: 2024/08/01 10:24:52 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/08/05 14:23:50 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ void	logic_deal_dollar(char **cmd, int start, int *end, char **result)
 	*end = start;
 	while ((*cmd)[*end] && (*cmd)[*end] != ' ' \
 			&& (*cmd)[*end] != '$' && \
-			(*cmd)[*end] != '\"' && (*cmd)[*end] != '\'')
+			(*cmd)[*end] != '\"' && (*cmd)[*end] != '?' && \
+			(*cmd)[*end] != '\'' && (*cmd)[*end] != '-')
 		(*end)++;
 }
 

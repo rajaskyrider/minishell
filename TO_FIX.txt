@@ -6,12 +6,10 @@ redirects :
 12
 14
 
-export a=\'"quotes"\'; export (not have to be handled)
-exit one two; echo $?
 echo - "" " " hello "$FAIL"
-echo $PWD-end
 echo " $PATH   $PWD $hi_"
 echo $/imaslash
+
 cat <<EOF <<OH;i;am;here;EOF;oh;OH
 rm *; touch ls; *
 mkdir empty; cd empty; echo *; echo .*
