@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 09:40:18 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/08/05 15:02:27 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/08/05 16:36:00 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	replace_invalid(char **cmd, int start, int end, t_ms *shell)
 	*cmd = newcmd;
 	if (start == 0)
 		return (1);
-	return (start - 2);
+	return (start + 1);
 }
 
 int	deal_dollar(char **cmd, t_ms *shell, int start)
