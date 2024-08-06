@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 15:11:48 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/08/06 14:17:38 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/08/06 15:48:01 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int deal_redirection(t_ast *ast, t_ms *shell)
+int	deal_redirection(t_ast *ast, t_ms *shell)
 {
-	int res;
+	int	res;
 
 	res = 0;
 	if (ast)
@@ -27,10 +27,10 @@ int deal_redirection(t_ast *ast, t_ms *shell)
 	return (res);
 }
 
-char **split_again(char **arg, int size)
+char	**split_again(char **arg, int size)
 {
-	char *exp_arg;
-	int i;
+	char	*exp_arg;
+	int		i;
 
 	i = 1;
 	exp_arg = NULL;
@@ -51,12 +51,12 @@ char **split_again(char **arg, int size)
 	return (arg);
 }
 
-char **split_and_expand(char *full_cmd, t_ms *shell)
+char	**split_and_expand(char *full_cmd, t_ms *shell)
 {
-	char **arg;
-	int i;
-	int size;
-	int exp_size;
+	char	**arg;
+	int		i;
+	int		size;
+	int		exp_size;
 
 	i = 0;
 	size = 0;
@@ -69,16 +69,17 @@ char **split_and_expand(char *full_cmd, t_ms *shell)
 		exp_size += ft_strlen(arg[i]) + 1;
 		i++;
 	}
-	if (exp_size > size && ms_strcmp(arg[0], "echo") != 0 && ms_strcmp(arg[0], "export") != 0)
+	if (exp_size > size && ms_strcmp(arg[0], "echo") != 0 \
+		&& ms_strcmp(arg[0], "export") != 0)
 		arg = split_again(arg, exp_size);
 	if (arg[0][0] == 0 && arg[1])
 		arg = split_again(arg, exp_size);
 	return (arg);
 }
 
-void check_directory(char *cmd, t_ms *shell)
+void	check_directory(char *cmd, t_ms *shell)
 {
-	struct stat statbuf;
+	struct stat	statbuf;
 
 	if (stat(cmd, &statbuf) == 0 && S_ISDIR(statbuf.st_mode))
 	{
@@ -91,5 +92,21 @@ void check_directory(char *cmd, t_ms *shell)
 	{
 		print_error(shell, "minishell: No such file or directory\n");
 		exit_process(shell, 127);
+	}
+}
+
+void	free_args(char **args)
+{
+	int	i;
+
+	i = 0;
+	if (args)
+	{
+		while (args[i])
+		{
+			free(args[i]);
+			i++;
+		}
+		free(args);
 	}
 }

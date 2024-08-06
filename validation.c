@@ -6,7 +6,7 @@
 /*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 10:48:50 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/06/11 09:55:39 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/08/06 15:49:18 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,9 @@ void	check_reorder(t_ms *shell)
 	}
 	if (ms_isredirect(ptr->type))
 		print_error(shell, "minishell: Syntax Error");
+}
+
+void	sigpipe_handler(int signum)
+{
+	(void)signum;
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   logical_op.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 15:00:58 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/08/06 15:32:07 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/08/06 15:45:34 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 void	deal_operator(t_ast **ast, t_ms **shell, int next_pipe[2])
 {
 	int	pid;
-	int child_pid;
+	int	child_pid;
 	int	status;
-	
+
 	pid = fork();
 	if (pid == 0)
 	{
@@ -53,7 +53,6 @@ void	logical_and(t_ast **ast, t_ms **shell, int next_pipe[2])
 	close_fd (*shell);
 	dup2((*shell)->std_in, STDIN_FILENO);
 	dup2((*shell)->std_out, STDOUT_FILENO);
-	//wait(NULL);
 	if ((*shell)->lexit_status == 0)
 	{
 		if ((*ast)->right->type == T_OPERATOR)
@@ -89,7 +88,6 @@ void	logical_or(t_ast **ast, t_ms **shell, int next_pipe[2])
 	else if ((*shell)->lexit_status == 0 && \
 		(*ast)->right->token_type == T_AND_IF)
 		deal_or(&(*ast)->right->right, shell, next_pipe);
-
 }
 
 void	deal_logical(t_ast **ast, t_ms **shell, int next_pipe[2])

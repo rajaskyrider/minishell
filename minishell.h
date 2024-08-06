@@ -6,7 +6,7 @@
 /*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 14:42:50 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/08/06 15:02:08 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/08/06 15:49:53 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,6 +198,7 @@ void		close_fd(t_ms *shell);
 void		handle_sigint(int sig);
 void		handle_sigint_process(int sig);
 void		handle_sigquit_process(int sig);
+void		sigpipe_handler(int signum);
 void		init_signal(void);
 void		signal_process(void);
 char		**init_env(char **env);

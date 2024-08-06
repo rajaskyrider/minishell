@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 09:51:39 by tle-moel          #+#    #+#             */
-/*   Updated: 2024/08/05 13:06:11 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/08/06 15:41:39 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,4 +44,3 @@ void	handle_sigquit_process(int sig)
 	(void) sig;
 	printf("Quit: %d\n", sig);
 }
-

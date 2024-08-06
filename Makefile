@@ -6,7 +6,7 @@
 #    By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/10 15:30:56 by rpandipe          #+#    #+#              #
-#    Updated: 2024/08/06 15:02:31 by rpandipe         ###   ########.fr        #
+#    Updated: 2024/08/06 15:56:40 by rpandipe         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -62,15 +62,18 @@ $(OBJDIR)/%.o: %.c
 	$(call update_progress)
 
 $(NAME): $(OBJS)
-	@echo -e '${YELLOW}Linking...${NC}'
-	@$(CC) $(OBJS) $(LFLAG) -lreadline -pthread -o $(NAME)
+	@make -C libft > /dev/null 2>&1
+	@cp libft/$(LIBFT) .
+	@$(CC) $(OBJS) $(CFLAG) $(LIBFT) -lreadline -pthread -o $(NAME)
 	@echo -ne '\n'
 
 clean:
+		@cd libft && $(MAKE) clean > /dev/null 2>&1
 		@$(RM) $(OBJDIR) > /dev/null 2>&1
 		@echo -e '${RED}Clean complete!${NC}'
 
 fclean:	clean
+		@cd libft && $(MAKE) fclean > /dev/null 2>&1
 		@$(RM) $(NAME) > /dev/null 2>&1
 		@echo -e '${RED}Build deleted!${NC}'
 		@echo -ne '\n'
