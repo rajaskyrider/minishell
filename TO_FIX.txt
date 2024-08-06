@@ -2,9 +2,3 @@ FDS OPEN
 
 CHECK NORME BEFORE SUBMIT (rm not necessary files/functions)
 
-Leaks
-.
-..
-cd
-unset PWD; cd ..; echo $PWD
-unset OLDPWD; cd ..; echo $OLDPWD

@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 14:51:01 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/08/06 12:08:37 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/08/06 15:25:34 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,8 @@ void	exec_not_piped(t_ms *shell, char **args)
 	if (pid == 0)
 	{
 		close_fd(shell);
+		close(shell->std_in);
+		close(shell->std_out);
 		if (ft_strlen(args[0]) == 0)
 			exit_shell(shell, 0);
 		run_cmd(shell, args);

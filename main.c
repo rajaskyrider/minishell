@@ -6,11 +6,30 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 14:45:40 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/08/05 16:31:35 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/08/06 14:38:50 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	update_shlvl(t_envlst *envlst)
+{
+	int			lvl;
+	t_envlst	*ptr;
+
+	ptr	= envlst;
+	while (ptr)
+	{
+		if (ft_strncmp("SHLVL", ptr->key, ft_strlen(ptr->key)) == 0)
+		{
+			lvl = ft_atoi(ptr->value) + 1;
+			free(ptr->value);
+			ptr->value = ft_itoa(lvl);
+			return ;
+		}
+		ptr = ptr->next;
+	}
+}
 
 void	init_shell(t_ms *shell, char **env)
 {
@@ -27,12 +46,13 @@ void	init_shell(t_ms *shell, char **env)
 	shell->std_in = dup(STDIN_FILENO);
 	shell->std_out = dup(STDOUT_FILENO);
 	shell->lexit_status = 0;
+	update_shlvl(shell->envlst);
+	shell->env = update_env(shell);
 }
 
 void	exit_shell(t_ms *shell, int exitcode)
 {
 	clean_shell(shell);
-	//clear_shell(shell);
 	exit(exitcode);
 }
 

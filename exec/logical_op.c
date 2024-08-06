@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   logical_op.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
+/*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 15:00:58 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/08/06 11:55:43 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/08/06 14:58:47 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ void	deal_operator(t_ast **ast, t_ms **shell, int next_pipe[2])
 			child_pid = wait(&status);
 		}
 		close_fd (*shell);
+		close((*shell)->std_in);
+		close((*shell)->std_out);
 		exit((*shell)->lexit_status);
 	}
 	waitpid(pid, &status, 0);

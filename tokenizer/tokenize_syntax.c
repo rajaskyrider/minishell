@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 16:24:44 by tle-moel          #+#    #+#             */
-/*   Updated: 2024/08/06 13:19:14 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/08/06 14:10:03 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,20 @@
 
 int	initial_check(t_token *ptr, t_ms *shell)
 {
-	if (ptr && (ptr->type == T_AND_IF || ptr->type == T_OR_IF || \
+	if (ptr && ptr->type == T_WORD && ms_strcmp(ptr->value, ".") == 0)
+	{
+		ft_putstr_fd("minishell: .: filename argument required\n", 2);
+		ft_putstr_fd(".: usage: . filename [arguments]\n", 2);
+		shell->error = 1;
+		shell->lexit_status = 2;
+	}
+	else if (ptr && ptr->type == T_WORD && ms_strcmp(ptr->value, "..") == 0)
+	{
+		ft_putstr_fd("..: command not found\n", 2);
+		shell->error = 1;
+		shell->lexit_status = 127;
+	}
+	else if (ptr && (ptr->type == T_AND_IF || ptr->type == T_OR_IF || \
 		ptr->type == T_PIPE))
 	{
 		shell->error = 1;

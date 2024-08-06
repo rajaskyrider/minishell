@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
+/*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 15:46:03 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/08/01 15:16:45 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/08/06 14:59:59 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ void	clear_shell(t_ms *shell)
 
 void	exit_process(t_ms *shell, int extcode)
 {
+	close(shell->std_in);
+	close(shell->std_out);
 	clear_shell(shell);
 	exit(extcode);
 }

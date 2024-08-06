@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 09:40:20 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/07/31 15:47:44 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/08/06 15:08:17 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,8 @@ void	set_here_doc(char *limiter, int *fd, t_ms *shell)
 	check_here_doc(limiter, fd, shell);
 	dup2(std_in, STDIN_FILENO);
 	dup2(std_out, STDOUT_FILENO);
+	close(std_in);
+	close(std_out);
 }
 
 int	check_redirection(t_ast *ast, t_ms **shell)

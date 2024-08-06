@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 15:47:57 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/08/05 11:33:31 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/08/06 15:17:13 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ void	cd_home(t_ms *shell)
 
 void	ms_cd(t_ms *shell, char **path)
 {
-	if (path[2] != 0)
+	if (path[1] && path[2] != 0)
 	{
 		shell->lexit_status = 1;
 		print_error(shell, "minishell: cd: too many arguments\n");
