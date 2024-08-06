@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 14:51:01 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/08/06 15:25:34 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/08/06 15:47:35 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,22 +104,6 @@ void	exec_not_piped(t_ms *shell, char **args)
 	waitpid(pid, &status, 0);
 	if (WIFEXITED(status))
 		shell->lexit_status = WEXITSTATUS(status);
-}
-
-void	free_args(char **args)
-{
-	int	i;
-
-	i = 0;
-	if (args)
-	{
-		while (args[i])
-		{
-			free(args[i]);
-			i++;
-		}
-		free(args);
-	}
 }
 
 void	exec_cmd(t_ast *ast, char *full_cmd, t_ms *shell, int piped)

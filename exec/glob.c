@@ -6,7 +6,7 @@
 /*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 11:07:03 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/08/06 15:27:20 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/08/06 15:42:18 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,6 @@ char	*replace_wildcard(char *cmd, char *matches, int start, t_ms *shell)
 	ft_strlcat(newcmd, cmd + end, clen + mlen - (end - start) + 1);
 	free(cmd);
 	cmd = NULL;
-	//dprintf(2, "newcmd %s\n", newcmd);
-	//newcmd = sort_cmd(newcmd);
 	return (newcmd);
 }
 

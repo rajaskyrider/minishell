@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 14:45:40 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/08/06 15:31:24 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/08/06 15:49:58 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	update_shlvl(t_envlst *envlst)
 	int			lvl;
 	t_envlst	*ptr;
 
-	ptr	= envlst;
+	ptr = envlst;
 	while (ptr)
 	{
 		if (ft_strncmp("SHLVL", ptr->key, ft_strlen(ptr->key)) == 0)
@@ -58,26 +58,13 @@ void	exit_shell(t_ms *shell, int exitcode)
 
 void	clean_shell(t_ms *shell)
 {
-	if (shell->std_in !=-1)
+	if (shell->std_in != -1)
 		close(shell->std_in);
 	if (shell->std_out != -1)
 		close(shell->std_out);
 	clean_env(shell->env);
 	delete_env_lst(&(shell->envlst));
 	clear_shell(shell);
-}
-
-int	handle_paste(int count, int key)
-{
-	(void)count;
-	(void)key;
-	rl_redisplay();
-	return (0);
-}
-
-void sigpipe_handler(int signum)
-{
-	(void)signum;
 }
 
 int	main(int argc, char **argv, char **env)
@@ -88,20 +75,15 @@ int	main(int argc, char **argv, char **env)
 	(void)argc;
 	(void)argv;
 	signal(SIGPIPE, sigpipe_handler);
-	rl_bind_keyseq("\\e[200~", handle_paste);
-    rl_bind_keyseq("\\e[201~", (rl_command_func_t *)rl_redisplay);
 	init_shell(&shell, env);
 	while (1)
 	{
 		init_signal();
-		if (isatty(STDIN_FILENO))
-			cmd = readline("\x1b[35mminishell>\x1b[0m ");
-		else
-			cmd = get_next_line(STDIN_FILENO);
+		cmd = readline("\x1b[35mminishell>\x1b[0m ");
 		if (!cmd)
 		{
 			clean_shell(&shell);
-			//printf("exit\n");
+			printf("exit\n");
 			break ;
 		}
 		if (cmd)

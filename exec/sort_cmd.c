@@ -6,7 +6,7 @@
 /*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 14:28:37 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/08/06 15:27:18 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/08/06 15:42:56 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ int	ms_strcasecmp(char *s1, char *s2)
 	{
 		a = s1[i];
 		b = s2[i];
-		if (a >= 'A' && a <='Z')
+		if (a >= 'A' && a <= 'Z')
 			a = a + 32;
-		if (b >= 'A' && b <='Z')
+		if (b >= 'A' && b <= 'Z')
 			b = b + 32;
 		if (a != b)
 			return ((unsigned char)a - (unsigned char)b);
@@ -40,7 +40,7 @@ void	sort_args(char **args, int end)
 	int		j;
 	char	*temp;
 
-	i = 0;	
+	i = 0;
 	while (i < end -1)
 	{
 		j = i + 1;
@@ -104,4 +104,3 @@ char	*sort_cmd(char *newcmd)
 	newcmd = join_str(newcmd, len, args);
 	return (newcmd);
 }
-
