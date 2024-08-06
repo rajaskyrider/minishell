@@ -2,24 +2,9 @@ FDS OPEN
 
 CHECK NORME BEFORE SUBMIT (rm not necessary files/functions)
 
-redirects : 
-12
-14
-
-
-echo " $PATH   $PWD $hi_"
-
-rm *; touch ls; *
-mkdir empty; cd empty; echo *; echo .*
-
-cat fail || echo a | cat || echo b
-
-
 Leaks
 .
 ..
-export PATH="$PATH:$PWD"; mkdir asdfg; asdfg
 cd
-echo - "" " " hello "$FAIL"
 unset PWD; cd ..; echo $PWD
 unset OLDPWD; cd ..; echo $OLDPWD

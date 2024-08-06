@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 15:11:48 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/08/05 16:55:45 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/08/06 11:23:18 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,17 +61,15 @@ char **split_and_expand(char *full_cmd, t_ms *shell)
 	i = 0;
 	size = 0;
 	exp_size = 0;
-	//dprintf(2, "full cmd : %s\n", full_cmd);
 	arg = ms_split(full_cmd, ' ');
 	while (arg[i])
 	{
-		//dprintf(2, "current cmd : %s\n", arg[i]);
 		size += ft_strlen(arg[i]) + 1;
 		arg[i] = expandcmd(arg[i], shell);
 		exp_size += ft_strlen(arg[i]) + 1;
 		i++;
 	}
-	if (exp_size > size)
+	if (exp_size > size && ms_strcmp(arg[0], "echo") != 0)
 		arg = split_again(arg, exp_size);
 	if (arg[0][0] == 0 && arg[1])
 		arg = split_again(arg, exp_size);

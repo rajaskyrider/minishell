@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 16:24:44 by tle-moel          #+#    #+#             */
-/*   Updated: 2024/08/01 11:03:10 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/08/06 13:19:14 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,7 @@
 
 int	initial_check(t_token *ptr, t_ms *shell)
 {
-	if (ptr && ptr->type == T_WORD && ptr->value[0] == '*')
-	{
-		shell->error = 1;
-		shell->lexit_status = 127;
-		ft_putstr_fd("minishell: command not found\n", 2);
-		return (1);
-	}
-	else if (ptr && (ptr->type == T_AND_IF || ptr->type == T_OR_IF || \
+	if (ptr && (ptr->type == T_AND_IF || ptr->type == T_OR_IF || \
 		ptr->type == T_PIPE))
 	{
 		shell->error = 1;

@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 13:05:30 by tle-moel          #+#    #+#             */
-/*   Updated: 2024/08/05 16:34:33 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/08/06 13:45:20 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	glob_logic(t_ms *shell, char **matches, char *pattern)
 	entry = readdir(dp);
 	while (entry)
 	{
-		if (entry->d_name[0] == '.')
+		if (pattern[0] != '.' && entry->d_name[0] == '.')
 		{
 			entry = readdir(dp);
 			continue ;
