@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
+/*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 15:11:48 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/08/01 16:14:27 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/08/05 16:55:45 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	deal_redirection(t_ast *ast, t_ms *shell)
+int deal_redirection(t_ast *ast, t_ms *shell)
 {
-	int		res;
+	int res;
 
 	res = 0;
 	if (ast)
@@ -27,10 +27,10 @@ int	deal_redirection(t_ast *ast, t_ms *shell)
 	return (res);
 }
 
-char	**split_again(char **arg, int size)
+char **split_again(char **arg, int size)
 {
-	char	*exp_arg;
-	int		i;
+	char *exp_arg;
+	int i;
 
 	i = 1;
 	exp_arg = NULL;
@@ -42,28 +42,30 @@ char	**split_again(char **arg, int size)
 	{
 		ft_strlcat(exp_arg, arg[i], size + 1);
 		ft_strlcat(exp_arg, " ", size + 1);
-		free (arg[i]);
+		free(arg[i]);
 		i++;
 	}
-	free (arg);
+	free(arg);
 	arg = ms_split(exp_arg, ' ');
-	free (exp_arg);
+	free(exp_arg);
 	return (arg);
 }
 
-char	**split_and_expand(char *full_cmd, t_ms *shell)
+char **split_and_expand(char *full_cmd, t_ms *shell)
 {
-	char	**arg;
-	int		i;
-	int		size;
-	int		exp_size;
+	char **arg;
+	int i;
+	int size;
+	int exp_size;
 
 	i = 0;
 	size = 0;
 	exp_size = 0;
+	//dprintf(2, "full cmd : %s\n", full_cmd);
 	arg = ms_split(full_cmd, ' ');
 	while (arg[i])
 	{
+		//dprintf(2, "current cmd : %s\n", arg[i]);
 		size += ft_strlen(arg[i]) + 1;
 		arg[i] = expandcmd(arg[i], shell);
 		exp_size += ft_strlen(arg[i]) + 1;
@@ -76,9 +78,9 @@ char	**split_and_expand(char *full_cmd, t_ms *shell)
 	return (arg);
 }
 
-void	check_directory(char *cmd, t_ms *shell)
+void check_directory(char *cmd, t_ms *shell)
 {
-	struct stat	statbuf;
+	struct stat statbuf;
 
 	if (stat(cmd, &statbuf) == 0 && S_ISDIR(statbuf.st_mode))
 	{
