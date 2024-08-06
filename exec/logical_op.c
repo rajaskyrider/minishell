@@ -6,47 +6,11 @@
 /*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 15:00:58 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/08/06 11:55:43 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/08/06 15:27:19 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	logical_and(t_ast **ast, t_ms **shell, int next_pipe[2])
-{
-	if (!ast || !(*ast))
-		return ;
-	if ((*ast)->left->type == T_OPERATOR)
-		navigate(&(*ast)->left, shell, next_pipe);
-	else if ((*ast)->left->token_type == T_PARENT)
-		ms_subshell((*ast)->left, *shell);
-	else
-		exec_cmd((*ast)->left, (*ast)->left->value, *shell, 0);
-	close_fd (*shell);
-	dup2((*shell)->std_in, STDIN_FILENO);
-	dup2((*shell)->std_out, STDOUT_FILENO);
-	wait(NULL);
-	if ((*shell)->lexit_status == 0)
-	{
-		if ((*ast)->right->type == T_OPERATOR)
-			navigate(&(*ast)->right, shell, next_pipe);
-		else if ((*ast)->right->token_type == T_PARENT)
-			ms_subshell((*ast)->right, *shell);
-		else
-			exec_cmd((*ast)->right, (*ast)->right->value, *shell, 0);
-		close_fd (*shell);
-	}
-}
-
-void	print_shlvl(t_ms *shell)
-{
-	t_envlst	*ptr;
-
-	ptr = shell->envlst;
-	while (ms_strcmp(ptr->key , "SHLVL") != 0)
-		ptr = ptr->next;
-	dprintf(2, "SHLVL = %s\n", ptr->value);
-}
 
 void	deal_operator(t_ast **ast, t_ms **shell, int next_pipe[2])
 {
@@ -66,12 +30,40 @@ void	deal_operator(t_ast **ast, t_ms **shell, int next_pipe[2])
 				(*shell)->lexit_status = WEXITSTATUS(status);
 			child_pid = wait(&status);
 		}
-		close_fd (*shell);
-		exit((*shell)->lexit_status);
+		close_fd(*shell);
+		close((*shell)->std_in);
+		close((*shell)->std_out);
+		exit_process(*shell, (*shell)->lexit_status);
 	}
 	waitpid(pid, &status, 0);
 	if (WIFEXITED(status))
 		(*shell)->lexit_status = WEXITSTATUS(status);
+}
+
+void	logical_and(t_ast **ast, t_ms **shell, int next_pipe[2])
+{
+	if (!ast || !(*ast))
+		return ;
+	if ((*ast)->left->type == T_OPERATOR)
+		deal_operator(&(*ast)->left, shell, next_pipe);
+	else if ((*ast)->left->token_type == T_PARENT)
+		ms_subshell((*ast)->left, *shell);
+	else
+		exec_cmd((*ast)->left, (*ast)->left->value, *shell, 0);
+	close_fd (*shell);
+	dup2((*shell)->std_in, STDIN_FILENO);
+	dup2((*shell)->std_out, STDOUT_FILENO);
+	//wait(NULL);
+	if ((*shell)->lexit_status == 0)
+	{
+		if ((*ast)->right->type == T_OPERATOR)
+			deal_operator(&(*ast)->right, shell, next_pipe);
+		else if ((*ast)->right->token_type == T_PARENT)
+			ms_subshell((*ast)->right, *shell);
+		else
+			exec_cmd((*ast)->right, (*ast)->right->value, *shell, 0);
+		close_fd (*shell);
+	}
 }
 
 void	deal_or(t_ast **ast, t_ms **shell, int next_pipe[2])

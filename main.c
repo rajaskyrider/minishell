@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 14:45:40 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/08/05 16:31:35 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/08/06 14:05:21 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,10 +74,10 @@ int	main(int argc, char **argv, char **env)
 	while (1)
 	{
 		init_signal();
-		//if (isatty(STDIN_FILENO))
+		if (isatty(STDIN_FILENO))
 			cmd = readline("\x1b[35mminishell>\x1b[0m ");
-		/*else
-			cmd = get_next_line(STDIN_FILENO);*/
+		else
+			cmd = get_next_line(STDIN_FILENO);
 		if (!cmd)
 		{
 			clean_shell(&shell);
