@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   test_print.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 13:42:37 by tle-moel          #+#    #+#             */
-/*   Updated: 2024/07/25 13:51:37 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/08/06 11:57:32 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,4 +92,86 @@ void	print_ast(t_ast *tree, int level)
 	ft_printf("\n");
 	print_ast(tree->left, level + 1);
 	print_ast(tree->right, level + 1);
+}
+
+
+void	logical_or_old(t_ast **ast, t_ms **shell, int next_pipe[2])
+{
+	int	pid;
+	int pidf;
+	int	status;
+
+	status = 0;
+	dprintf(2, "Status entering logical or %d\n",(*shell)->lexit_status);
+	if (!ast || !(*ast))
+		return ;
+	if ((*ast)->left->type == T_OPERATOR)
+	{
+		dprintf(2, "Setting up fork for %s and %s\n", (*ast)->left->left->value, (*ast)->left->right->value);
+		pid = fork();
+		if (pid == 0)
+		{
+			dprintf(2, "In the child of %s and %s\n", (*ast)->left->left->value, (*ast)->left->right->value);
+			navigate(&(*ast)->left, shell, next_pipe);
+			dprintf(2, "Done with %s and %s\n", (*ast)->left->left->value, (*ast)->left->right->value);
+			exit((*shell)->lexit_status);
+		}
+		waitpid(pid, &status, 0);
+		if (WIFEXITED(status))
+			(*shell)->lexit_status = WEXITSTATUS(status);
+		dprintf(2, "Status after left fork is %d\n",(*shell)->lexit_status);
+	}
+		//navigate(&(*ast)->left, shell, next_pipe);
+	else if ((*ast)->left->token_type == T_PARENT)
+		ms_subshell((*ast)->left, *shell);
+	else
+		exec_cmd((*ast)->left, (*ast)->left->value, *shell, 0);
+	close_fd (*shell);
+	dup2((*shell)->std_in, STDIN_FILENO);
+	dup2((*shell)->std_out, STDOUT_FILENO);
+	if ((*shell)->lexit_status != 0)
+	{
+		if ((*ast)->right->type == T_OPERATOR)
+		{
+			//(*shell)->lexit_status = 0;
+			dprintf(2, "Setting up fork for %s and %s\n", (*ast)->right->left->value, (*ast)->right->right->value);
+			pid = fork();
+			if (pid == 0)
+			{
+				dprintf(2, "in the child of %s and %s\n", (*ast)->right->left->value, (*ast)->right->right->value);
+				navigate(&(*ast)->right, shell, next_pipe);
+				dprintf(2, "Done with %s and %s\n", (*ast)->right->left->value, (*ast)->right->right->value);
+				pidf = wait(&status);
+				while (pidf > 0)
+				{
+					signal_process();
+					if (WIFEXITED(status))
+						(*shell)->lexit_status = WEXITSTATUS(status);
+					dprintf(2, "Terminated\n");
+					pidf = wait(&status);
+				}
+				exit((*shell)->lexit_status);
+			}
+			waitpid(pid, &status, 0);
+			if (WIFEXITED(status))
+				(*shell)->lexit_status = WEXITSTATUS(status);
+			dprintf(2, "Status after right fork is %d\n",(*shell)->lexit_status);
+		}
+		else if ((*ast)->right->token_type == T_PARENT)
+			ms_subshell((*ast)->right, *shell);
+		else
+			exec_cmd((*ast)->right, (*ast)->right->value, *shell, 0);
+		close_fd (*shell);
+	}
+	else if ((*shell)->lexit_status == 0 && \
+		(*ast)->right->token_type == T_AND_IF)
+	{
+		if ((*ast)->right->right->type == T_OPERATOR)
+			navigate(&(*ast)->right->right, shell, next_pipe);
+		else if ((*ast)->right->right->token_type == T_PARENT)
+			ms_subshell((*ast)->right->right, *shell);
+		else
+			exec_cmd((*ast)->right->right, (*ast)->right->right->value, *shell, 0);
+		close_fd (*shell);
+	}
 }
