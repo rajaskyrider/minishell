@@ -6,7 +6,7 @@
 /*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 15:11:48 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/08/06 15:48:01 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/08/06 16:46:30 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +57,15 @@ char	**split_and_expand(char *full_cmd, t_ms *shell)
 	int		i;
 	int		size;
 	int		exp_size;
+	int		flag;
 
 	i = 0;
 	size = 0;
 	exp_size = 0;
+	flag = 0;
 	arg = ms_split(full_cmd, ' ');
+	if ((ms_strcmp(arg[0], "echo") == 0 && arg[1] && arg[1][0] == '"'))
+		flag = 1;
 	while (arg[i])
 	{
 		size += ft_strlen(arg[i]) + 1;
@@ -69,8 +73,7 @@ char	**split_and_expand(char *full_cmd, t_ms *shell)
 		exp_size += ft_strlen(arg[i]) + 1;
 		i++;
 	}
-	if (exp_size > size && ms_strcmp(arg[0], "echo") != 0 \
-		&& ms_strcmp(arg[0], "export") != 0)
+	if (exp_size > size && flag == 0)
 		arg = split_again(arg, exp_size);
 	if (arg[0][0] == 0 && arg[1])
 		arg = split_again(arg, exp_size);

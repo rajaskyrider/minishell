@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 15:47:57 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/08/06 16:10:04 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/08/06 16:24:29 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,23 +32,23 @@ char	*get_path(t_ms *shell)
 	return (pwd);
 }
 
-void	update_pwd_logic(t_envlst *envlst, t_envlst *oldpwd_node, \
-	t_envlst *pwd_node, t_ms *shell)
+void	update_pwd_logic(t_envlst **envlst, t_envlst **oldpwd_node, \
+	t_envlst **pwd_node, t_ms *shell)
 {
-	while (envlst && (!oldpwd_node || !pwd_node))
+	while (*envlst && (!(*oldpwd_node) || !(*pwd_node)))
 	{
-		if (ft_strncmp(envlst->key, "PWD", 3) == 0)
-			pwd_node = envlst;
-		else if (ft_strncmp(envlst->key, "OLDPWD", 6) == 0)
-			oldpwd_node = envlst;
-		envlst = envlst->next;
+		if (ft_strncmp((*envlst)->key, "PWD", 3) == 0)
+			(*pwd_node) = (*envlst);
+		else if (ft_strncmp((*envlst)->key, "OLDPWD", 6) == 0)
+			*oldpwd_node = *envlst;
+		*envlst = (*envlst)->next;
 	}
-	if (oldpwd_node)
+	if (*oldpwd_node)
 	{
-		free(oldpwd_node->value);
-		oldpwd_node->value = NULL;
-		if (!pwd_node)
-			oldpwd_node->value = shell->pwd;
+		free((*oldpwd_node)->value);
+		(*oldpwd_node)->value = NULL;
+		if (!(*pwd_node))
+			(*oldpwd_node)->value = shell->pwd;
 	}
 }
 
@@ -63,7 +63,7 @@ void	update_pwd(t_ms *shell)
 	pwd_node = NULL;
 	envlst = shell->envlst;
 	pwd = get_path(shell);
-	update_pwd_logic(envlst, oldpwd_node, pwd_node, shell);
+	update_pwd_logic(&envlst, &oldpwd_node, &pwd_node, shell);
 	if (!oldpwd_node)
 		update_shelloldpwd(shell);
 	if (!pwd_node)
