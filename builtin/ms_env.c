@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 09:31:34 by tle-moel          #+#    #+#             */
-/*   Updated: 2024/08/06 14:19:19 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/08/06 15:57:11 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,21 +31,28 @@ void	ms_env(t_ms *shell)
 	}
 }
 
-void	update_envlst(char *key, char *value, t_envlst **environ)
+int	create_envlst(char *key, char *value, t_envlst **environ)
 {
-	t_envlst	*ptr;
-
 	if (*environ == NULL)
 	{
 		*environ = malloc(sizeof(t_envlst));
 		if (*environ == NULL)
-			return ;
+			return (1);
 		(*environ)->key = key;
 		(*environ)->value = value;
 		(*environ)->next = NULL;
 		(*environ)->prev = NULL;
-		return ;
+		return (1);
 	}
+	return (0);
+}
+
+void	update_envlst(char *key, char *value, t_envlst **environ)
+{
+	t_envlst	*ptr;
+
+	if (create_envlst(key, value, environ) == 1)
+		return ;
 	ptr = *environ;
 	while (ptr)
 	{

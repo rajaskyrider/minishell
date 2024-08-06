@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 15:47:57 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/08/06 15:17:13 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/08/06 16:10:04 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,17 +32,9 @@ char	*get_path(t_ms *shell)
 	return (pwd);
 }
 
-void	update_pwd(t_ms *shell)
+void	update_pwd_logic(t_envlst *envlst, t_envlst *oldpwd_node, \
+	t_envlst *pwd_node, t_ms *shell)
 {
-	char		*pwd;
-	t_envlst	*oldpwd_node;
-	t_envlst	*pwd_node;
-	t_envlst	*envlst;
-
-	oldpwd_node = NULL;
-	pwd_node = NULL;
-	envlst = shell->envlst;
-	pwd = get_path(shell);
 	while (envlst && (!oldpwd_node || !pwd_node))
 	{
 		if (ft_strncmp(envlst->key, "PWD", 3) == 0)
@@ -58,6 +50,20 @@ void	update_pwd(t_ms *shell)
 		if (!pwd_node)
 			oldpwd_node->value = shell->pwd;
 	}
+}
+
+void	update_pwd(t_ms *shell)
+{
+	char		*pwd;
+	t_envlst	*oldpwd_node;
+	t_envlst	*pwd_node;
+	t_envlst	*envlst;
+
+	oldpwd_node = NULL;
+	pwd_node = NULL;
+	envlst = shell->envlst;
+	pwd = get_path(shell);
+	update_pwd_logic(envlst, oldpwd_node, pwd_node, shell);
 	if (!oldpwd_node)
 		update_shelloldpwd(shell);
 	if (!pwd_node)

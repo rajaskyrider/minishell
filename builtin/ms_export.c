@@ -6,7 +6,7 @@
 /*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 11:48:26 by tle-moel          #+#    #+#             */
-/*   Updated: 2024/08/05 11:36:04 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/08/06 15:53:37 by tle-moel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@ void	ms_export(char **arg, t_ms *shell)
 	char	*value;
 
 	shell->lexit_status = 0;
-	i = 1;
-	if (arg[i] == NULL)
+	i = 0;
+	if (arg[1] == NULL)
 		return (print_export(shell->envlst));
-	while (arg[i] != NULL)
+	while (arg[++i] != NULL)
 	{
 		key = extract_key(arg[i]);
 		if (key_is_valid(key) == 0)
@@ -37,7 +37,6 @@ void	ms_export(char **arg, t_ms *shell)
 			if (key)
 				update_envlst(key, value, &shell->envlst);
 		}
-		i++;
 	}
 	shell->env = update_env(shell);
 }
