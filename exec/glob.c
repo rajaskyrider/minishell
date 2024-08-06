@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   glob.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tle-moel <tle-moel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 11:07:03 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/08/06 13:45:15 by tle-moel         ###   ########.fr       */
+/*   Updated: 2024/08/06 15:27:20 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,8 @@ char	*replace_wildcard(char *cmd, char *matches, int start, t_ms *shell)
 	ft_strlcat(newcmd, cmd + end, clen + mlen - (end - start) + 1);
 	free(cmd);
 	cmd = NULL;
+	//dprintf(2, "newcmd %s\n", newcmd);
+	//newcmd = sort_cmd(newcmd);
 	return (newcmd);
 }
 
@@ -89,6 +91,7 @@ int	glob(char **cmd, t_ms *shell, int start)
 	glob_logic(shell, &matches, pattern);
 	free(pattern);
 	*cmd = replace_wildcard(*cmd, matches, start, shell);
+	*cmd = sort_cmd(*cmd);
 	if (matches)
 	{
 		end = start + ft_strlen(matches);

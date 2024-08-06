@@ -6,7 +6,7 @@
 /*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 14:42:50 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/08/06 11:56:02 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/08/06 15:02:08 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,6 +179,7 @@ char		**split_and_expand(char *full_cmd, t_ms *shell);
 int			deal_redirection(t_ast *ast, t_ms *shell);
 void		execute(t_ms *shell);
 int			glob(char **cmd, t_ms *shell, int start);
+char		*sort_cmd(char *newcmd);
 int			check_redirection(t_ast *ast, t_ms **shell);
 void		check_directory(char *cmd, t_ms *shell);
 void		ms_pipe(t_ast *ast, t_ms **shell, int pipe_fd[2], int last_pipe[2]);
