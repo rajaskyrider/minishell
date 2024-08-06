@@ -1,4 +1,4 @@
 minishell_tester/
 test/
-no_permission/
 test_print.c
+no_permission

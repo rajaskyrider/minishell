@@ -6,7 +6,7 @@
 /*   By: rpandipe <rpandipe.student.42luxembourg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 14:28:37 by rpandipe          #+#    #+#             */
-/*   Updated: 2024/08/06 15:42:56 by rpandipe         ###   ########.fr       */
+/*   Updated: 2024/08/06 17:08:05 by rpandipe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,13 @@ int	ms_strcasecmp(char *s1, char *s2)
 			return ((unsigned char)a - (unsigned char)b);
 		i++;
 	}
-	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+	a = s1[i];
+	b = s2[i];
+	if (a >= 'A' && a <= 'Z')
+		a = a + 32;
+	if (b >= 'A' && b <= 'Z')
+		b = b + 32;
+	return ((unsigned char)a - (unsigned char)b);
 }
 
 void	sort_args(char **args, int end)
@@ -39,6 +45,7 @@ void	sort_args(char **args, int end)
 	int		i;
 	int		j;
 	char	*temp;
+	int		cmp;
 
 	i = 0;
 	while (i < end -1)
@@ -46,7 +53,8 @@ void	sort_args(char **args, int end)
 		j = i + 1;
 		while (j < end)
 		{
-			if (ms_strcasecmp(args[i], args[j]) > 0)
+			cmp = ms_strcasecmp(args[i], args[j]);
+			if (cmp > 0 || (cmp == 0 && ms_strcmp(args[i], args[j]) < 0))
 			{
 				temp = args[i];
 				args[i] = args[j];
